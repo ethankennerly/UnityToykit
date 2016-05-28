@@ -16,5 +16,10 @@ internal class TestDeck
 	[Test]
 	public void Progress()
 	{
+		List<int> cards = new List<int>{0, 1, 2, 3};
+		Assert.AreEqual(2, Deck.Progress(cards, 0.5f));
+		Assert.AreEqual(1, Deck.Progress(cards, 0.5f));
+		Assert.AreEqual(3, Deck.Progress(cards, 0.5f));
+		Assert.AreEqual(0, Deck.Progress(cards, 1.0f));
 	}
 }
