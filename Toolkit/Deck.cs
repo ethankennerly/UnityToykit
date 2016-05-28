@@ -39,18 +39,6 @@ public class Deck
 		}
 	}
 
-	// Pop interpolated card from 0 to 1.
-	// Example:  Editor/Tests/TestDeck.cs
-	public static T Progress<T>(List<T> deck, float normal)
-    {
-		int index = (int)Mathf.Floor(normal * deck.Count);
-		index = Mathf.Min(deck.Count - 1, index);
-		index = Mathf.Max(0, index);
-		T card = deck[index];
-		deck.RemoveAt(index);
-		return card;
-    }
-
 	private int index = -1;
 	private int length = -1;
 	private float[] cards;
