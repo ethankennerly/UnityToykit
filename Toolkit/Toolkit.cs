@@ -19,9 +19,29 @@ public class Toolkit
 		return int.Parse(digits);
 	}
 
+	// Copied from:
+	// http://stackoverflow.com/questions/5026689/how-to-check-whether-a-string-in-net-is-a-number-or-not
+	public static bool IsDigit(string text)
+	{
+		foreach (char c in text)
+		{
+			if (!Char.IsDigit(c)) {
+				return false;
+			}
+		}
+		return (0 < text.Length);
+	}
+
+	// Return suffix after underscore as digits or -1.
+	// "letter_2" returns 2.
+	// More Examples: Editor/Tests/TestToolkit.cs
 	public static int ParseIndex(string tileName)
 	{
-		int tileIndex = int.Parse(tileName.Split('_')[1]);
+		int tileIndex = -1;
+		string[] parts = tileName.Split('_');
+		if (2 <= parts.Length && IsDigit(parts[1])) {
+			tileIndex = int.Parse(parts[1]);
+		}
 		return tileIndex;
 	}
 
