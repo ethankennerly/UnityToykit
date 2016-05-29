@@ -18,11 +18,11 @@ internal class TestProgress
 	{
 		Progress progress = new Progress();
 		progress.radius = 0.25f;
-		Assert.AreEqual(0.0f, progress.Creep(0, 100));
-		Assert.AreEqual(0.0f, progress.Creep(50, 100));
-		Assert.AreEqual(0.25f, progress.Creep(100, 100));
+		Assert.AreEqual(0.0f, progress.Creep(0.0f / 100));
+		Assert.AreEqual(0.0f, progress.Creep(50.0f / 100));
+		Assert.AreEqual(0.25f, progress.Creep(100.0f / 100));
 		Assert.AreEqual(0.25f + 3.0f / 16.0f, 
-			progress.Creep(100, 100));
+			progress.Creep(100.0f / 100));
 	}
 
 	[Test]
@@ -30,13 +30,13 @@ internal class TestProgress
 	{
 		Progress progress = new Progress();
 		progress.radius = 0.25f;
-		Assert.AreEqual(0.0f, progress.Creep(0, 100));
-		Assert.AreEqual(0.0f, progress.Creep(50, 100));
-		Assert.AreEqual(0.25f, progress.Creep(100, 100));
-		Assert.AreEqual(0.25f - 3.0f / 16.0f, progress.Creep(0, 100));
-		Assert.AreEqual(0.0f, progress.Creep(0, 100));
-		Assert.AreEqual(0.0f, progress.Creep(0, 100));
-		Assert.AreEqual(0.25f, progress.Creep(100, 100));
+		Assert.AreEqual(0.0f, progress.Creep(0 / 100.0f));
+		Assert.AreEqual(0.0f, progress.Creep(50 / 100.0f));
+		Assert.AreEqual(0.25f, progress.Creep(100 / 100.0f));
+		Assert.AreEqual(0.25f - 3.0f / 16.0f, progress.Creep(0 / 100.0f));
+		Assert.AreEqual(0.0f, progress.Creep(0 / 100.0f));
+		Assert.AreEqual(0.0f, progress.Creep(0 / 100.0f));
+		Assert.AreEqual(0.25f, progress.Creep(100 / 100.0f));
 	}
 
 	[Test]

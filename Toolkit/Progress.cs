@@ -2,6 +2,24 @@ using UnityEngine/*<Mathf>*/;
 using System.Collections.Generic;
 using System.Collections;
 
+
+// Requirements:
+// 
+// 	May go down in level.
+// 	Do not repeat levels.  Once a level was repeated.
+// 
+// System:
+// 
+// 	Adjust normalized level range.
+// 	Deck of cards.
+// 		Draw from deck at normalized position.
+// 			Original index.
+// 			Closest index in remaining.
+// 		Identify original index.
+//
+// Test case:  2016-05-21 Anagram Attack.  Very high level.
+// Jennifer Russ expects to not feel overwhelmed.
+// Jennifer Russ expects to not repeat a word.
 public class Progress
 {
 	public int level = 0;
@@ -14,7 +32,7 @@ public class Progress
 	private ArrayList cardsOriginally;
 
 	// Pop interpolated card from 0 to 1.
-	// Example:  Editor/Tests/TestDeck.cs
+	// Example:  Editor/Tests/TestProgress.cs
 	public T Pop<T>(List<T> cards)
     {
 		int index = (int)Mathf.Floor(normal * cards.Count);
@@ -32,10 +50,10 @@ public class Progress
 
 	// Midway is no change.
 	// Example:  Editor/Tests/TestProgress.cs
-	public float Creep(float performance, float performanceMax)
+	public float Creep(float performanceNormal)
 	{
 		float change = (
-			((float)performance / performanceMax) - 0.5f) 
+			((float)performanceNormal) - 0.5f) 
 			* 2.0f;
 		change = Mathf.Max(-1.0f, Mathf.Min(1.0f, change));
 		float progress = change * radius;
@@ -43,7 +61,7 @@ public class Progress
 		progress *= remaining;
 		normal += progress;
 		normal = Mathf.Max(0.0f, Mathf.Min(1.0f, normal));
-		Debug.Log("Progress.creep: progress " + progress + " normal " + normal + " performance " + performance + " change " + change);
+		Debug.Log("Progress.creep: progress " + progress + " normal " + normal + " performance " + performanceNormal + " change " + change);
 		return normal;
 	}
 
