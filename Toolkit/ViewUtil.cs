@@ -67,6 +67,11 @@ public class ViewUtil
 		textComponent.text = text;
 	}
 
+	public static void SetVisible(GameObject gameObject, bool isVisible)
+	{
+		gameObject.SetActive(isVisible);
+	}
+
 	public static AudioSource audio;
 	public static Dictionary<string, AudioClip> sounds;
 

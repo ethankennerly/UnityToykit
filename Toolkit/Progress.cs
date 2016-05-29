@@ -33,11 +33,11 @@ public class Progress
 
 	// Pop interpolated card from 0 to 1.
 	// Example:  Editor/Tests/TestProgress.cs
-	public T Pop<T>(List<T> cards)
+	public T Pop<T>(List<T> cards, int min = 0)
     {
 		int index = (int)Mathf.Floor(normal * cards.Count);
 		index = Mathf.Min(cards.Count - 1, index);
-		index = Mathf.Max(0, index);
+		index = Mathf.Max(min, index);
 		T card = cards[index];
 		if (null == cardsOriginally) {
 			cardsOriginally = new ArrayList(cards);
