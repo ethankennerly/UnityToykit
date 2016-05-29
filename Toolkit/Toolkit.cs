@@ -14,6 +14,11 @@ public class Toolkit
 		Debug.Log(message);
 	}
 
+	public static void SetVisible(GameObject gameObject, bool isVisible)
+	{
+		gameObject.SetActive(isVisible);
+	}
+
 	public static int ParseInt(string digits)
 	{
 		return int.Parse(digits);
