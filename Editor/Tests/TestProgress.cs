@@ -59,4 +59,35 @@ internal class TestProgress
 		Assert.AreEqual(1, progress.level);
 		Assert.AreEqual(4, progress.levelMax);
 	}
+
+	[Test]
+	public void GetLevelNormal()
+	{
+		Progress progress = new Progress();
+		progress.levelNormalMax = 1000;
+		Assert.AreEqual(0, progress.GetLevelNormal());
+		progress.levelMax = 2000;
+		progress.level = 1000;
+		Assert.AreEqual(500, progress.GetLevelNormal());
+		progress.level = 1500;
+		Assert.AreEqual(750, progress.GetLevelNormal());
+		progress.levelMax = 4000;
+		Assert.AreEqual(375, progress.GetLevelNormal());
+	}
+
+	[Test]
+	public void SetLevelNormal()
+	{
+		Progress progress = new Progress();
+		progress.levelNormalMax = 1000;
+		Assert.AreEqual(0.0f, progress.normal);
+		progress.levelMax = 2000;
+		progress.SetLevelNormal(500);
+		Assert.AreEqual(0.5f, progress.normal);
+		progress.SetLevelNormal(750);
+		Assert.AreEqual(0.75f, progress.normal);
+		progress.levelMax = 4000;
+		progress.SetLevelNormal(375);
+		Assert.AreEqual(0.375f, progress.normal);
+	}
 }

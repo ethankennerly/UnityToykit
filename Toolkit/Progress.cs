@@ -23,6 +23,7 @@ using System.Collections;
 public class Progress
 {
 	public int level = 0;
+	public int levelNormalMax = 1000;
 	public int levelMax = 0;
 	public float normal = 0.0f;
 	public float radius = 
@@ -69,16 +70,17 @@ public class Progress
 		return normal;
 	}
 
-	public int up(float performance, float performanceMax)
+	// Linear interpolation for normalized level.
+	// Invariant when adding or removing levels.
+	// Example:  Editor/Tests/TestProgress.cs
+	public int GetLevelNormal()
 	{
-		float normal = (float)((performance / performanceMax) - 0.5f) * 2.0f;
-		normal = Mathf.Max(-1.0f, Mathf.Min(1.0f, normal));
-		float progress = normal * radius;
-		float remaining = ((float)levelMax - level) / levelMax;
-		progress *= remaining;
-		int add = (int)(progress * levelMax);
-		add = Mathf.Max(1, add);
-		Debug.Log("Progress.up: progress " + progress + " normal " + normal + " performance " + performance);
-		return add;
+		int levelRate = levelMax != 0 ? levelMax : 1;
+		return levelNormalMax * level / levelRate;
+	}
+
+	public void SetLevelNormal(int level)
+	{
+		normal = level / (float)levelNormalMax;
 	}
 }
