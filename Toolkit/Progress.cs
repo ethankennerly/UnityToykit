@@ -48,20 +48,24 @@ public class Progress
 		return card;
     }
 
-	// Midway is no change.
-	// Example:  Editor/Tests/TestProgress.cs
-	public float Creep(float performanceNormal)
+	public float NextCreep(float performanceNormal)
 	{
-		float change = (
-			((float)performanceNormal) - 0.5f) 
-			* 2.0f;
+		float change = (performanceNormal - 0.5f) * 2.0f;
 		change = Mathf.Max(-1.0f, Mathf.Min(1.0f, change));
 		float progress = change * radius;
 		float remaining = 1.0f - normal;
 		progress *= remaining;
-		normal += progress;
-		normal = Mathf.Max(0.0f, Mathf.Min(1.0f, normal));
-		Debug.Log("Progress.creep: progress " + progress + " normal " + normal + " performance " + performanceNormal + " change " + change);
+		float next = normal + progress;
+		next = Mathf.Max(0.0f, Mathf.Min(1.0f, next));
+		return next;
+	}
+
+	// Midway is no change.
+	// Example:  Editor/Tests/TestProgress.cs
+	public float Creep(float performanceNormal)
+	{
+		normal = NextCreep(performanceNormal);
+		Debug.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
 		return normal;
 	}
 
