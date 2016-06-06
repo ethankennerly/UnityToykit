@@ -81,12 +81,51 @@ namespace com.finegamedesign.utils
 			return joined;
 		}
 
+		public static string Join<T>(List<T> items, string delimiter)
+		{
+			string[] parts = new string[items.Count];
+			for (int i = 0; i < items.Count; i++) {
+				parts[i] = items[i].ToString();
+			}
+			string joined = string.Join(delimiter, parts);
+			return joined;
+		}
 
 		public static T Pop<T>(List<T> items)
 		{
 			T item = (T)items[items.Count - 1];
 			items.RemoveAt(items.Count - 1);
 			return item;
+		}
+
+		public static dynamic Pop(ArrayList items)
+		{
+			dynamic item = items[items.Count - 1];
+			items.RemoveAt(items.Count - 1);
+			return item;
+		}
+
+		public static T Shift<T>(List<T> items)
+		{
+			T item = (T)items[0];
+			items.RemoveAt(0);
+			return item;
+		}
+
+		public static dynamic Shift(ArrayList items)
+		{
+			dynamic item = items[0];
+			items.RemoveAt(0);
+			return item;
+		}
+
+		public static List<T> ToList<T>(params T[] rest)
+		{
+			List<T> aList = new List<T>();
+			for (int i = 0; i < rest.Length; i++) {
+				aList.Add(rest[i]);
+			}
+			return aList;
 		}
 	}
 }

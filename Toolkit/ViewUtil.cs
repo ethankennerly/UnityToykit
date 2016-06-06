@@ -58,7 +58,9 @@ public class ViewUtil
 		}
 		else
 		{
-			Debug.Log("ViewUtil.SetState: Does animator exist? " + gameObject + ": " + state);
+			if (null == animator) {
+				Debug.Log("ViewUtil.SetState: Does animator exist? " + gameObject.transform.parent + gameObject + ": " + state);
+			}
 		}
 	}
 
