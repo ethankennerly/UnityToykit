@@ -31,7 +31,7 @@ public class Progress
 			// 0.0625f;
 			// 0.1f;
 	private ArrayList cardsOriginally;
-	public bool isVerbose = false;
+	public bool isVerbose = true;
 
 	public bool isCheckpoint = false;
 	public float checkpointStep = -1.0f;
@@ -71,7 +71,7 @@ public class Progress
 	public float Creep(float performanceNormal)
 	{
 		normal = NextCreep(performanceNormal);
-		normal = UpdateCheckpoint(normal);
+		normal = ClampCheckpoint(normal);
 		if (isVerbose) {
 			Debug.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
 		}
@@ -85,19 +85,39 @@ public class Progress
 	public void SetCheckpointStep(float step)
 	{
 		checkpointStep = step;
-		checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
+		if (0.0f <= step) {
+			checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
+			if (isVerbose) {
+				Debug.Log("Progress.SetCheckpointStep: checkpoint " + checkpoint + " normal " + normal);
+			}
+		}
+		else {
+			checkpoint = 0.0f;
+		}
+	}
+
+	public float ClampCheckpoint(float normal)
+	{
+		isCheckpoint = 0.0f <= checkpoint && checkpoint <= normal;
+		if (isCheckpoint) {
+			normal = checkpoint;
+		}
+		return normal;
 	}
 
 	/**
 	 * Discards excess progress after checkpoint.
 	 * Example:  Editor/Tests/TestProgress.cs
 	 */
-	public float UpdateCheckpoint(float normal)
+	public float UpdateCheckpoint(float normal = -1.0f)
 	{
-		isCheckpoint = 0.0f <= checkpoint && checkpoint <= normal;
+		if (normal == -1.0f) {
+			normal = this.normal;
+		}
+		normal = ClampCheckpoint(normal);
 		if (isCheckpoint) {
 			normal = checkpoint;
-			checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
+			SetCheckpointStep(checkpointStep);
 		}
 		return normal;
 	}
@@ -107,12 +127,14 @@ public class Progress
 	// Example:  Editor/Tests/TestProgress.cs
 	public int GetLevelNormal()
 	{
-		int levelRate = levelMax != 0 ? levelMax : 1;
-		return levelNormalMax * level / levelRate;
+		float levelRate = (float)(levelMax != 0 ? levelMax : 1);
+		level = (int)(Mathf.Ceil(normal * levelMax));
+		return (int)(Mathf.Ceil(levelNormalMax * level / levelRate));
 	}
 
 	public void SetLevelNormal(int level)
 	{
 		normal = level / (float)levelNormalMax;
+		SetCheckpointStep(checkpointStep);
 	}
 }

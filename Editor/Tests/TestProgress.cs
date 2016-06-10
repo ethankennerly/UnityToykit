@@ -46,14 +46,23 @@ internal class TestProgress
 		Assert.AreEqual(0.125f, progress.Creep(100 / 100.0f),
 			"checkpoint " + progress.checkpoint.ToString());
 		Assert.AreEqual(true, progress.isCheckpoint);
+		progress.UpdateCheckpoint();
 		progress.Creep(52 / 100.0f);
 		Assert.AreEqual(false, progress.isCheckpoint);
 		progress.normal = 0.242f;
 		Assert.AreEqual(0.25f, progress.Creep(100 / 100.0f));
 		Assert.AreEqual(true, progress.isCheckpoint);
+		progress.UpdateCheckpoint();
 		progress.normal = 0.362f;
 		Assert.AreEqual(0.375, progress.Creep(100 / 100.0f));
 		Assert.AreEqual(true, progress.isCheckpoint);
+		progress.UpdateCheckpoint();
+		progress.SetLevelNormal(0);
+		Assert.AreEqual(0.125f, progress.Creep(100 / 100.0f),
+			"checkpoint " + progress.checkpoint.ToString());
+		progress.UpdateCheckpoint();
+		progress.SetLevelNormal(740);
+		Assert.AreEqual(0.75f, progress.Creep(100 / 100.0f));
 	}
 
 	[Test]
@@ -84,12 +93,12 @@ internal class TestProgress
 		progress.levelNormalMax = 1000;
 		Assert.AreEqual(0, progress.GetLevelNormal());
 		progress.levelMax = 2000;
-		progress.level = 1000;
+		progress.normal = 0.5f;
 		Assert.AreEqual(500, progress.GetLevelNormal());
-		progress.level = 1500;
+		progress.normal = 0.75f;
 		Assert.AreEqual(750, progress.GetLevelNormal());
 		progress.levelMax = 4000;
-		Assert.AreEqual(375, progress.GetLevelNormal());
+		Assert.AreEqual(750, progress.GetLevelNormal());
 	}
 
 	[Test]
