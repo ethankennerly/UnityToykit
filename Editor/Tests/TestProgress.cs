@@ -4,9 +4,7 @@
  * Got "The type or namespace 'NUnit' could not be found."
  * http://answers.unity3d.com/questions/610988/unit-testing-unity-test-tools-v10-namespace-nunit.html
  */
-using System;  // Exception
 using System.Collections.Generic;  // List
-using System.Threading;
 using UnityEngine;
 using NUnit.Framework;
 
@@ -37,6 +35,25 @@ internal class TestProgress
 		Assert.AreEqual(0.0f, progress.Creep(0 / 100.0f));
 		Assert.AreEqual(0.0f, progress.Creep(0 / 100.0f));
 		Assert.AreEqual(0.25f, progress.Creep(100 / 100.0f));
+	}
+
+	[Test]
+	public void CreepCheckpoint()
+	{
+		Progress progress = new Progress();
+		progress.radius = 0.25f;
+		progress.SetCheckpointStep(0.125f);
+		Assert.AreEqual(0.125f, progress.Creep(100 / 100.0f),
+			"checkpoint " + progress.checkpoint.ToString());
+		Assert.AreEqual(true, progress.isCheckpoint);
+		progress.Creep(52 / 100.0f);
+		Assert.AreEqual(false, progress.isCheckpoint);
+		progress.normal = 0.242f;
+		Assert.AreEqual(0.25f, progress.Creep(100 / 100.0f));
+		Assert.AreEqual(true, progress.isCheckpoint);
+		progress.normal = 0.362f;
+		Assert.AreEqual(0.375, progress.Creep(100 / 100.0f));
+		Assert.AreEqual(true, progress.isCheckpoint);
 	}
 
 	[Test]

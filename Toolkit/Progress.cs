@@ -31,6 +31,11 @@ public class Progress
 			// 0.0625f;
 			// 0.1f;
 	private ArrayList cardsOriginally;
+	public bool isVerbose = false;
+
+	public bool isCheckpoint = false;
+	public float checkpointStep = -1.0f;
+	public float checkpoint = -1.0f;
 
 	// Pop interpolated card from 0 to 1.
 	// Example:  Editor/Tests/TestProgress.cs
@@ -66,7 +71,34 @@ public class Progress
 	public float Creep(float performanceNormal)
 	{
 		normal = NextCreep(performanceNormal);
-		Debug.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
+		normal = UpdateCheckpoint(normal);
+		if (isVerbose) {
+			Debug.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
+		}
+		return normal;
+	}
+
+	/**
+	 * At each step of progress, clamp to checkpoint.
+	 * Example:  Editor/Tests/TestProgress.cs
+	 */
+	public void SetCheckpointStep(float step)
+	{
+		checkpointStep = step;
+		checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
+	}
+
+	/**
+	 * Discards excess progress after checkpoint.
+	 * Example:  Editor/Tests/TestProgress.cs
+	 */
+	public float UpdateCheckpoint(float normal)
+	{
+		isCheckpoint = 0.0f <= checkpoint && checkpoint <= normal;
+		if (isCheckpoint) {
+			normal = checkpoint;
+			checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
+		}
 		return normal;
 	}
 
