@@ -8,7 +8,7 @@ public class Controller
 		viewModel.model = model;
 	}
 
-	public void Start()
+	public virtual void Start()
 	{
 		viewModel.Start();
 		view.graph = ControllerUtil.FindGraphByName(viewModel.graph, viewModel.main);
@@ -33,7 +33,7 @@ public class Controller
 		ControllerUtil.PlaySounds(viewModel.soundNews);
 	}
 
-	public void OnMouseDown(string name)
+	public virtual void OnMouseDown(string name)
 	{
 		viewModel.OnMouseDown(name);
 	}

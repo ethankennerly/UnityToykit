@@ -30,6 +30,14 @@ or:
 
 git submodule add https://github.com/ethankennerly/UnityToykit.git Assets/Scripts/UnityToykit
 
+In Unity 5.3.4, I saw a message like:
+
+		error CS0433: The imported type 'NUnit.framework.Assert' is defined multiple times
+
+Then I renamed the nunit.framework.dll to nunit.framework.dll.bak.  It appears as if the newer version or that environment already had Nunit DLL.  If your version of Unity needs that DLL, you can rename it back to nunit.framework.dll
+
+https://bitbucket.org/Unity-Technologies/unitytesttools/issues/54/error-cs0433-the-imported-type
+
 ## Setting Up
 
 cp UnityTokkit/Examples/MainExample.cs Main.cs
