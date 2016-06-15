@@ -27,6 +27,11 @@ namespace com.finegamedesign.utils
 			return data.Count;
 		}
 
+		public static int Length<T, U>(Dictionary<T, U> items)
+		{
+			return items.Count;
+		}
+
 		public static int Length(ArrayList elements)
 		{
 			return elements.Count;
@@ -40,6 +45,29 @@ namespace com.finegamedesign.utils
 		public static void Clear<T>(List<T> items)
 		{
 			items.Clear();
+		}
+
+		 /**
+		  * Is integer or single floating point.
+		  */
+		public static bool IsNumber(string text)
+		{
+			float n;
+			return float.TryParse(text, out n);
+		}
+
+		 /**
+		  * Is data type flat or a class or collection?
+		  */
+		 public static bool IsFlat(object value)
+		 {
+			 return (bool)((value is string) || (value is float) 
+				|| (value is int) || (null == value));
+		 }
+
+		public static ArrayList SplitToArrayList(string text, string delimiter)
+		{
+			return new ArrayList(Split(text, delimiter));
 		}
 
 		/**
@@ -74,11 +102,28 @@ namespace com.finegamedesign.utils
 			return letters;
 		}
 
+		public static string Join(ArrayList texts, string delimiter)
+		{
+			string[] parts = (string[]) texts.ToArray();
+			string joined = string.Join(delimiter, parts);
+			return joined;
+		}
+
 		public static string Join(List<string> texts, string delimiter)
 		{
 			string[] parts = (string[]) texts.ToArray();
 			string joined = string.Join(delimiter, parts);
 			return joined;
+		}
+
+		public static string Trim(string text)
+		{
+			return text.Trim();
+		}
+
+		public static string Replace(string text, string from, string to)
+		{
+			return Join(Split(text, from), to);
 		}
 
 		public static string Join<T>(List<T> items, string delimiter)
@@ -126,6 +171,24 @@ namespace com.finegamedesign.utils
 				aList.Add(rest[i]);
 			}
 			return aList;
+		}
+
+		public static List<T> ToListItems<T>(ArrayList elements)
+		{
+			List<T> aList = new List<T>();
+			for (int i = 0; i < elements.Count; i++) {
+				aList.Add((T)elements[i]);
+			}
+			return aList;
+		}
+
+		public static ArrayList ToArrayList<T>(List<T> aList)
+		{
+			ArrayList items = new ArrayList();
+			for (int i = 0; i < aList.Count; i++) {
+				aList.Add(aList[i]);
+			}
+			return items;
 		}
 	}
 }
