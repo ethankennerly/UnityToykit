@@ -164,6 +164,15 @@ namespace com.finegamedesign.utils
 			return item;
 		}
 
+		public static List<T> ToListItems<T>(T[] rest)
+		{
+			List<T> aList = new List<T>();
+			for (int i = 0; i < rest.Length; i++) {
+				aList.Add(rest[i]);
+			}
+			return aList;
+		}
+
 		public static List<T> ToList<T>(params T[] rest)
 		{
 			List<T> aList = new List<T>();
