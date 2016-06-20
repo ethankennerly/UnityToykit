@@ -42,6 +42,11 @@ namespace com.finegamedesign.utils
 			return text.Length;
 		}
 
+		public static void Clear(ArrayList items)
+		{
+			items.Clear();
+		}
+
 		public static void Clear<T>(List<T> items)
 		{
 			items.Clear();
@@ -148,6 +153,34 @@ namespace com.finegamedesign.utils
 			dynamic item = items[items.Count - 1];
 			items.RemoveAt(items.Count - 1);
 			return item;
+		}
+
+		public static void RemoveAt<T>(List<T> items, int index)
+		{
+			items.RemoveAt(index);
+		}
+
+		public static void RemoveAt(ArrayList items, int index)
+		{
+			items.RemoveAt(index);
+		}
+
+		public static List<T> Slice<T>(List<T> items, int start, int end)
+		{
+			List<T> sliced = new List<T>();
+			for (int index = start; index < end; index++) {
+				sliced.Add(items[index]);
+			}
+			return sliced;
+		}
+
+		public static ArrayList Slice(ArrayList items, int start, int end)
+		{
+			ArrayList sliced = new ArrayList();
+			for (int index = start; index < end; index++) {
+				sliced.Add(items[index]);
+			}
+			return sliced;
 		}
 
 		public static T Shift<T>(List<T> items)
