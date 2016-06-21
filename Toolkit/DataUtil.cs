@@ -107,9 +107,13 @@ namespace com.finegamedesign.utils
 			return letters;
 		}
 
-		public static string Join(ArrayList texts, string delimiter)
+		// Without depending on LINQ or that each item is already a string.
+		public static string Join(ArrayList items, string delimiter)
 		{
-			string[] parts = (string[]) texts.ToArray();
+			string[] parts = new string[items.Count];
+			for (int index = 0; index < items.Count; index++) {
+				parts[index] = items[index].ToString();
+			}
 			string joined = string.Join(delimiter, parts);
 			return joined;
 		}
