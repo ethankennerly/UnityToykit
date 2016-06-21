@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace com.finegamedesign.utils
+namespace /*<com>*/Finegamedesign.Utils
 {
 	/**
 	 * Another option is an extension method.

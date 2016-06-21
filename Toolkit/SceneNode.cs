@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace com.finegamedesign.utils
+namespace /*<com>*/Finegamedesign.Utils
 {
 	// Portable view model of a node in a scene graph.
 	public class SceneNode
