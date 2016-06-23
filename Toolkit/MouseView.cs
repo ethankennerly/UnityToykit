@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 
-public class MouseView : MonoBehaviour
+namespace Finegamedesign.Utils
 {
-	public static Controller controller;
-
-	/**
-	 * Test case:  Test.  Port.  Change view.  Expect minimal view code.  
-	 *
-	 * Test case:  2015 Another person is locking the editor file.  I want to edit the code of the button callback.
-	 *
-	 * Test case:  2013 Players want immediate responsiveness, as soon as the button is pressed.
-	 *
-	 * http://answers.unity3d.com/questions/888132/add-script-to-prefab-at-runtime-and-onmousedown.html
-	 */
-	public void OnMouseDown()
+	public sealed class MouseView
 	{
-		controller.OnMouseDown(name);
+		public static GameObject target;
+
+		/**
+		 * Mouse (or touch) selects first game object in the world that has a collider.
+		 */
+		public static void Update()
+		{
+			target = null;
+			if (Input.GetMouseButtonDown(0)) {
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit)) {
+					target = hit.transform.gameObject;
+				}
+			}
+		}
 	}
 }

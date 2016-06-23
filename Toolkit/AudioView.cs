@@ -15,7 +15,7 @@ namespace Finegamedesign.Utils
 		 * Warning:  All files in Resources are compiled into the executable.  Only place necessary files to play the game in that folder.
 		 */
 		public AudioSource Setup(string gameObjectName, 
-				string[] loadBaseFilenames, 
+				List<string> loadBaseFilenames, 
 				string audioPath = "Sounds/")
 		{
 			GameObject gameObject = GameObject.Find(gameObjectName);
@@ -25,7 +25,7 @@ namespace Finegamedesign.Utils
 				audio = gameObject.GetComponent<AudioSource>();
 			}
 			sounds = new Dictionary<string, AudioClip>();
-			for (int index = 0; index < loadBaseFilenames.Length; index++) {
+			for (int index = 0; index < loadBaseFilenames.Count; index++) {
 				string filename = loadBaseFilenames[index];
 				sounds[filename] = (AudioClip) Resources.Load(audioPath + filename, typeof(AudioClip));
 				if (null == sounds[filename]) {

@@ -26,12 +26,15 @@ namespace /*<com>*/Finegamedesign.Utils
 			Assert.AreEqual(6.0f, SceneNodeView.GetWorldX(child));
 			Assert.AreEqual(3.0f, SceneNodeView.GetLocalY(child));
 			Assert.AreEqual(23.0f, SceneNodeView.GetWorldY(child));
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
 		}
 
-		// TODO [Test]
+		[Test]
 		public void GetChildren()
 		{
 			GameObject parent = new GameObject();
+			SceneNodeView.SetName(parent, "parent");
 			GameObject child = new GameObject();
 			SceneNodeView.SetName(child, "child");
 			SceneNodeView.AddChild(parent, child);
@@ -39,12 +42,32 @@ namespace /*<com>*/Finegamedesign.Utils
 			Assert.AreEqual(1, DataUtil.Length(children));
 			Assert.AreEqual("child", SceneNodeView.GetName(children[0]));
 			Assert.AreEqual(child, children[0]);
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
 		}
+
+		[Test]
+		public void GetParent()
+		{
+			GameObject parent = new GameObject();
+			GameObject child = new GameObject();
+			SceneNodeView.SetName(parent, "parent");
+			SceneNodeView.SetName(child, "child");
+			SceneNodeView.AddChild(parent, child);
+			Assert.AreEqual("parent", SceneNodeView.GetName(
+				SceneNodeView.GetParent(child)));
+			Assert.AreEqual(parent,
+				SceneNodeView.GetParent(child));
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
+		}
+
 
 		[Test]
 		public void ToSceneNodeList()
 		{
 			GameObject parent = new GameObject();
+			SceneNodeView.SetName(parent, "parent");
 			GameObject child = new GameObject();
 			SceneNodeView.SetName(child, "child");
 			SceneNodeView.SetLocalX(child, 2.0f);
@@ -55,6 +78,8 @@ namespace /*<com>*/Finegamedesign.Utils
 			Assert.AreEqual("child", nodes[0].name);
 			Assert.AreEqual(2.0f, nodes[0].x);
 			Assert.AreEqual(0.0f, nodes[0].y);
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
 		}
 	}
 }

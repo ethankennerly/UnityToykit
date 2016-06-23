@@ -20,6 +20,9 @@ Portable:
 * Controller.
 * View.
 
+Because the models and controllers are separated from the view, the models and controllers are easy to test.
+http://www.gamasutra.com/view/news/164363/Indepth\_Unit\_testing\_in\_Unity.php
+
 ## Installing
 
 As submodule:
@@ -30,6 +33,13 @@ or:
 
 git submodule add https://github.com/ethankennerly/UnityToykit.git Assets/Scripts/UnityToykit
 
+Unity 5.3 or higher
+===================
+
+Unity 5.3 builds in NUnit.
+
+http://forum.unity3d.com/threads/editor-test-runner-nunit.358248/
+
 In Unity 5.3.4, I saw a message like:
 
 		error CS0433: The imported type 'NUnit.framework.Assert' is defined multiple times
@@ -37,6 +47,7 @@ In Unity 5.3.4, I saw a message like:
 Then I renamed the nunit.framework.dll to nunit.framework.dll.bak.  It appears as if the newer version or that environment already had Nunit DLL.  If your version of Unity needs that DLL, you can rename it back to nunit.framework.dll
 
 https://bitbucket.org/Unity-Technologies/unitytesttools/issues/54/error-cs0433-the-imported-type
+
 
 ## Setting Up
 
