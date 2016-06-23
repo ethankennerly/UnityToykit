@@ -27,7 +27,10 @@ namespace Finegamedesign.Utils
 			sounds = new Dictionary<string, AudioClip>();
 			for (int index = 0; index < loadBaseFilenames.Length; index++) {
 				string filename = loadBaseFilenames[index];
-				sounds[filename] = (AudioClip) Resources.Load(audioPath + filename);
+				sounds[filename] = (AudioClip) Resources.Load(audioPath + filename, typeof(AudioClip));
+				if (null == sounds[filename]) {
+					throw new System.Exception("Could not find AudioClip at Resources/" + audioPath + filename);
+				}
 			}
 			return audio;
 		}

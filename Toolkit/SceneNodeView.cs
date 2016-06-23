@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace /*<com>*/Finegamedesign.Utils
+namespace Finegamedesign.Utils
 {
 	// Portable API
 	public sealed class SceneNodeView
@@ -10,6 +10,17 @@ namespace /*<com>*/Finegamedesign.Utils
 		{
 			GameObject child = parent.transform.Find(name).gameObject;
 			return child;
+		}
+
+		public static GameObject GetParent(GameObject child)
+		{
+			return child.transform.parent.gameObject;
+		}
+
+		// Preserve local position.
+		public static void AddChild(GameObject parent, GameObject child)
+		{
+			child.transform.SetParent(parent.transform, false);
 		}
 
 		public static List<GameObject> GetChildren(GameObject parent)
@@ -42,6 +53,11 @@ namespace /*<com>*/Finegamedesign.Utils
 			return viewObject.name;
 		}
 
+		public static void SetName(GameObject viewObject, string name)
+		{
+			viewObject.name = name;
+		}
+
 		public static float GetLocalX(GameObject viewObject)
 		{
 			return viewObject.transform.localPosition.x;
@@ -60,11 +76,6 @@ namespace /*<com>*/Finegamedesign.Utils
 		public static float GetWorldY(GameObject viewObject)
 		{
 			return viewObject.transform.position.y;
-		}
-
-		public static void SetName(GameObject viewObject, string name)
-		{
-			viewObject.name = name;
 		}
 
 		// Unity does not update unless new Vector3 created.
@@ -101,12 +112,6 @@ namespace /*<com>*/Finegamedesign.Utils
 			Vector3 position = new Vector3(
 				current.x, y, current.z);
 			viewObject.transform.position = position;
-		}
-
-		// Preserve local position.
-		public static void AddChild(GameObject parent, GameObject child)
-		{
-			child.transform.SetParent(parent.transform, false);
 		}
 
 		public static void SetVisible(GameObject gameObject, bool isVisible)
