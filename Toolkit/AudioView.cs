@@ -29,7 +29,7 @@ namespace Finegamedesign.Utils
 				string filename = loadBaseFilenames[index];
 				sounds[filename] = (AudioClip) Resources.Load(audioPath + filename, typeof(AudioClip));
 				if (null == sounds[filename]) {
-					throw new System.Exception("Could not find AudioClip at Resources/" + audioPath + filename);
+					throw new System.InvalidOperationException("Could not find AudioClip at Resources/" + audioPath + filename);
 				}
 			}
 			return audio;
