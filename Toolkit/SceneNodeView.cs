@@ -4,8 +4,14 @@ using System.Collections.Generic;
 namespace /*<com>*/Finegamedesign.Utils
 {
 	// Portable API
-	public class SceneNodeView
+	public sealed class SceneNodeView
 	{
+		public static GameObject GetChild(GameObject parent, string name)
+		{
+			GameObject child = parent.transform.Find(name).gameObject;
+			return child;
+		}
+
 		public static List<GameObject> GetChildren(GameObject parent)
 		{
 			List<GameObject> children = new List<GameObject>();
@@ -101,6 +107,11 @@ namespace /*<com>*/Finegamedesign.Utils
 		public static void AddChild(GameObject parent, GameObject child)
 		{
 			child.transform.SetParent(parent.transform, false);
+		}
+
+		public static void SetVisible(GameObject gameObject, bool isVisible)
+		{
+			gameObject.SetActive(isVisible);
 		}
 	}
 }

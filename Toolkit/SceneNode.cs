@@ -14,6 +14,7 @@ namespace /*<com>*/Finegamedesign.Utils
 		}
 
 		public string name = "";
+		public float rotation = 0.0f;
 		public float x = 0.0f;
 		// As in Unity and Cocos2D, but not Flash, higher value is up-screen.
 		public float y = 0.0f;

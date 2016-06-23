@@ -1,6 +1,6 @@
-using UnityEngine;  // GameObject
-using UnityEngine.UI;  // Text
-using System.Collections.Generic;  // Dictionary
+using UnityEngine/*<GameObject>*/;
+using UnityEngine.UI/*<Text>*/;
+using System.Collections.Generic/*<Dictionary>*/;
 
 /**
  * Sharing code between projects:
@@ -22,12 +22,16 @@ public class ViewUtil
 		child.AddComponent<ButtonView>();
 	}
 
+	// DEPRECATED: Moving to SceneNodeView.GetChild
 	public static GameObject GetChild(GameObject parent, string name)
 	{
 		GameObject child = parent.transform.Find(name).gameObject;
 		return child;
 	}
+
 	/**
+	 * DEPRECATED in favor of AnimationUtil.SetState
+	 *
 	 * Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 	 * Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
 	 * http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
@@ -69,6 +73,7 @@ public class ViewUtil
 		textComponent.text = text;
 	}
 
+	// DEPRECATED.  Moving to SceneNodeView.SetVisible
 	public static void SetVisible(GameObject gameObject, bool isVisible)
 	{
 		gameObject.SetActive(isVisible);
