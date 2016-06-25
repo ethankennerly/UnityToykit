@@ -31,7 +31,7 @@ public class Progress
 			// 0.0625f;
 			// 0.1f;
 	private ArrayList cardsOriginally;
-	public bool isVerbose = false;
+	public bool isVerbose = true;
 
 	public bool isCheckpoint = false;
 	public float checkpointStep = -1.0f;
@@ -88,7 +88,8 @@ public class Progress
 		if (0.0f <= step) {
 			checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
 			if (isVerbose) {
-				Debug.Log("Progress.SetCheckpointStep: checkpoint " + checkpoint + " normal " + normal);
+				Debug.Log("Progress.SetCheckpointStep: checkpoint " + checkpoint 
+					+ " normal " + normal + " level " + GetLevelNormal());
 			}
 		}
 		else {
@@ -127,7 +128,7 @@ public class Progress
 	// Example:  Editor/Tests/TestProgress.cs
 	public int GetLevelNormal()
 	{
-		float levelRate = (float)(levelMax != 0 ? levelMax : 1);
+		float levelRate = (float)(levelMax != 0 ? levelMax : 1.0f);
 		level = (int)(Mathf.Ceil(normal * levelMax));
 		return (int)(Mathf.Ceil(levelNormalMax * level / levelRate));
 	}
@@ -135,6 +136,10 @@ public class Progress
 	public void SetLevelNormal(int level)
 	{
 		normal = level / (float)levelNormalMax;
+		if (0 == levelMax)
+		{
+			levelMax = levelNormalMax;
+		}
 		SetCheckpointStep(checkpointStep);
 	}
 }

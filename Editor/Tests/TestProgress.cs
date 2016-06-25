@@ -107,13 +107,23 @@ internal class TestProgress
 		Progress progress = new Progress();
 		progress.levelNormalMax = 1000;
 		Assert.AreEqual(0.0f, progress.normal);
+		Assert.AreEqual(0, progress.GetLevelNormal());
+		progress.SetLevelNormal(500);
+		Assert.AreEqual(0.5f, progress.normal);
+		Assert.AreEqual(500, progress.GetLevelNormal());
 		progress.levelMax = 2000;
 		progress.SetLevelNormal(500);
 		Assert.AreEqual(0.5f, progress.normal);
+		Assert.AreEqual(500, progress.GetLevelNormal());
 		progress.SetLevelNormal(750);
 		Assert.AreEqual(0.75f, progress.normal);
+		Assert.AreEqual(750, progress.GetLevelNormal());
 		progress.levelMax = 4000;
 		progress.SetLevelNormal(375);
 		Assert.AreEqual(0.375f, progress.normal);
+		Assert.AreEqual(375, progress.GetLevelNormal());
+		progress.SetLevelNormal(0);
+		Assert.AreEqual(0.0f, progress.normal);
+		Assert.AreEqual(0, progress.GetLevelNormal());
 	}
 }
