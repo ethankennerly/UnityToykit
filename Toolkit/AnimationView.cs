@@ -5,7 +5,7 @@ namespace Finegamedesign.Utils
 {
 	public sealed class AnimationView
 	{
-		public static bool isVerbose = true;
+		public static bool isVerbose = false;
 		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
@@ -30,7 +30,9 @@ namespace Finegamedesign.Utils
 			{
 				if (isVerbose)
 				{
-					Debug.Log("AnimationView.SetState: " + animatorOwner 
+					Debug.Log("AnimationView.SetState: " 
+						+ animatorOwner.transform.parent 
+						+ animatorOwner 
 						+ ": " + state + " at " + Time.time);
 				}
 				if (isRestart)
@@ -39,8 +41,7 @@ namespace Finegamedesign.Utils
 				}
 				else
 				{
-					animator.Play(state);
-					// animator.Play(state, -1, 0f);
+					animator.Play(state, -1, 0f);
 				}
 				states[animatorOwner] = state;
 				startTimes[state] = Time.time;

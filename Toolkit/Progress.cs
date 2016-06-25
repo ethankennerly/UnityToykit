@@ -31,7 +31,7 @@ public class Progress
 			// 0.0625f;
 			// 0.1f;
 	private ArrayList cardsOriginally;
-	public bool isVerbose = true;
+	public bool isVerbose = false;
 
 	public bool isCheckpoint = false;
 	public float checkpointStep = -1.0f;
