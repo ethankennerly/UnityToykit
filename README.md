@@ -33,20 +33,16 @@ or:
 
 git submodule add https://github.com/ethankennerly/UnityToykit.git Assets/Scripts/UnityToykit
 
-Unity 5.3 or higher
-===================
+Unity 5.2 or lower
+==================
 
 Unity 5.3 builds in NUnit.
 
 http://forum.unity3d.com/threads/editor-test-runner-nunit.358248/
 
-In Unity 5.3.4, I saw a message like:
+On Unity 5.2 or lower, you can install UnityTestTools from the Asset Store.  I had these included in an earlier commit.  You could download those which are smaller:
 
-		error CS0433: The imported type 'NUnit.framework.Assert' is defined multiple times
-
-Then I renamed the nunit.framework.dll to nunit.framework.dll.bak.  It appears as if the newer version or that environment already had Nunit DLL.  If your version of Unity needs that DLL, you can rename it back to nunit.framework.dll
-
-https://bitbucket.org/Unity-Technologies/unitytesttools/issues/54/error-cs0433-the-imported-type
+https://github.com/ethankennerly/UnityToykit/tree/f2a01b622e39bf52bab54036d710d67f565c7128/UnityTestTools
 
 
 ## Setting Up
