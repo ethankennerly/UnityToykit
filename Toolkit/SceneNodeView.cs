@@ -8,7 +8,14 @@ namespace Finegamedesign.Utils
 	{
 		public static GameObject GetChild(GameObject parent, string name)
 		{
-			GameObject child = parent.transform.Find(name).gameObject;
+			Transform transform = parent.transform.Find(name);
+			if (null == transform)
+			{
+				throw new System.InvalidOperationException(
+					"Expected child <" + name + "> in " 
+					+ parent.transform.parent + parent );
+			}
+			GameObject child = transform.gameObject;
 			return child;
 		}
 
