@@ -62,7 +62,6 @@ namespace /*<com>*/Finegamedesign.Utils
 			Object.DestroyImmediate(child);
 		}
 
-
 		[Test]
 		public void ToSceneNodeList()
 		{
@@ -78,6 +77,60 @@ namespace /*<com>*/Finegamedesign.Utils
 			Assert.AreEqual("child", nodes[0].name);
 			Assert.AreEqual(2.0f, nodes[0].x);
 			Assert.AreEqual(0.0f, nodes[0].y);
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
+		}
+
+		[Test]
+		public void SetWorldScaleX()
+		{
+			GameObject parent = new GameObject();
+			GameObject child = new GameObject();
+			SceneNodeView.AddChild(parent, child);
+			SceneNodeView.SetName(parent, "parent");
+			SceneNodeView.SetName(child, "child");
+			SceneNodeView.SetLocalScaleX(child, 2.0f);
+			SceneNodeView.SetLocalScaleX(parent, 3.0f);
+			Assert.AreEqual(2.0f,
+				SceneNodeView.GetLocalScaleX(child));
+			Assert.AreEqual(6.0f,
+				SceneNodeView.GetWorldScaleX(child));
+			SceneNodeView.SetWorldScaleX(child, 12.0f);
+			Assert.AreEqual(12.0f,
+				SceneNodeView.GetWorldScaleX(child));
+			Assert.AreEqual(4.0f,
+				SceneNodeView.GetLocalScaleX(child));
+			Assert.AreEqual(1.0f,
+				SceneNodeView.GetLocalScaleY(parent));
+			Assert.AreEqual(1.0f,
+				SceneNodeView.GetLocalScaleY(child));
+			Object.DestroyImmediate(parent);
+			Object.DestroyImmediate(child);
+		}
+
+		[Test]
+		public void SetWorldScaleY()
+		{
+			GameObject parent = new GameObject();
+			GameObject child = new GameObject();
+			SceneNodeView.AddChild(parent, child);
+			SceneNodeView.SetName(parent, "parent");
+			SceneNodeView.SetName(child, "child");
+			SceneNodeView.SetLocalScaleY(child, 2.0f);
+			SceneNodeView.SetLocalScaleY(parent, 3.0f);
+			Assert.AreEqual(2.0f,
+				SceneNodeView.GetLocalScaleY(child));
+			Assert.AreEqual(6.0f,
+				SceneNodeView.GetWorldScaleY(child));
+			SceneNodeView.SetWorldScaleY(child, 12.0f);
+			Assert.AreEqual(1.0f,
+				SceneNodeView.GetLocalScaleX(parent));
+			Assert.AreEqual(1.0f,
+				SceneNodeView.GetLocalScaleX(child));
+			Assert.AreEqual(4.0f,
+				SceneNodeView.GetLocalScaleY(child));
+			Assert.AreEqual(12.0f,
+				SceneNodeView.GetWorldScaleY(child));
 			Object.DestroyImmediate(parent);
 			Object.DestroyImmediate(child);
 		}

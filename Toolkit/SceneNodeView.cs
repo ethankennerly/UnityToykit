@@ -75,16 +75,6 @@ namespace Finegamedesign.Utils
 			return viewObject.transform.localPosition.y;
 		}
 
-		public static float GetWorldX(GameObject viewObject)
-		{
-			return viewObject.transform.position.x;
-		}
-
-		public static float GetWorldY(GameObject viewObject)
-		{
-			return viewObject.transform.position.y;
-		}
-
 		// Unity does not update unless new Vector3 created.
 		// Test case:  Assign directly.  Nothing happens.
 		public static void SetLocalX(GameObject viewObject, float x)
@@ -103,6 +93,16 @@ namespace Finegamedesign.Utils
 			viewObject.transform.localPosition = localPosition;
 		}
 
+		public static float GetWorldX(GameObject viewObject)
+		{
+			return viewObject.transform.position.x;
+		}
+
+		public static float GetWorldY(GameObject viewObject)
+		{
+			return viewObject.transform.position.y;
+		}
+
 		// Unity does not update unless new Vector3 created.
 		// Test case:  Assign directly.  Nothing happens.
 		public static void SetWorldX(GameObject viewObject, float x)
@@ -119,6 +119,60 @@ namespace Finegamedesign.Utils
 			Vector3 position = new Vector3(
 				current.x, y, current.z);
 			viewObject.transform.position = position;
+		}
+
+		public static float GetLocalScaleX(GameObject viewObject)
+		{
+			return viewObject.transform.localScale.x;
+		}
+
+		public static float GetLocalScaleY(GameObject viewObject)
+		{
+			return viewObject.transform.localScale.y;
+		}
+
+		// Unity does not update unless new Vector3 created.
+		// Test case:  Assign directly.  Nothing happens.
+		public static void SetLocalScaleX(GameObject viewObject, float x)
+		{
+			Vector3 current = viewObject.transform.localScale;
+			Vector3 localScale = new Vector3(
+				x, current.y, current.z);
+			viewObject.transform.localScale = localScale;
+		}
+
+		public static void SetLocalScaleY(GameObject viewObject, float y)
+		{
+			Vector3 current = viewObject.transform.localScale;
+			Vector3 localScale = new Vector3(
+				current.x, y, current.z);
+			viewObject.transform.localScale = localScale;
+		}
+
+		public static float GetWorldScaleX(GameObject viewObject)
+		{
+			return viewObject.transform.lossyScale.x;
+		}
+
+		public static float GetWorldScaleY(GameObject viewObject)
+		{
+			return viewObject.transform.lossyScale.y;
+		}
+
+		// Unity does not update unless new Vector3 created.
+		// Test case:  Assign directly.  Nothing happens.
+		public static void SetWorldScaleX(GameObject viewObject, float x)
+		{
+			float world = GetWorldScaleX(viewObject);
+			float local = GetLocalScaleX(viewObject);
+			SetLocalScaleX(viewObject, x * local / world);
+		}
+
+		public static void SetWorldScaleY(GameObject viewObject, float y)
+		{
+			float world = GetWorldScaleY(viewObject);
+			float local = GetLocalScaleY(viewObject);
+			SetLocalScaleY(viewObject, y * local / world);
 		}
 
 		public static void SetVisible(GameObject gameObject, bool isVisible)
