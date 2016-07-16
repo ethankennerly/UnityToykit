@@ -11,17 +11,6 @@ using System.Collections.Generic/*<Dictionary>*/;
  */
 public class ViewUtil
 {
-	/**
-	 * Add ButtonView component to buttons and clickable game objects.
-	 * @param	address		Expects the name is unique among all prefabs on the stage.
-	 */
-	public static void SetupButton(Controller controller, string address)
-	{
-		ButtonView.controller = controller;
-		GameObject child = GameObject.Find(address);
-		child.AddComponent<ButtonView>();
-	}
-
 	// DEPRECATED: Moving to SceneNodeView.GetChild
 	public static GameObject GetChild(GameObject parent, string name)
 	{

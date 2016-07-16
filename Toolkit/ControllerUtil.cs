@@ -99,14 +99,6 @@ public class ControllerUtil
 		}
 	}
 
-	public static void SetupButtons(Controller controller, string[] addresses)
-	{
-		for (int index = 0; index < addresses.Length; index++) {
-			string address = addresses[index];
-			ViewUtil.SetupButton(controller, address);
-		}
-	}
-
 	public static void PlaySounds(List<string> soundBaseNames)
 	{
 		for (int index = 0; index < soundBaseNames.Count; index++) {

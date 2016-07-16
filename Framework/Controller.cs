@@ -13,7 +13,6 @@ public class Controller
 		viewModel.Start();
 		view.graph = ControllerUtil.FindGraphByName(viewModel.graph, viewModel.main);
 		ViewUtil.SetupAudio(viewModel.main, viewModel.sounds);
-		ControllerUtil.SetupButtons(this, viewModel.buttons);
 	}
 
 	private void UpdateInput()
