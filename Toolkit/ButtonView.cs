@@ -5,6 +5,8 @@ namespace Finegamedesign.Utils
 	public sealed class ButtonView
 	{
 		public ButtonController controller;
+		public GameObject target = null;
+		public GameObject targetNext = null;
 
 		/**
 		 * Add EventSystem to scene graph hierarchy.
@@ -27,7 +29,13 @@ namespace Finegamedesign.Utils
 		{
 			button.AddComponent<ButtonBehaviour>();
 			ButtonBehaviour behaviour = button.GetComponent<ButtonBehaviour>();
-			behaviour.controller = controller;
+			behaviour.view = this;
+		}
+
+		public void Down(GameObject button)
+		{
+			targetNext = button;
+			controller.Down(button.name);
 		}
 	}
 }

@@ -54,7 +54,7 @@ public class Toolkit
 	 * @param	path	Unconventionally, Unity expects the file extension is omitted.  This utility will try again to remove file extension if it can't load the first time.
 	 * Normalize line endings and trim whitespace.
 	 * Expects path is relative to "Assets/Resources/" folder.
-	 * Unity automatically embeds resource files.  Does not dynamically load file, because file system is incompatible on mobile device or HTML5.
+	 * Unity automatically embeds resource files.  Does not dynamicly load file, because file system is incompatible on mobile device or HTML5.
 	 */
 	public static string Read(string path)
 	{

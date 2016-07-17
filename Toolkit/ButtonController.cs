@@ -28,6 +28,8 @@ namespace Finegamedesign.Utils
 			downName = downNameNext;
 			isAnyNow = null != downName;
 			downNameNext = null;
+			view.target = view.targetNext;
+			view.targetNext = null;
 			if (isVerbose && isAnyNow)
 			{
 				Toolkit.Log("ButtonController.Update: " + downName);

@@ -12,8 +12,8 @@ namespace Finegamedesign.Utils
 			if (null == transform)
 			{
 				throw new System.InvalidOperationException(
-					"Expected child <" + name + "> in " 
-					+ parent.transform.parent + parent );
+					"Expected child <" + name + "> in <" 
+					+ GetPath(parent) + ">");
 			}
 			GameObject child = transform.gameObject;
 			return child;
@@ -22,6 +22,18 @@ namespace Finegamedesign.Utils
 		public static GameObject GetParent(GameObject child)
 		{
 			return child.transform.parent.gameObject;
+		}
+
+		public static string GetPath(GameObject child)
+		{
+			string path = child.name;
+			GameObject parent = child;
+			while (null != parent.transform.parent)
+			{
+				parent = parent.transform.parent.gameObject;
+				path = parent.name + "/" + path;
+			}
+			return path;
 		}
 
 		// Preserve local position.

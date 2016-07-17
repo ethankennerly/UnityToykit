@@ -152,9 +152,9 @@ namespace /*<com>*/Finegamedesign.Utils
 			return item;
 		}
 
-		public static dynamic Pop(ArrayList items)
+		public static object Pop(ArrayList items)
 		{
-			dynamic item = items[items.Count - 1];
+			object item = items[items.Count - 1];
 			items.RemoveAt(items.Count - 1);
 			return item;
 		}
@@ -194,9 +194,9 @@ namespace /*<com>*/Finegamedesign.Utils
 			return item;
 		}
 
-		public static dynamic Shift(ArrayList items)
+		public static object Shift(ArrayList items)
 		{
-			dynamic item = items[0];
+			object item = items[0];
 			items.RemoveAt(0);
 			return item;
 		}

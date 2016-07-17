@@ -31,8 +31,7 @@ namespace Finegamedesign.Utils
 				if (isVerbose)
 				{
 					Debug.Log("AnimationView.SetState: " 
-						+ animatorOwner.transform.parent 
-						+ animatorOwner 
+						+ SceneNodeView.GetPath(animatorOwner)
 						+ ": " + state + " at " + Time.time);
 				}
 				if (isRestart)
@@ -50,8 +49,8 @@ namespace Finegamedesign.Utils
 			{
 				if (null == animator) {
 					Debug.Log("AnimationView.SetState: Does animator exist? " 
-						+ animatorOwner.transform.parent 
-						+ animatorOwner + ": " + state);
+						+ SceneNodeView.GetPath(animatorOwner)
+						+ ": " + state);
 				}
 			}
 		}
@@ -83,7 +82,8 @@ namespace Finegamedesign.Utils
 					completedNow = states[animatorOwner];
 					if (isVerbose)
 					{
-						Debug.Log("AnimationView.CompletedNow: " + animatorOwner 
+						Debug.Log("AnimationView.CompletedNow: " 
+							+ SceneNodeView.GetPath(animatorOwner)
 							+ ": " + completedNow + " at " + Time.time 
 							+ " info " + info 
 							+ " IsName " + info.IsName(states[animatorOwner])
@@ -117,8 +117,7 @@ namespace Finegamedesign.Utils
 			{
 				if (null == animator) {
 					Debug.Log("AnimationView.CompletedNow: Does animator exist? " 
-						+ animatorOwner.transform.parent 
-						+ animatorOwner);
+						+ SceneNodeView.GetPath(animatorOwner));
 				}
 			}
 			return completedNow;
