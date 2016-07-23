@@ -105,6 +105,20 @@ namespace Finegamedesign.Utils
 			viewObject.transform.localPosition = localPosition;
 		}
 
+		// Unity will not change if localPosition refers to this viewObject.
+		// If that would be the case, make a new local position.
+		public static void SetLocal(GameObject viewObject, Vector3 localPosition)
+		{
+			if (localPosition == viewObject.transform.localPosition)
+			{
+				localPosition = new Vector3(
+					localPosition.x, 
+					localPosition.y,
+					localPosition.z);
+			}
+			viewObject.transform.localPosition = localPosition;
+		}
+
 		public static float GetWorldX(GameObject viewObject)
 		{
 			return viewObject.transform.position.x;

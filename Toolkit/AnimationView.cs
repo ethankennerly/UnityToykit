@@ -5,7 +5,7 @@ namespace Finegamedesign.Utils
 {
 	public sealed class AnimationView
 	{
-		public static bool isVerbose = false;
+		public static bool isVerbose = true;
 		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
@@ -23,7 +23,7 @@ namespace Finegamedesign.Utils
 		 * Unity expects not to animate the camera or the root itself.  Instead animate the child of the root.  The root might not move.
 		 * Test case:  2016-02-13 Animate camera position.  Play.  Camera does not move.  Generate root motion curves.  Apply root motion curves.  Still camera does not move.  Assign animator to parent of camera.  Animate child.  Then camera moves.
 		 */
-		public static void SetState(GameObject animatorOwner, string state, bool isRestart = true)
+		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false)
 		{
 			Animator animator = animatorOwner.GetComponent<Animator>();
 			if (null != animator && animator.isInitialized)
@@ -36,11 +36,11 @@ namespace Finegamedesign.Utils
 				}
 				if (isRestart)
 				{
-					animator.Play(state);
+					animator.Play(state, -1, 0f);
 				}
 				else
 				{
-					animator.Play(state, -1, 0f);
+					animator.Play(state);
 				}
 				states[animatorOwner] = state;
 				startTimes[state] = Time.time;

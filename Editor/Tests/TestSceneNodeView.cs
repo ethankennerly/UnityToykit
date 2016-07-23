@@ -26,6 +26,12 @@ namespace /*<com>*/Finegamedesign.Utils
 			Assert.AreEqual(6.0f, SceneNodeView.GetWorldX(child));
 			Assert.AreEqual(3.0f, SceneNodeView.GetLocalY(child));
 			Assert.AreEqual(23.0f, SceneNodeView.GetWorldY(child));
+			Vector3 position = new Vector3(5.0f, 1.5f);
+			SceneNodeView.SetLocal(child, position);
+			Assert.AreEqual(5.0f, SceneNodeView.GetLocalX(child));
+			Assert.AreEqual(15.0f, SceneNodeView.GetWorldX(child));
+			Assert.AreEqual(1.5f, SceneNodeView.GetLocalY(child));
+			Assert.AreEqual(21.5f, SceneNodeView.GetWorldY(child));
 			Object.DestroyImmediate(parent);
 			Object.DestroyImmediate(child);
 		}
