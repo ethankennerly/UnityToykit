@@ -9,7 +9,7 @@ using System.Collections.Generic/*<Dictionary>*/;
  * Copy code.
  * http://www.rivellomultimediaconsulting.com/symlinks-for-unity-game-development/
  */
-public class ViewUtil
+public class ViewUtil_DEPRECATED
 {
 	// DEPRECATED: Moving to SceneNodeView.GetChild
 	public static GameObject GetChild(GameObject parent, string name)

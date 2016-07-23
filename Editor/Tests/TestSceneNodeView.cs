@@ -78,7 +78,7 @@ namespace /*<com>*/Finegamedesign.Utils
 			SceneNodeView.SetLocalX(child, 2.0f);
 			SceneNodeView.AddChild(parent, child);
 			List<GameObject> children = SceneNodeView.GetChildren(parent);
-			List<SceneNode> nodes = SceneNodeView.ToSceneNodeList(children);
+			List<SceneNodeModel> nodes = SceneNodeView.ToSceneNodeList(children);
 			Assert.AreEqual(1, DataUtil.Length(nodes));
 			Assert.AreEqual("child", nodes[0].name);
 			Assert.AreEqual(2.0f, nodes[0].x);

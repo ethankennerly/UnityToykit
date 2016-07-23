@@ -58,12 +58,12 @@ namespace Finegamedesign.Utils
 			return children;
 		}
 
-		public static List<SceneNode> ToSceneNodeList(List<GameObject> viewObjects)
+		public static List<SceneNodeModel> ToSceneNodeList(List<GameObject> viewObjects)
 		{
-			List<SceneNode> nodes = new List<SceneNode>();
+			List<SceneNodeModel> nodes = new List<SceneNodeModel>();
 			for (int index = 0; index < DataUtil.Length(viewObjects); index++)
 			{
-				SceneNode node = new SceneNode();
+				SceneNodeModel node = new SceneNodeModel();
 				GameObject viewObject = viewObjects[index];
 				node.name = GetName(viewObject);
 				node.x = GetLocalX(viewObject);

@@ -4,25 +4,25 @@ using NUnit.Framework;
 namespace /*<com>*/Finegamedesign.Utils
 {
 	[TestFixture]
-	public class TestSceneNode
+	public class TestSceneNodeModel
 	{
 		[Test]
 		public void SortLeftToRight()
 		{
-			SceneNode a = new SceneNode();
+			SceneNodeModel a = new SceneNodeModel();
 			a.x = 1.0f;
 			a.y = 1.0f;
 			a.name = "node_0";
-			SceneNode b = new SceneNode();
+			SceneNodeModel b = new SceneNodeModel();
 			b.x = 2.0f;
 			b.y = 1.0f;
 			b.name = "node_1";
-			SceneNode c = new SceneNode();
+			SceneNodeModel c = new SceneNodeModel();
 			c.x = 2.0f;
 			c.y = 0.0f;
 			c.name = "node_2";
-			List<SceneNode> nodes = new List<SceneNode>(){c, a, b};
-			SceneNode.SortLeftToRight(nodes);
+			List<SceneNodeModel> nodes = new List<SceneNodeModel>(){c, a, b};
+			SceneNodeModel.SortLeftToRight(nodes);
 			Assert.AreEqual(a.name, nodes[0].name);
 			Assert.AreEqual(a, nodes[0]);
 			Assert.AreEqual(b.name, nodes[1].name);

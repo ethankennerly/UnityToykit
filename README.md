@@ -4,21 +4,12 @@ Lightweight MVC tools for games in Unity 3D C#.
 
 ## Features
 
-Convenient:
+Convenient amd portable:
 
 * Set animation.
 * Set text.
 * Play sound.
 * Listen to keys and buttons.
-* Setup a game.
-
-Portable:
-
-* Toolkit.
-* Model.
-* View Model.
-* Controller.
-* View.
 
 Because the models and controllers are separated from the view, the models and controllers are easy to test.
 http://www.gamasutra.com/view/news/164363/Indepth\_Unit\_testing\_in\_Unity.php
@@ -45,20 +36,15 @@ On Unity 5.2 or lower, you can install UnityTestTools from the Asset Store.  I h
 https://github.com/ethankennerly/UnityToykit/tree/f2a01b622e39bf52bab54036d710d67f565c7128/UnityTestTools
 
 
-## Setting Up
-
-cp UnityTokkit/Examples/MainExample.cs Main.cs
-cp UnityTokkit/Examples/ModelExample.cs Model.cs
-
-Rename the class MainExample to Main.
-Rename the class ModelExample to Model.
-
-In Unity, name your root GameObject "Main".
-Add component "Main.cs".
-
-The scene graph maps to the descendents of Main.
-
 ## Example Game Jam
+
+Toolkit:
+
+https://github.com/ethankennerly/flash-unity-port-example
+
+Older version with a framework:
+
+Add It Up
 
 https://github.com/ethankennerly/add-it-up
 
