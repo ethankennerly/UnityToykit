@@ -78,10 +78,10 @@ public class Progress
 		return normal;
 	}
 
-	/**
-	 * At each step of progress, clamp to checkpoint.
-	 * Example:  Editor/Tests/TestProgress.cs
-	 */
+	//
+	// At each step of progress, clamp to checkpoint.
+	// Example:  Editor/Tests/TestProgress.cs
+	// 
 	public void SetCheckpointStep(float step)
 	{
 		checkpointStep = step;
@@ -106,10 +106,10 @@ public class Progress
 		return normal;
 	}
 
-	/**
-	 * Discards excess progress after checkpoint.
-	 * Example:  Editor/Tests/TestProgress.cs
-	 */
+	//
+	// Discards excess progress after checkpoint.
+	// Example:  Editor/Tests/TestProgress.cs
+	// 
 	public float UpdateCheckpoint(float normal = -1.0f)
 	{
 		if (normal == -1.0f) {

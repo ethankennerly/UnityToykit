@@ -6,9 +6,9 @@ namespace Finegamedesign.Utils
 	{
 		public static GameObject target;
 
-		/**
-		 * Mouse (or touch) selects first game object in the world that has a collider.
-		 */
+		//
+		// Mouse (or touch) selects first game object in the world that has a collider.
+		// 
 		public static void Update()
 		{
 			target = null;

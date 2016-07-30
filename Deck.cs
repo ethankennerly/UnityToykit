@@ -11,9 +11,9 @@ public class Deck
 		return (float) rng.NextDouble();
 	}
 
-	/**
-	 * Unity Random includes 1.0, which would be out of range.
-	 */
+	//
+	// Unity Random includes 1.0, which would be out of range.
+	// 
 	public static void ShuffleArray<T>(T[] deck)
 	{
 		for (int index = deck.Length - 1; 1 <= index; index--)
@@ -25,9 +25,9 @@ public class Deck
 		}
 	}
 
-	/**
-	 * Unity Random includes 1.0, which would be out of range.
-	 */
+	//
+	// Unity Random includes 1.0, which would be out of range.
+	// 
 	public static void ShuffleList<T>(List<T> deck)
 	{
 		for (int index = deck.Count - 1; 1 <= index; index--)

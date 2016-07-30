@@ -50,12 +50,12 @@ public class Toolkit
 		return text.Replace("\r\n", "\n").Replace("\r", "\n");
 	}
 
-	/**
-	 * @param	path	Unconventionally, Unity expects the file extension is omitted.  This utility will try again to remove file extension if it can't load the first time.
-	 * Normalize line endings and trim whitespace.
-	 * Expects path is relative to "Assets/Resources/" folder.
-	 * Unity automatically embeds resource files.  Does not dynamicly load file, because file system is incompatible on mobile device or HTML5.
-	 */
+	//
+	// @param	path	Unconventionally, Unity expects the file extension is omitted.  This utility will try again to remove file extension if it can't load the first time.
+	// Normalize line endings and trim whitespace.
+	// Expects path is relative to "Assets/Resources/" folder.
+	// Unity automatically embeds resource files.  Does not dynamicly load file, because file system is incompatible on mobile device or HTML5.
+	// 
 	public static string Read(string path)
 	{
 		TextAsset asset = (TextAsset) Resources.Load(path);
@@ -73,10 +73,10 @@ public class Toolkit
 		return text;
 	}
 
-	/**
-	 * I wish C# API were as simple as JavaScript and Python:
-	 * http://stackoverflow.com/questions/1126915/how-do-i-split-a-string-by-a-multi-character-delimiter-in-c
-	 */
+	//
+	// I wish C# API were as simple as JavaScript and Python:
+	// http://stackoverflow.com/questions/1126915/how-do-i-split-a-string-by-a-multi-character-delimiter-in-c
+	// 
 	public static string[] Split(string text, string delimiter)
 	{
 		string[] delimiters = new string[] {delimiter};
@@ -84,12 +84,12 @@ public class Toolkit
 		return parts;
 	}
 
-	/**
-	 * Trim whitespace.  
-	 * Test case:  Expect 5 rows.  Got 6.  Last row is empty, from final line delimiter at the end of the file's text.
-	 *
-	 * Would be nice when there's more time to generate hashes.
-	 */
+	//
+	// Trim whitespace.  
+	// Test case:  Expect 5 rows.  Got 6.  Last row is empty, from final line delimiter at the end of the file's text.
+	// 
+	// Would be nice when there's more time to generate hashes.
+	// 
 	public static string[][] ParseCsv(string text, string fieldDelimiter = ",")
 	{
 		text = text.Trim();

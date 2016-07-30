@@ -8,12 +8,12 @@ namespace Finegamedesign.Utils
 		public AudioSource audio;
 		public Dictionary<string, AudioClip> sounds;
 
-		/**
-		 * Expects exactly one instantiated game object with this name.
-		 * Preloads sounds into a static dictionary to playback by base filename.
-		 * Expects each sound file is in Assets/Resources folder at the path.
-		 * Warning:  All files in Resources are compiled into the executable.  Only place necessary files to play the game in that folder.
-		 */
+		//
+		// Expects exactly one instantiated game object with this name.
+		// Preloads sounds into a static dictionary to playback by base filename.
+		// Expects each sound file is in Assets/Resources folder at the path.
+		// Warning:  All files in Resources are compiled into the executable.  Only place necessary files to play the game in that folder.
+		// 
 		public AudioSource Setup(string gameObjectName, 
 				List<string> loadBaseFilenames, 
 				string audioPath = "Sounds/")
