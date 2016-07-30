@@ -63,6 +63,9 @@ namespace Finegamedesign.Utils
 		// Syncrhonous. Does not depend on event complete animation.
 		// 
 		// http://answers.unity3d.com/questions/351534/how-to-get-current-state-on-mecanim.html
+		//
+		// Another way might be to get the currently playing animation.
+		// http://answers.unity3d.com/questions/362629/how-can-i-check-if-an-animation-is-being-played-or.html
 		// 
 		// Blubberfish says integers will compare faster than strings.
 		// http://answers.unity3d.com/questions/407186/how-to-get-current-state-name-on-mecanim.html
