@@ -23,24 +23,31 @@ namespace Finegamedesign.Utils
 		// Unity expects not to animate the camera or the root itself.  Instead animate the child of the root.  The root might not move.
 		// Test case:  2016-02-13 Animate camera position.  Play.  Camera does not move.  Generate root motion curves.  Apply root motion curves.  Still camera does not move.  Assign animator to parent of camera.  Animate child.  Then camera moves.
 		// 
-		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false)
+		// isTrigger:  If true, then set trigger.  Otherwise play animation.
+		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false, bool isTrigger = false)
 		{
 			Animator animator = animatorOwner.GetComponent<Animator>();
 			if (null != animator && animator.isInitialized)
 			{
-				if (isVerbose)
+				if (isTrigger)
 				{
-					Debug.Log("AnimationView.SetState: " 
-						+ SceneNodeView.GetPath(animatorOwner)
-						+ ": " + state + " at " + Time.time);
+					animator.SetTrigger(state);
 				}
-				if (isRestart)
+				else if (isRestart)
 				{
 					animator.Play(state, -1, 0f);
 				}
 				else
 				{
 					animator.Play(state);
+				}
+				bool isChange = !states.ContainsKey(animatorOwner) 
+					|| states[animatorOwner] != state;
+				if (isVerbose && (isRestart || isChange))
+				{
+					Debug.Log("AnimationView.SetState: " 
+						+ SceneNodeView.GetPath(animatorOwner)
+						+ ": " + state + " at " + Time.time);
 				}
 				states[animatorOwner] = state;
 				startTimes[state] = Time.time;
