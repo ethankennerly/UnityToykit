@@ -37,6 +37,11 @@ namespace /*<com>*/Finegamedesign.Utils
 			return elements.Count;
 		}
 
+		public static int Length<T>(T[] elements)
+		{
+			return elements.Length;
+		}
+
 		public static int Length(string text)
 		{
 			return text.Length;
