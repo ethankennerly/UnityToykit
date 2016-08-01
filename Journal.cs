@@ -3,6 +3,7 @@ using UnityEngine/*<Mathf>*/;
 
 namespace Finegamedesign.Utils
 {
+	// Record and playback real-time actions.
 	public sealed class Journal
 	{
 		public string action = null;
@@ -14,6 +15,7 @@ namespace Finegamedesign.Utils
 		public List<string> playbackActions = new List<string>();
 		public string commandNow = null;
 
+		// Example: TestAnagramJournal.cs
 		public void Update(float deltaSeconds)
 		{
 			seconds += deltaSeconds;
@@ -39,6 +41,7 @@ namespace Finegamedesign.Utils
 			return command;
 		}
 
+		// Example: TestAnagramJournal.cs
 		public void Record(string act)
 		{
 			action = act;
@@ -50,6 +53,7 @@ namespace Finegamedesign.Utils
 			seconds = 0.0f;
 		}
 
+		// Example: TestAnagramJournal.cs
 		public void Read(string historyTsv)
 		{
 			string[][] table = Toolkit.ParseCsv(historyTsv, "\t");
@@ -68,6 +72,18 @@ namespace Finegamedesign.Utils
 				string action = row[1];
 				playbackActions.Add(action);
 			}
+		}
+
+		// Example: TestAnagramJournal.cs
+		public string Write()
+		{
+			string historyTsv = "delay\taction";
+			for (int index = 0; index < DataUtil.Length(playbackDelays); index++)
+			{
+				historyTsv += "\n" + playbackDelays[index].ToString();
+				historyTsv += "\t" + playbackActions[index];
+			}
+			return historyTsv;
 		}
 
 		public void StartPlayback()
