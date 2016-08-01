@@ -7,6 +7,7 @@ namespace Finegamedesign.Utils
 	public sealed class Journal
 	{
 		public string action = null;
+		public string actionNow = null;
 		public int milliseconds = 0;
 		public float seconds = 0.0f;
 		public bool isPlayback = false;
@@ -18,6 +19,7 @@ namespace Finegamedesign.Utils
 		// Example: TestAnagramJournal.cs
 		public void Update(float deltaSeconds)
 		{
+			actionNow = null;
 			seconds += deltaSeconds;
 			milliseconds = (int)(Mathf.Round(seconds * 1000.0f));
 			if (isPlayback)
@@ -45,6 +47,7 @@ namespace Finegamedesign.Utils
 		public void Record(string act)
 		{
 			action = act;
+			actionNow = act;
 			if (!isPlayback)
 			{
 				playbackActions.Add(act);
@@ -90,6 +93,15 @@ namespace Finegamedesign.Utils
 		{
 			playbackIndex = 0;
 			isPlayback = true;
+		}
+
+		public void ReadAndPlay(string historyTsv)
+		{
+			if (null != historyTsv && "" != historyTsv)
+			{
+				Read(historyTsv);
+				StartPlayback();
+			}
 		}
 	}
 }
