@@ -10,8 +10,8 @@ namespace Finegamedesign.Utils
 		public float seconds = 0.0f;
 		public bool isPlayback = false;
 		public int playbackIndex = 0;
-		public List<int> playbackDelays;
-		public List<string> playbackActions;
+		public List<int> playbackDelays = new List<int>();
+		public List<string> playbackActions = new List<string>();
 		public string commandNow = null;
 
 		public void Update(float deltaSeconds)
@@ -42,20 +42,17 @@ namespace Finegamedesign.Utils
 		public void Record(string act)
 		{
 			action = act;
+			if (!isPlayback)
+			{
+				playbackActions.Add(act);
+				playbackDelays.Add(milliseconds);
+			}
 			seconds = 0.0f;
 		}
 
 		public void Read(string historyTsv)
 		{
 			string[][] table = Toolkit.ParseCsv(historyTsv, "\t");
-			if (null == playbackDelays)
-			{
-				playbackDelays = new List<int>();
-			}
-			if (null == playbackActions)
-			{
-				playbackActions = new List<string>();
-			}
 			DataUtil.Clear(playbackDelays);
 			DataUtil.Clear(playbackActions);
 			if ("delay" != table[0][0] || "action" != table[0][1])
@@ -71,6 +68,12 @@ namespace Finegamedesign.Utils
 				string action = row[1];
 				playbackActions.Add(action);
 			}
+		}
+
+		public void StartPlayback()
+		{
+			playbackIndex = 0;
+			isPlayback = true;
 		}
 	}
 }
