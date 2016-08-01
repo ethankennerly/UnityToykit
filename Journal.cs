@@ -95,6 +95,11 @@ namespace Finegamedesign.Utils
 			isPlayback = true;
 		}
 
+		public bool IsPlaying()
+		{
+			return isPlayback && playbackIndex < DataUtil.Length(playbackDelays);
+		}
+
 		public void ReadAndPlay(string historyTsv)
 		{
 			if (null != historyTsv && "" != historyTsv)
