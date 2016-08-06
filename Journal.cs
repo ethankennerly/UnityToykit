@@ -38,6 +38,7 @@ namespace Finegamedesign.Utils
 				{
 					command = playbackActions[playbackIndex];
 					playbackIndex++;
+					seconds -= delay / 1000.0f;
 				}
 			}
 			return command;
@@ -52,8 +53,8 @@ namespace Finegamedesign.Utils
 			{
 				playbackActions.Add(act);
 				playbackDelays.Add(milliseconds);
+				seconds = 0.0f;
 			}
-			seconds = 0.0f;
 		}
 
 		// Example: TestAnagramJournal.cs

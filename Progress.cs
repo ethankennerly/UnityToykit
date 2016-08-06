@@ -40,7 +40,7 @@ public class Progress
 	// Pop interpolated card from 0 to 1.
 	// Example:  Editor/Tests/TestProgress.cs
 	public T Pop<T>(List<T> cards, int min = 0)
-    {
+ 	{
 		int index = (int)Mathf.Floor(normal * cards.Count);
 		index = Mathf.Min(cards.Count - 1, index);
 		index = Mathf.Max(min, index);
@@ -52,7 +52,7 @@ public class Progress
 		level = cardsOriginally.IndexOf(card) + 1;
 		cards.RemoveAt(index);
 		return card;
-    }
+	}
 
 	public float NextCreep(float performanceNormal)
 	{
