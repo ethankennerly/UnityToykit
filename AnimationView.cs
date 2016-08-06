@@ -62,6 +62,11 @@ namespace Finegamedesign.Utils
 			}
 		}
 
+		public static void SetTrigger(GameObject animatorOwner, string state)
+		{
+			SetState(animatorOwner, state, false, true);
+		}
+
 		//
 		// Return name state that was completed now, or null.
 		// Also erases that state, so next time this is called it won't be completed now.
