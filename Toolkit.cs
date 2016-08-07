@@ -1,4 +1,4 @@
-using UnityEngine/*<Debug.Log>*/;
+using UnityEngine/*<Debug>*/;
 using System/*<String, StringSplitOptions>*/;
 
 /**
@@ -14,7 +14,8 @@ public class Toolkit
 	{
 		if (isLogEnabled)
 		{
-			Debug.Log(message);
+			int ms = (int)(Time.time * 1000.0f);
+			Debug.Log(ms.ToString() + "ms " + message);
 		}
 	}
 
@@ -67,7 +68,7 @@ public class Toolkit
 			string basename = System.IO.Path.ChangeExtension(path, null);
 			asset = (TextAsset) Resources.Load(basename);
 			if (null == asset) {
-				Debug.Log("Did you omit the file extension?  Did you place the file in the Assets/Resources/ folder?  Path was " + path + " and without extension was " + basename);
+				Log("Did you omit the file extension?  Did you place the file in the Assets/Resources/ folder?  Path was " + path + " and without extension was " + basename);
 			}
 		}
 		string text = asset.text;

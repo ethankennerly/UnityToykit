@@ -5,7 +5,7 @@ namespace Finegamedesign.Utils
 {
 	public sealed class AnimationView
 	{
-		public static bool isVerbose = true;
+		public static bool isVerbose = false;
 		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
