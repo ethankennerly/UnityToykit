@@ -25,6 +25,19 @@ namespace Finegamedesign.Utils
 			return child;
 		}
 
+		// namePattern:  Substitute {0} with an index between 0 and to countMax - 1.
+		public static List<GameObject> GetChildrenByPattern(GameObject parent, string namePattern, int countMax) 
+		{
+			List<GameObject> children = new List<GameObject>();
+			for (int i = 0; i < countMax; i++)
+			{
+				string name = namePattern.Replace("{0}", i.ToString());
+				GameObject child = SceneNodeView.GetChild(parent, name);
+				children.Add(child);
+			}
+			return children;
+		}
+
 		public static GameObject GetParent(GameObject child)
 		{
 			return child.transform.parent.gameObject;

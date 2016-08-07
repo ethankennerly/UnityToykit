@@ -73,7 +73,7 @@ public class Progress
 		normal = NextCreep(performanceNormal);
 		normal = ClampCheckpoint(normal);
 		if (isVerbose) {
-			Debug.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
+			Toolkit.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
 		}
 		return normal;
 	}
@@ -88,7 +88,7 @@ public class Progress
 		if (0.0f <= step) {
 			checkpoint = Mathf.Floor(normal / checkpointStep + 1) * checkpointStep;
 			if (isVerbose) {
-				Debug.Log("Progress.SetCheckpointStep: checkpoint " + checkpoint 
+				Toolkit.Log("Progress.SetCheckpointStep: checkpoint " + checkpoint 
 					+ " normal " + normal + " level " + GetLevelNormal());
 			}
 		}

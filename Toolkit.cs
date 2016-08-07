@@ -1,5 +1,5 @@
-using UnityEngine;  // Debug.Log
-using System;  // String, StringSplitOptions
+using UnityEngine/*<Debug.Log>*/;
+using System/*<String, StringSplitOptions>*/;
 
 /**
  * Bridge between portable game and platform-specific filesystem, game engine or toolkit.
@@ -8,10 +8,14 @@ using System;  // String, StringSplitOptions
 public class Toolkit
 {
 	public static string lineDelimiter = "\n";
+	public static bool isLogEnabled = true;
 
 	public static void Log(string message)
 	{
-		Debug.Log(message);
+		if (isLogEnabled)
+		{
+			Debug.Log(message);
+		}
 	}
 
 	public static int ParseInt(string digits)

@@ -45,7 +45,7 @@ namespace Finegamedesign.Utils
 					|| states[animatorOwner] != state;
 				if (isVerbose && (isRestart || isChange))
 				{
-					Debug.Log("AnimationView.SetState: " 
+					Toolkit.Log("AnimationView.SetState: " 
 						+ SceneNodeView.GetPath(animatorOwner)
 						+ ": " + state + " at " + Time.time);
 				}
@@ -55,7 +55,7 @@ namespace Finegamedesign.Utils
 			else
 			{
 				if (null == animator) {
-					Debug.Log("AnimationView.SetState: Does animator exist? " 
+					Toolkit.Log("AnimationView.SetState: Does animator exist? " 
 						+ SceneNodeView.GetPath(animatorOwner)
 						+ ": " + state);
 				}
@@ -97,7 +97,7 @@ namespace Finegamedesign.Utils
 					completedNow = states[animatorOwner];
 					if (isVerbose)
 					{
-						Debug.Log("AnimationView.CompletedNow: " 
+						Toolkit.Log("AnimationView.CompletedNow: " 
 							+ SceneNodeView.GetPath(animatorOwner)
 							+ ": " + completedNow + " at " + Time.time 
 							+ " info " + info 
@@ -110,7 +110,7 @@ namespace Finegamedesign.Utils
 						{
 							foreach(AnimationState state in animationStates)
 							{
-								Debug.Log("    state " + state.name 
+								Toolkit.Log("    state " + state.name 
 									+ " time " + state.time 
 									+ " length " + state.length
 									+ " weight " + state.weight
@@ -122,7 +122,7 @@ namespace Finegamedesign.Utils
 						AnimatorClipInfo[] clips = animator.GetCurrentAnimatorClipInfo(0);
 						foreach(AnimatorClipInfo clip in clips)
 						{
-							Debug.Log("clip " + clip.clip.name + " length " + clip.clip.length);
+							Toolkit.Log("clip " + clip.clip.name + " length " + clip.clip.length);
 						}
 					}
 					states[animatorOwner] = null;
@@ -131,7 +131,7 @@ namespace Finegamedesign.Utils
 			else
 			{
 				if (null == animator) {
-					Debug.Log("AnimationView.CompletedNow: Does animator exist? " 
+					Toolkit.Log("AnimationView.CompletedNow: Does animator exist? " 
 						+ SceneNodeView.GetPath(animatorOwner));
 				}
 			}
