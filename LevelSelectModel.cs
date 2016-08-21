@@ -13,8 +13,10 @@ namespace Finegamedesign.Utils
 		public int requested = 0;
 		public List<int> menus = new List<int>();
 		public List<int> menuSelected = new List<int>();
+		public List<string> menuNames = new List<string>();
 		public List<int> levelsPerItem = new List<int>();
 		public int menuIndex = 0;
+		public string menuName;
 
 		public void Setup()
 		{
@@ -27,6 +29,15 @@ namespace Finegamedesign.Utils
 					levelsPerItem[previous] *= menu;
 				}
 				menuSelected.Add(-1);
+			}
+			SetMenuName(menuIndex);
+		}
+
+		private void SetMenuName(int menuIndex)
+		{
+			if (menuIndex < DataUtil.Length(menuNames))
+			{
+				menuName = menuNames[menuIndex];
 			}
 		}
 
@@ -50,6 +61,7 @@ namespace Finegamedesign.Utils
 				context = requested;
 				menuSelected[menuIndex] = itemIndex;
 				menuIndex++;
+				SetMenuName(menuIndex);
 			}
 			return isUnlocked;
 		}
