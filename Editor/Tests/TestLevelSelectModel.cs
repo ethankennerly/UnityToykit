@@ -6,10 +6,8 @@ namespace Finegamedesign.Utils
 	[TestFixture]
 	public sealed class TestLevelSelectModel
 	{
-		[Test]
-		public void Select107of109Unlocked()
+		public static void Configure(LevelSelectModel model)
 		{
-			LevelSelectModel model = new LevelSelectModel();
 			model.levelCount = 2939;
 			model.levelUnlocked = 109;
 			model.menus = new List<int>(){8, 20, 20};
@@ -19,6 +17,13 @@ namespace Finegamedesign.Utils
 				"wordSelect",
 				"play"
 			};
+		}
+
+		[Test]
+		public void Select107of109Unlocked()
+		{
+			LevelSelectModel model = new LevelSelectModel();
+			Configure(model);
 			model.Setup();
 			Assert.AreEqual(1, model.levelsPerItem[2]);
 			Assert.AreEqual(20, model.levelsPerItem[1]);

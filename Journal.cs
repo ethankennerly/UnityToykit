@@ -60,7 +60,7 @@ namespace Finegamedesign.Utils
 		// Example: TestAnagramJournal.cs
 		public void Read(string historyTsv)
 		{
-			string[][] table = Toolkit.ParseCsv(historyTsv, "\t");
+			string[][] table = StringUtil.ParseCsv(historyTsv, "\t");
 			DataUtil.Clear(playbackDelays);
 			DataUtil.Clear(playbackActions);
 			if ("delay" != table[0][0] || "action" != table[0][1])
@@ -71,7 +71,7 @@ namespace Finegamedesign.Utils
 			for (int rowIndex = 1; rowIndex < DataUtil.Length(table); rowIndex++)
 			{
 				string[] row = table[rowIndex];
-				int delay = Toolkit.ParseInt(row[0]);
+				int delay = StringUtil.ParseInt(row[0]);
 				playbackDelays.Add(delay);
 				string action = row[1];
 				playbackActions.Add(action);
