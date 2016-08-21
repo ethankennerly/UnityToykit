@@ -41,19 +41,25 @@ namespace Finegamedesign.Utils
 			}
 		}
 
+		private int Amount(int itemIndex)
+		{
+			int amount;
+			if (menuIndex < DataUtil.Length(menus) - 1)
+			{
+				amount = itemIndex * levelsPerItem[menuIndex];
+			}
+			else
+			{
+				amount = itemIndex;
+			}
+			return amount;
+		}
+
 		// Item in menu.
 		// Return true if available.
 		public bool Select(int itemIndex)
 		{
-			requested = context;
-			if (menuIndex < DataUtil.Length(menus) - 1)
-			{
-				requested += itemIndex * levelsPerItem[menuIndex];
-			}
-			else
-			{
-				requested += itemIndex;
-			}
+			requested = context + Amount(itemIndex);
 			bool isUnlocked = requested <= levelUnlocked;
 			if (isUnlocked)
 			{
@@ -64,6 +70,16 @@ namespace Finegamedesign.Utils
 				SetMenuName(menuIndex);
 			}
 			return isUnlocked;
+		}
+
+		public void Exit()
+		{
+			if (1 <= menuIndex)
+			{
+				menuIndex--;
+				context -= Amount(menuSelected[menuIndex]);
+				SetMenuName(menuIndex);
+			}
 		}
 	}
 }

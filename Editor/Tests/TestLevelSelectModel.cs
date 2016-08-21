@@ -28,6 +28,14 @@ namespace Finegamedesign.Utils
 			Assert.AreEqual(1, model.levelsPerItem[2]);
 			Assert.AreEqual(20, model.levelsPerItem[1]);
 			Assert.AreEqual(400, model.levelsPerItem[0]);
+			AssertSelect107(model);
+			AssertExit(model);
+			AssertSelect107(model);
+			AssertExit(model);
+		}
+
+		private void AssertSelect107(LevelSelectModel model)
+		{
 			Assert.AreEqual(0, model.menuIndex);
 			Assert.AreEqual("chapterSelect", model.menuName);
 			Assert.AreEqual(false, model.Select(1));
@@ -52,6 +60,20 @@ namespace Finegamedesign.Utils
 			Assert.AreEqual(107, model.levelSelected);
 			Assert.AreEqual(107, model.requested);
 			Assert.AreEqual("play", model.menuName);
+		}
+
+		private void AssertExit(LevelSelectModel model)
+		{
+			model.Exit();
+			Assert.AreEqual(2, model.menuIndex);
+			Assert.AreEqual(100, model.context);
+			Assert.AreEqual("wordSelect", model.menuName);
+			model.Exit();
+			Assert.AreEqual(1, model.menuIndex);
+			Assert.AreEqual(0, model.context);
+			Assert.AreEqual("levelSelect", model.menuName);
+			model.Exit();
+			model.Exit();
 		}
 	}
 }
