@@ -72,6 +72,11 @@ namespace Finegamedesign.Utils
 			return isUnlocked;
 		}
 
+		public bool IsInMenu()
+		{
+			return 0 <= menuIndex && menuIndex < DataUtil.Length(menus);
+		}
+
 		public void Exit()
 		{
 			if (1 <= menuIndex)

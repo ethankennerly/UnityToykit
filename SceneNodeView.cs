@@ -6,6 +6,11 @@ namespace Finegamedesign.Utils
 	// Portable API
 	public sealed class SceneNodeView
 	{
+		public static GameObject Find(string path)
+		{
+			return GameObject.Find(path);
+		}
+
 		// Override child:  If not null, return this instead.
 		// Useful for editor to override game objects if needed.
 		public static GameObject GetChild(GameObject parent, string name, GameObject overrideChild = null)
@@ -61,12 +66,15 @@ namespace Finegamedesign.Utils
 			child.transform.SetParent(parent.transform, false);
 		}
 
-		public static List<GameObject> GetChildren(GameObject parent)
+		public static List<GameObject> GetChildren(GameObject parent, bool isIncludeActiveOnly = false)
 		{
 			List<GameObject> children = new List<GameObject>();
 			foreach (Transform child in parent.transform)
 			{
-				children.Add(child.gameObject);
+				if (!isIncludeActiveOnly || child.gameObject.activeSelf)
+				{
+					children.Add(child.gameObject);
+				}
 			}
 			return children;
 		}
