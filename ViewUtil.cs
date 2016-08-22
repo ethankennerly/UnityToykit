@@ -39,7 +39,7 @@ public class ViewUtil_DEPRECATED
 		Animator animator = gameObject.GetComponent<Animator>();
 		if (null != animator && animator.isInitialized)
 		{
-			// Toolkit.Log("ViewUtil.SetState: " + gameObject + ": " + state);
+			// DebugUtil.Log("ViewUtil.SetState: " + gameObject + ": " + state);
 			if (isRestart)
 			{
 				animator.Play(state);
@@ -52,7 +52,7 @@ public class ViewUtil_DEPRECATED
 		else
 		{
 			if (null == animator) {
-				Toolkit.Log("ViewUtil.SetState: Does animator exist? " + gameObject.transform.parent + gameObject + ": " + state);
+				DebugUtil.Log("ViewUtil.SetState: Does animator exist? " + gameObject.transform.parent + gameObject + ": " + state);
 			}
 		}
 	}

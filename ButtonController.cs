@@ -32,7 +32,7 @@ namespace Finegamedesign.Utils
 			view.targetNext = null;
 			if (isVerbose && isAnyNow)
 			{
-				Toolkit.Log("ButtonController.Update: " + downName);
+				DebugUtil.Log("ButtonController.Update: " + downName);
 			}
 		}
 	}
