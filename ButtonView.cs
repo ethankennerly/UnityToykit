@@ -27,8 +27,12 @@ namespace Finegamedesign.Utils
 		// 
 		public void Listen(GameObject button)
 		{
-			button.AddComponent<ButtonBehaviour>();
 			ButtonBehaviour behaviour = button.GetComponent<ButtonBehaviour>();
+			if (null == behaviour)
+			{
+				button.AddComponent<ButtonBehaviour>();
+			}
+			behaviour = button.GetComponent<ButtonBehaviour>();
 			behaviour.view = this;
 		}
 
