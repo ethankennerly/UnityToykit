@@ -233,6 +233,11 @@ namespace Finegamedesign.Utils
 			SetLocalScaleY(viewObject, y * local / world);
 		}
 
+		public static bool GetVisible(GameObject gameObject)
+		{
+			return gameObject.activeSelf;
+		}
+
 		public static void SetVisible(GameObject gameObject, bool isVisible)
 		{
 			gameObject.SetActive(isVisible);
