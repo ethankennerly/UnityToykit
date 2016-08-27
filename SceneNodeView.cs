@@ -11,6 +11,11 @@ namespace Finegamedesign.Utils
 			return GameObject.Find(path);
 		}
 
+		public static object FindObjectOfType(System.Type type)
+		{
+			return Object.FindObjectOfType(type);
+		}
+
 		// Override child:  If not null, return this instead.
 		// Useful for editor to override game objects if needed.
 		public static GameObject GetChild(GameObject parent, string name, GameObject overrideChild = null)
