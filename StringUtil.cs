@@ -81,6 +81,11 @@ namespace Finegamedesign.Utils
 			return parts;
 		}
 
+		public static string Remove(string text, int index)
+		{
+			return text.Remove(index);
+		}
+
 		//
 		// Trim whitespace.  
 		// Test case:  Expect 5 rows.  Got 6.  Last row is empty, from final line delimiter at the end of the file's text.

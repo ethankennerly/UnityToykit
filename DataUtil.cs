@@ -47,6 +47,51 @@ namespace /*<com>*/Finegamedesign.Utils
 			return text.Length;
 		}
 
+		public static int IndexOf<T>(ArrayList elements, T target)
+		{
+			return elements.IndexOf(target);
+		}
+
+		public static int IndexOf<T>(List<T> elements, T target)
+		{
+			return elements.IndexOf(target);
+		}
+
+		public static int IndexOf<T>(T[] elements, T target)
+		{
+			return Array.IndexOf(elements, target);
+		}
+
+		public static int IndexOf(string text, string target)
+		{
+			return text.IndexOf(target);
+		}
+
+		public static int LastIndexOf<T>(ArrayList elements, T target)
+		{
+			return elements.LastIndexOf(target);
+		}
+
+		public static int LastIndexOf<T>(List<T> elements, T target)
+		{
+			return elements.LastIndexOf(target);
+		}
+
+		public static int LastIndexOf<T>(T[] elements, T target)
+		{
+			return Array.LastIndexOf(elements, target);
+		}
+
+		public static int LastIndexOf(string text, string target)
+		{
+			return text.LastIndexOf(target);
+		}
+
+		public static void Clear<T>(T[] items)
+		{
+			Array.Clear(items, 0, items.Length);
+		}
+
 		public static void Clear(ArrayList items)
 		{
 			items.Clear();
