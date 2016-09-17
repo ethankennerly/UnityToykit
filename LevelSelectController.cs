@@ -6,6 +6,7 @@ namespace Finegamedesign.Utils
 		public LevelSelectView view;
 		public ButtonController buttons = new ButtonController();
 
+		// Listen to menu buttons and exit buttons.
 		public void Setup()
 		{
 			model.Setup();
@@ -22,6 +23,15 @@ namespace Finegamedesign.Utils
 					buttons.view.Listen(items[item]);
 				}
 			}
+			int exitButtonLength = DataUtil.Length(view.exitButtons);
+			for (int index = 0; index < exitButtonLength; index++)
+			{
+				var exitButton = view.exitButtons[index];
+				if (null != exitButton)
+				{
+					buttons.view.Listen(exitButton);
+				}
+			}
 		}
 
 		public void ViewButtons()
@@ -29,9 +39,13 @@ namespace Finegamedesign.Utils
 			if (model.IsInMenu())
 			{
 				var items = view.buttons[model.menuIndex];
-				for (int item = 0; item < DataUtil.Length(items); item++)
+				for (int index = 0; index < DataUtil.Length(items); index++)
 				{
-					ButtonView.SetEnabled(items[item], model.IsUnlocked(item));
+					bool isVisible = model.IsInRange(index);
+					var item = items[index];
+					SceneNodeView.SetVisible(item, isVisible);
+					ButtonView.SetEnabled(item, model.IsUnlocked(index));
+					TextView.SetChildText(item, model.LevelName(index));
 				}
 			}
 		}
@@ -57,6 +71,14 @@ namespace Finegamedesign.Utils
 					if (0 <= index)
 					{
 						model.Select(index);
+					}
+					else
+					{
+						index = view.exitButtons.IndexOf(buttons.view.target);
+						if (0 <= index)
+						{
+							model.Exit();
+						}
 					}
 				}
 			}

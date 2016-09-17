@@ -80,6 +80,7 @@ namespace Finegamedesign.Utils
 			Assert.AreEqual(false, model.Select(10));
 			Assert.AreEqual(2, model.menuIndex);
 			Assert.AreEqual(true, model.IsUnlocked(7));
+			Assert.AreEqual("108", model.LevelName(7));
 			Assert.AreEqual(true, model.Select(7));
 			Assert.AreEqual(3, model.menuIndex);
 			Assert.AreEqual(107, model.levelSelected);

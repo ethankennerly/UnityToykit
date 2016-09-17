@@ -50,5 +50,11 @@ namespace Finegamedesign.Utils
 				}
 			}
 		}
+
+		public static void SetChildText(GameObject textOwnerParent, string text, string childName = "Text")
+		{
+			GameObject textOwner = SceneNodeView.GetChild(textOwnerParent, childName);
+			SetText(textOwner, text);
+		}
 	}
 }

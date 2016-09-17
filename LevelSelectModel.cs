@@ -61,10 +61,27 @@ namespace Finegamedesign.Utils
 			return amount;
 		}
 
+		public int LevelIndex(int itemIndex)
+		{
+			return context + Amount(itemIndex);
+		}
+
+		public string LevelName(int itemIndex)
+		{
+			int levelNumber = LevelIndex(itemIndex) + 1;
+			return levelNumber.ToString();
+		}
+
 		public bool IsUnlocked(int itemIndex)
 		{
-			requested = context + Amount(itemIndex);
+			requested = LevelIndex(itemIndex);
 			return requested <= levelUnlocked;
+		}
+
+		public bool IsInRange(int itemIndex)
+		{
+			int level = LevelIndex(itemIndex);
+			return 0 <= level && level < levelCount;
 		}
 
 		// Item in menu.
