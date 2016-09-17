@@ -4,7 +4,7 @@ Lightweight MVC tools for games in Unity 3D C#.
 
 ## Features
 
-Convenient amd portable:
+Convenient and portable:
 
 * Set animation.
 * Set text.
@@ -12,7 +12,13 @@ Convenient amd portable:
 * Listen to keys and buttons.
 
 Because the models and controllers are separated from the view, the models and controllers are easy to test.
-http://www.gamasutra.com/view/news/164363/Indepth\_Unit\_testing\_in\_Unity.php
+<http://www.gamasutra.com/view/news/164363/Indepth\_Unit\_testing\_in\_Unity.php>
+
+Prefer sealed classes, which: 
+* Prevents deep inheritance.
+<http://programmers.stackexchange.com/questions/137687/why-is-subclassing-too-much-bad-and-hence-why-should-we-use-prototypes-to-do-aw>
+* Speeds up method calls.
+<https://blogs.unity3d.com/2016/07/26/il2cpp-optimizations-devirtualization/>
 
 ## Installing
 
@@ -46,11 +52,11 @@ Older version with a framework:
 
 Add It Up
 
-https://github.com/ethankennerly/add-it-up
+<https://github.com/ethankennerly/add-it-up>
 
-Made in one day.
+Made in one day for 64x64 pixel jam.
 
 For example of setting text, see:
 
-Assets/Scripts/Main.cs
-Assets/Scripts/Model.cs
+	Assets/Scripts/Main.cs
+	Assets/Scripts/Model.cs

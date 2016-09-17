@@ -31,8 +31,8 @@ namespace Finegamedesign.Utils
 			if (null == behaviour)
 			{
 				button.AddComponent<ButtonBehaviour>();
+				behaviour = button.GetComponent<ButtonBehaviour>();
 			}
-			behaviour = button.GetComponent<ButtonBehaviour>();
 			behaviour.view = this;
 		}
 
