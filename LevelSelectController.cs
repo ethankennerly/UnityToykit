@@ -27,6 +27,7 @@ namespace Finegamedesign.Utils
 		public void Update()
 		{
 			buttons.Update();
+			model.Update();
 			if (buttons.isAnyNow)
 			{
 				int index = -1;

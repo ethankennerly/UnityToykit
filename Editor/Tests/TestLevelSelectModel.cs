@@ -34,6 +34,29 @@ namespace Finegamedesign.Utils
 			AssertExit(model);
 		}
 
+		[Test]
+		public void UpdateIsExitMenuNow()
+		{
+			LevelSelectModel model = new LevelSelectModel();
+			Configure(model);
+			model.Setup();
+			Assert.AreEqual(false, model.isExitMenuNow);
+			Assert.AreEqual(true, model.Select(0));
+			Assert.AreEqual(true, model.Select(0));
+			model.Update();
+			Assert.AreEqual(false, model.isExitMenuNow, "Expected in second submenu.");
+			model.Update();
+			Assert.AreEqual(false, model.isExitMenuNow);
+			Assert.AreEqual(true, model.Select(0));
+			model.Update();
+			Assert.AreEqual(true, model.isExitMenuNow, "Expected exit third submenu.");
+			model.Update();
+			Assert.AreEqual(false, model.isExitMenuNow);
+			model.Update();
+			Assert.AreEqual(false, model.isExitMenuNow, 
+				"Expected to not retrigger exit after second update.");
+		}
+
 		private void AssertSelect107(LevelSelectModel model)
 		{
 			Assert.AreEqual(0, model.menuIndex);
