@@ -77,6 +77,11 @@ namespace Finegamedesign.Utils
 			return 0 <= menuIndex && menuIndex < DataUtil.Length(menus);
 		}
 
+		public bool IsSelected()
+		{
+			return !IsInMenu();
+		}
+
 		public void Exit()
 		{
 			if (1 <= menuIndex)
