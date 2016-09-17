@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI/*<Button>*/;
 
 namespace Finegamedesign.Utils
 {
 	public sealed class ButtonView
 	{
+		public static void SetEnabled(GameObject buttonOwner, bool isEnabled)
+		{
+			Button button = buttonOwner.GetComponent<Button>();
+			button.interactable = isEnabled;
+		}
+
 		public ButtonController controller;
 		public GameObject target = null;
 		public GameObject targetNext = null;

@@ -24,6 +24,18 @@ namespace Finegamedesign.Utils
 			}
 		}
 
+		public void ViewButtons()
+		{
+			if (model.IsInMenu())
+			{
+				var items = view.buttons[model.menuIndex];
+				for (int item = 0; item < DataUtil.Length(items); item++)
+				{
+					ButtonView.SetEnabled(items[item], model.IsUnlocked(item));
+				}
+			}
+		}
+
 		public void Update()
 		{
 			buttons.Update();
@@ -48,6 +60,7 @@ namespace Finegamedesign.Utils
 					}
 				}
 			}
+			ViewButtons();
 			if (null != view && null != model.menuName)
 			{
 				AnimationView.SetState(view.animatorOwner, model.menuName);

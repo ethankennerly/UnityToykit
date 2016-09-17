@@ -61,6 +61,7 @@ namespace Finegamedesign.Utils
 		{
 			Assert.AreEqual(0, model.menuIndex);
 			Assert.AreEqual("chapterSelect", model.menuName);
+			Assert.AreEqual(false, model.IsUnlocked(1));
 			Assert.AreEqual(false, model.Select(1));
 			Assert.AreEqual(0, model.menuIndex);
 			Assert.AreEqual("chapterSelect", model.menuName);
@@ -78,6 +79,7 @@ namespace Finegamedesign.Utils
 			Assert.AreEqual("wordSelect", model.menuName);
 			Assert.AreEqual(false, model.Select(10));
 			Assert.AreEqual(2, model.menuIndex);
+			Assert.AreEqual(true, model.IsUnlocked(7));
 			Assert.AreEqual(true, model.Select(7));
 			Assert.AreEqual(3, model.menuIndex);
 			Assert.AreEqual(107, model.levelSelected);

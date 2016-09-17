@@ -61,21 +61,29 @@ namespace Finegamedesign.Utils
 			return amount;
 		}
 
+		public bool IsUnlocked(int itemIndex)
+		{
+			requested = context + Amount(itemIndex);
+			return requested <= levelUnlocked;
+		}
+
 		// Item in menu.
 		// Return true if available.
 		public bool Select(int itemIndex)
 		{
-			requested = context + Amount(itemIndex);
-			bool isUnlocked = requested <= levelUnlocked;
-			if (isUnlocked)
+			if (IsUnlocked(itemIndex))
 			{
 				levelSelected = requested;
 				context = requested;
 				menuSelected[menuIndex] = itemIndex;
 				menuIndex++;
 				SetMenuName(menuIndex);
+				return true;
 			}
-			return isUnlocked;
+			else
+			{
+				return false;
+			}
 		}
 
 		public bool IsInMenu()
