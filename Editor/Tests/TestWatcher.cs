@@ -24,5 +24,25 @@ namespace Finegamedesign.Utils
 			Assert.AreEqual(false, isInMenuWatcher.IsChange());
 			Assert.AreEqual(false, isInMenuWatcher.IsChangeTo(true));
 		}
+
+		[Test]
+		public void CurrentUpdateIsChangeTo()
+		{
+			var helpState = Watcher<string>.Create("none");
+			helpState.Update(helpState.next);
+			Assert.AreEqual(false, helpState.IsChangeTo("paused"));
+			Assert.AreEqual(false, helpState.IsChange());
+			helpState.next = "tutor";
+			helpState.Update(helpState.next);
+			Assert.AreEqual(false, helpState.IsChangeTo("paused"));
+			Assert.AreEqual(true, helpState.IsChange());
+			helpState.next = "paused";
+			helpState.Update(helpState.next);
+			Assert.AreEqual(true, helpState.IsChangeTo("paused"));
+			Assert.AreEqual(true, helpState.IsChange());
+			helpState.Update(helpState.next);
+			Assert.AreEqual(false, helpState.IsChangeTo("paused"));
+			Assert.AreEqual(false, helpState.IsChange());
+		}
 	}
 }

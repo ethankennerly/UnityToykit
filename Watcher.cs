@@ -5,6 +5,8 @@ namespace Finegamedesign.Utils
 	// Useful to detect when a value has changed, and when it has changed to an exact value.
 	// Can watch external data structures.
 	// Can also be used to store the state itself.
+	// This explicit polling is more flexible and lighter than an Observer pattern.
+	// An Observer pattern would automatically push when the original value changes.
 	// Example: Editor/Tests/TestWatcher.cs
 	public sealed class Watcher<T> where T : IComparable
 	{
@@ -15,18 +17,21 @@ namespace Finegamedesign.Utils
 			return watch;
 		}
 
-		public T current;
+		public T next;
+		private T current;
 		public T previous;
 
 		public void Setup(T subjectValue)
 		{
-			current = subjectValue;
+			next = subjectValue;
 			previous = subjectValue;
+			current = subjectValue;
 		}
 
 		public void Update(T subjectValue)
 		{
 			previous = current;
+			next = subjectValue;
 			current = subjectValue;
 		}
 
