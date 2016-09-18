@@ -25,6 +25,7 @@ public class Progress
 	public int level = 0;
 	public int levelNormalMax = 1000;
 	public int levelMax = 0;
+	public int levelUnlocked = 0;
 	public float normal = 0.0f;
 	public float radius = 
 			0.03125f;
@@ -133,13 +134,20 @@ public class Progress
 		return (int)(Mathf.Ceil(levelNormalMax * level / levelRate));
 	}
 
-	public void SetLevelNormal(int level)
+	public void SetLevelNormal(int levelNormal)
 	{
-		normal = level / (float)levelNormalMax;
+		normal = levelNormal / (float)levelNormalMax;
 		if (0 == levelMax)
 		{
 			levelMax = levelNormalMax;
 		}
 		SetCheckpointStep(checkpointStep);
+	}
+
+	// Example:  Editor/Tests/TestProgress.cs
+	public void SetLevelNormalUnlocked(int levelNormal)
+	{
+		SetLevelNormal(levelNormal);
+		levelUnlocked = (int)(normal * levelMax);
 	}
 }

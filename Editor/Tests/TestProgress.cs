@@ -126,4 +126,18 @@ internal class TestProgress
 		Assert.AreEqual(0.0f, progress.normal);
 		Assert.AreEqual(0, progress.GetLevelNormal());
 	}
+
+	[Test]
+	public void SetLevelNormalUnlocked()
+	{
+		Progress progress = new Progress();
+		progress.levelNormalMax = 10000;
+		progress.levelMax = 3000;
+		Assert.AreEqual(0.0f, progress.normal);
+		Assert.AreEqual(0, progress.GetLevelNormal());
+		progress.SetLevelNormalUnlocked(5000);
+		Assert.AreEqual(1500, progress.levelUnlocked);
+		progress.SetLevelNormalUnlocked(249);
+		Assert.AreEqual(74, progress.levelUnlocked);
+	}
 }
