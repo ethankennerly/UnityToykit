@@ -47,19 +47,4 @@ namespace Finegamedesign.Utils
 			return 0 == a.CompareTo(b);
 		}
 	}
-
-	// Refer to Watcher without generic syntax for needed types:  bool, string.
-	public sealed class WatcherFactory
-	{
-		public static Watcher<bool> Create(bool subjectValue)
-		{
-			return Watcher<bool>.Create(subjectValue);
-		}
-
-		public static Watcher<string> Create(string subjectValue)
-		{
-			return Watcher<string>.Create(subjectValue);
-		}
-
-	}
 }

@@ -8,7 +8,7 @@ namespace Finegamedesign.Utils
 		public void UpdateIsChangeTo()
 		{
 			bool isInMenu = true;
-			var isInMenuWatcher = WatcherFactory.Create(isInMenu);
+			var isInMenuWatcher = Watcher<bool>.Create(isInMenu);
 			isInMenuWatcher.Update(isInMenu);
 			Assert.AreEqual(false, isInMenuWatcher.IsChangeTo(false));
 			Assert.AreEqual(false, isInMenuWatcher.IsChange());

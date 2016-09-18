@@ -17,9 +17,7 @@ namespace Finegamedesign.Utils
 		public List<int> levelsPerItem = new List<int>();
 		public int menuIndex = 0;
 		public string menuName;
-		public bool isExitMenuNow = false;
-		public bool isInMenuBefore = false;
-		public bool isInMenuNow = false;
+		public Watcher<bool> inMenu;
 
 		public void Setup()
 		{
@@ -34,9 +32,7 @@ namespace Finegamedesign.Utils
 				menuSelected.Add(-1);
 			}
 			SetMenuName(menuIndex);
-			isInMenuNow = IsInMenu();
-			isInMenuBefore = isInMenuNow;
-			isExitMenuNow = false;
+			inMenu = Watcher<bool>.Create(IsInMenu());
 		}
 
 		private void SetMenuName(int menuIndex)
@@ -120,9 +116,7 @@ namespace Finegamedesign.Utils
 
 		public void Update()
 		{
-			isInMenuNow = IsInMenu();
-			isExitMenuNow = isInMenuBefore && !isInMenuNow;
-			isInMenuBefore = isInMenuNow;
+			inMenu.Update(IsInMenu());
 		}
 	}
 }

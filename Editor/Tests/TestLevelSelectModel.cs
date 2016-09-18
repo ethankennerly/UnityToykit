@@ -40,20 +40,20 @@ namespace Finegamedesign.Utils
 			LevelSelectModel model = new LevelSelectModel();
 			Configure(model);
 			model.Setup();
-			Assert.AreEqual(false, model.isExitMenuNow);
+			Assert.AreEqual(false, model.inMenu.IsChangeTo(false));
 			Assert.AreEqual(true, model.Select(0));
 			Assert.AreEqual(true, model.Select(0));
 			model.Update();
-			Assert.AreEqual(false, model.isExitMenuNow, "Expected in second submenu.");
+			Assert.AreEqual(false, model.inMenu.IsChangeTo(false), "Expected in second submenu.");
 			model.Update();
-			Assert.AreEqual(false, model.isExitMenuNow);
+			Assert.AreEqual(false, model.inMenu.IsChangeTo(false));
 			Assert.AreEqual(true, model.Select(0));
 			model.Update();
-			Assert.AreEqual(true, model.isExitMenuNow, "Expected exit third submenu.");
+			Assert.AreEqual(true, model.inMenu.IsChangeTo(false), "Expected exit third submenu.");
 			model.Update();
-			Assert.AreEqual(false, model.isExitMenuNow);
+			Assert.AreEqual(false, model.inMenu.IsChangeTo(false));
 			model.Update();
-			Assert.AreEqual(false, model.isExitMenuNow, 
+			Assert.AreEqual(false, model.inMenu.IsChangeTo(false), 
 				"Expected to not retrigger exit after second update.");
 		}
 
