@@ -4,7 +4,7 @@ namespace Finegamedesign.Utils
 	public sealed class ButtonController
 	{
 		public bool isAnyNow = false;
-		public bool isVerbose = true;
+		public bool isVerbose = false;
 		public string downName = null;
 		public ButtonView view = new ButtonView();
 		private string downNameNext = null;
