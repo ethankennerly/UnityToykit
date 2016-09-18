@@ -1,6 +1,5 @@
 using UnityEngine/*<Mathf>*/;
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic/*<List>*/;
 
 namespace Finegamedesign.Utils
 {
@@ -32,7 +31,6 @@ namespace Finegamedesign.Utils
 				0.03125f;
 				// 0.0625f;
 				// 0.1f;
-		private ArrayList cardsOriginally;
 		public bool isVerbose = false;
 
 		public bool isCheckpoint = false;
@@ -71,23 +69,6 @@ namespace Finegamedesign.Utils
 			indexes.RemoveAt(interpolated);
 			level = index;
 			return index;
-		}
-
-		// Pop interpolated card from 0 to 1.
-		// Example:  Editor/Tests/TestProgress.cs
-		public T Pop<T>(List<T> cards, int min = 0)
-		{
-			int index = (int)Mathf.Floor(normal * cards.Count);
-			index = Mathf.Min(cards.Count - 1, index);
-			index = Mathf.Max(min, index);
-			T card = cards[index];
-			if (null == cardsOriginally) {
-				cardsOriginally = new ArrayList(cards);
-				levelMax = cards.Count;
-			}
-			level = cardsOriginally.IndexOf(card) + 1;
-			cards.RemoveAt(index);
-			return card;
 		}
 
 		public float NextCreep(float performanceNormal)

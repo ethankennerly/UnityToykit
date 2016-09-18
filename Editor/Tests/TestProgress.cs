@@ -82,27 +82,6 @@ namespace Finegamedesign.Utils
 		}
 
 		[Test]
-		public void Pop()
-		{
-			List<int> cards = new List<int>{10, 11, 12, 13};
-			Progress progress = new Progress();
-			progress.normal = 0.5f;
-			Assert.AreEqual(12, progress.Pop(cards));
-			Assert.AreEqual(3, progress.level);
-			Assert.AreEqual(4, progress.levelMax);
-			Assert.AreEqual(11, progress.Pop(cards));
-			Assert.AreEqual(2, progress.level);
-			Assert.AreEqual(4, progress.levelMax);
-			Assert.AreEqual(13, progress.Pop(cards));
-			Assert.AreEqual(4, progress.level);
-			Assert.AreEqual(4, progress.levelMax);
-			progress.normal = 1.0f;
-			Assert.AreEqual(10, progress.Pop(cards));
-			Assert.AreEqual(1, progress.level);
-			Assert.AreEqual(4, progress.levelMax);
-		}
-
-		[Test]
 		public void GetLevelNormal()
 		{
 			Progress progress = new Progress();
