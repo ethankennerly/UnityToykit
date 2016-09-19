@@ -92,6 +92,7 @@ namespace Finegamedesign.Utils
 			if (isVerbose) {
 				DebugUtil.Log("Progress.creep: normal " + normal + " performance " + performanceNormal);
 			}
+			MayUnlock();
 			return normal;
 		}
 
@@ -158,7 +159,7 @@ namespace Finegamedesign.Utils
 				levelMax = levelNormalMax;
 			}
 			SetCheckpointStep(checkpointStep);
-			levelUnlocked = Mathf.Max(levelUnlocked, (int)(normal * levelMax));
+			MayUnlock();
 		}
 
 		// Example:  Editor/Tests/TestProgress.cs
@@ -166,6 +167,11 @@ namespace Finegamedesign.Utils
 		{
 			SetLevelNormal(levelNormal);
 			levelUnlocked = (int)(normal * levelMax);
+		}
+
+		private void MayUnlock()
+		{
+			levelUnlocked = Mathf.Max(levelUnlocked, (int)(normal * levelMax));
 		}
 	}
 }

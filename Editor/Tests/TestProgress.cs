@@ -9,10 +9,13 @@ namespace Finegamedesign.Utils
 		public void CreepUp()
 		{
 			Progress progress = new Progress();
+			progress.levelMax = 200;
 			progress.radius = 0.25f;
 			Assert.AreEqual(0.0f, progress.Creep(0.0f / 100));
 			Assert.AreEqual(0.0f, progress.Creep(50.0f / 100));
+			Assert.AreEqual(0, progress.levelUnlocked);
 			Assert.AreEqual(0.25f, progress.Creep(100.0f / 100));
+			Assert.AreEqual(50, progress.levelUnlocked);
 			Assert.AreEqual(0.25f + 3.0f / 16.0f, 
 				progress.Creep(100.0f / 100));
 		}
