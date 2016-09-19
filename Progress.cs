@@ -158,6 +158,7 @@ namespace Finegamedesign.Utils
 				levelMax = levelNormalMax;
 			}
 			SetCheckpointStep(checkpointStep);
+			levelUnlocked = Mathf.Max(levelUnlocked, (int)(normal * levelMax));
 		}
 
 		// Example:  Editor/Tests/TestProgress.cs

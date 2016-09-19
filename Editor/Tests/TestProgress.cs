@@ -101,25 +101,33 @@ namespace Finegamedesign.Utils
 		{
 			Progress progress = new Progress();
 			progress.levelNormalMax = 1000;
+			progress.levelUnlocked = 100;
+			progress.levelMax = 3000;
 			Assert.AreEqual(0.0f, progress.normal);
 			Assert.AreEqual(0, progress.GetLevelNormal());
+			Assert.AreEqual(100, progress.levelUnlocked);
 			progress.SetLevelNormal(500);
 			Assert.AreEqual(0.5f, progress.normal);
 			Assert.AreEqual(500, progress.GetLevelNormal());
+			Assert.AreEqual(1500, progress.levelUnlocked);
 			progress.levelMax = 2000;
 			progress.SetLevelNormal(500);
 			Assert.AreEqual(0.5f, progress.normal);
 			Assert.AreEqual(500, progress.GetLevelNormal());
+			Assert.AreEqual(1500, progress.levelUnlocked);
 			progress.SetLevelNormal(750);
 			Assert.AreEqual(0.75f, progress.normal);
 			Assert.AreEqual(750, progress.GetLevelNormal());
+			Assert.AreEqual(1500, progress.levelUnlocked);
 			progress.levelMax = 4000;
 			progress.SetLevelNormal(375);
 			Assert.AreEqual(0.375f, progress.normal);
 			Assert.AreEqual(375, progress.GetLevelNormal());
+			Assert.AreEqual(1500, progress.levelUnlocked);
 			progress.SetLevelNormal(0);
 			Assert.AreEqual(0.0f, progress.normal);
 			Assert.AreEqual(0, progress.GetLevelNormal());
+			Assert.AreEqual(1500, progress.levelUnlocked);
 		}
 
 		[Test]

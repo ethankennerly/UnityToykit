@@ -62,6 +62,10 @@ namespace Finegamedesign.Utils
 			}
 		}
 
+		// Gotcha:
+		// Trigger is not consumed until listening animation completes.
+		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
+		// Playing the animation directly, avoids this latent trigger.
 		public static void SetTrigger(GameObject animatorOwner, string state)
 		{
 			SetState(animatorOwner, state, false, true);
