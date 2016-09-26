@@ -175,6 +175,18 @@ namespace /*<com>*/Finegamedesign.Utils
 			return joined;
 		}
 
+		public static string Join(List<int> numbers, string delimiter)
+		{
+			int length = numbers.Count;
+			string[] parts = new string[length];
+			for (int index = 0; index < length; index++)
+			{
+				parts[index] = numbers[index].ToString();
+			}
+			string joined = string.Join(delimiter, parts);
+			return joined;
+		}
+
 		public static string Trim(string text)
 		{
 			return text.Trim();

@@ -57,6 +57,38 @@ namespace Finegamedesign.Utils
 				"Expected to not retrigger exit after second update.");
 		}
 
+		[Test]
+		public void ExitToLevelCurrently()
+		{
+			LevelSelectModel model = new LevelSelectModel();
+			Configure(model);
+			model.Setup();
+			string message = "menus [" + DataUtil.Join(model.menus, ", ") + "]"
+				+ " levelsPerItem [" + DataUtil.Join(model.levelsPerItem, ", ") + "]";
+			Assert.AreEqual(true, model.Select(0));
+			Assert.AreEqual(true, model.Select(5));
+			Assert.AreEqual(2, model.menuIndex);
+			Assert.AreEqual(100, model.context);
+			Assert.AreEqual(true, model.Select(7));
+			Assert.AreEqual(107, model.levelSelected);
+			model.Exit();
+			Assert.AreEqual(2, model.menuIndex);
+			Assert.AreEqual(100, model.context, message);
+			Assert.AreEqual(true, model.Select(7));
+			Assert.AreEqual(107, model.levelSelected);
+			Assert.AreEqual(3, model.menuIndex);
+			model.levelCurrently = 125;
+			model.Exit();
+			Assert.AreEqual(2, model.menuIndex);
+			Assert.AreEqual(120, model.context, message);
+			model.Exit();
+			Assert.AreEqual(1, model.menuIndex);
+			Assert.AreEqual(0, model.context);
+			model.Exit();
+			Assert.AreEqual(0, model.menuIndex);
+			Assert.AreEqual(0, model.context);
+		}
+
 		private void AssertSelect107(LevelSelectModel model)
 		{
 			Assert.AreEqual(0, model.menuIndex);

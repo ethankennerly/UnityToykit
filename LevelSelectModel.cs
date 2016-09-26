@@ -8,6 +8,7 @@ namespace Finegamedesign.Utils
 	{
 		public int context = 0;
 		public int levelCount = -1;
+		public int levelCurrently = 0;
 		public int levelUnlocked = 0;
 		public int levelSelected = 0;
 		public int requested = 0;
@@ -87,6 +88,7 @@ namespace Finegamedesign.Utils
 			if (IsUnlocked(itemIndex))
 			{
 				levelSelected = requested;
+				levelCurrently = requested;
 				context = requested;
 				menuSelected[menuIndex] = itemIndex;
 				menuIndex++;
@@ -104,14 +106,30 @@ namespace Finegamedesign.Utils
 			return 0 <= menuIndex && menuIndex < DataUtil.Length(menus);
 		}
 
+		// Exit to level select screen.  
+		// Return to current level, which may not be the level selected.
+		// Test case:  2016-09-18 Press X.  Select level.  
+		// Jennifer Russ could expect highest level.  Got first level selected.
 		public void Exit()
 		{
 			if (1 <= menuIndex)
 			{
 				menuIndex--;
-				context -= Amount(menuSelected[menuIndex]);
+				context = ContextCurrently();
+				// context -= Amount(menuSelected[menuIndex]);
 				SetMenuName(menuIndex);
 			}
+		}
+
+		private int ContextCurrently()
+		{
+			int currently = 0;
+			if (1 <= menuIndex)
+			{
+				int rounding = levelsPerItem[menuIndex - 1];
+				currently = levelCurrently / rounding * rounding;
+			}
+			return currently;
 		}
 
 		public void Update()
