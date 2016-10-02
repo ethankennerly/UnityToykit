@@ -9,7 +9,6 @@ namespace Finegamedesign.Utils
 		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
-		//
 		// Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 		// Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
@@ -65,13 +64,16 @@ namespace Finegamedesign.Utils
 		// Gotcha:
 		// Trigger is not consumed until listening animation completes.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
+		// So if the trigger is in a state that doesn't listen to that trigger,
+		// the trigger sticks around and could trigger as soon as it gets into a listening state.
+		// That can make it appear as if the trigger never fired.
 		// Playing the animation directly, avoids this latent trigger.
+		// Also having the model recognize which states will trigger avoid a latent trigger.
 		public static void SetTrigger(GameObject animatorOwner, string state)
 		{
 			SetState(animatorOwner, state, false, true);
 		}
 
-		//
 		// Return name state that was completed now, or null.
 		// Also erases that state, so next time this is called it won't be completed now.
 		// Expects time passed since SetState to avoid race when CompletedNow is not called before SetState in the frame.
@@ -85,7 +87,6 @@ namespace Finegamedesign.Utils
 		// 
 		// Blubberfish says integers will compare faster than strings.
 		// http://answers.unity3d.com/questions/407186/how-to-get-current-state-name-on-mecanim.html
-		// 
 		public static string CompletedNow(GameObject animatorOwner, int layer = 0)
 		{
 			string completedNow = null;

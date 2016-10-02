@@ -47,9 +47,20 @@ namespace Finegamedesign.Utils
 
 		// Work around comparison of values for C# generics:
 		// http://stackoverflow.com/questions/6480577/how-to-compare-values-of-generic-types
+		// If first is null, check if both are null.
+		// Example: Editor/Tests/TestWatcher.cs
 		private bool IsEqual(T a, T b)
 		{
-			return 0 == a.CompareTo(b);
+			bool isEqualValue;
+			if (null == a || null == b)
+			{
+				isEqualValue = a == null && b == null;
+			}
+			else
+			{
+				isEqualValue = 0 == a.CompareTo(b);
+			}
+			return isEqualValue;
 		}
 	}
 }
