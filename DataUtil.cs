@@ -87,19 +87,33 @@ namespace /*<com>*/Finegamedesign.Utils
 			return text.LastIndexOf(target);
 		}
 
-		public static void Clear<T>(T[] items)
+		public static void Clear<T>(T[] items, int startIndex = 0)
 		{
-			Array.Clear(items, 0, items.Length);
+			Array.Clear(items, startIndex, items.Length);
 		}
 
-		public static void Clear(ArrayList items)
+		public static void Clear(ArrayList items, int startIndex = 0)
 		{
-			items.Clear();
+			if (0 == startIndex)
+			{
+				items.Clear();
+			}
+			else
+			{
+				items.RemoveRange(startIndex, items.Count - startIndex);
+			}
 		}
 
-		public static void Clear<T>(List<T> items)
+		public static void Clear<T>(List<T> items, int startIndex = 0)
 		{
-			items.Clear();
+			if (0 == startIndex)
+			{
+				items.Clear();
+			}
+			else
+			{
+				items.RemoveRange(startIndex, items.Count - startIndex);
+			}
 		}
 
 		 /**
