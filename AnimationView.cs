@@ -61,6 +61,14 @@ namespace Finegamedesign.Utils
 			}
 		}
 
+		public static void SetStates(List<GameObject> animatorOwners, List<string> states)
+		{
+			for (int index = 0, end = states.Count; index < end; ++index)
+			{
+				SetState(animatorOwners[index], states[index]);
+			}
+		}
+
 		// Gotcha:
 		// Trigger is not consumed until listening animation completes.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html

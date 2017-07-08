@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine/*<GameObject>*/;
 using UnityEngine.UI/*<Text>*/;
 
@@ -48,6 +49,14 @@ namespace Finegamedesign.Utils
 				{
 					throw new System.InvalidOperationException("Expected to set Text or TextMesh component on " + textOwner);
 				}
+			}
+		}
+
+		public static void SetTexts(List<GameObject> textOwners, List<string> texts)
+		{
+			for (int index = 0, end = texts.Count; index < end; ++index)
+			{
+				SetText(textOwners[index], texts[index]);
 			}
 		}
 
