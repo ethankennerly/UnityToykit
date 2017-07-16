@@ -22,14 +22,17 @@ namespace Finegamedesign.Utils
 		}
 
 		// Represents enter key by "\n", even on Windows.
-		// Represents delete key or backspace key by "\b"
-		// Unity inserts backspace character already but not delete key.
+		// Represents delete key or backspace key by "\b".
+		// Unity 5.6 inserts backspace character already but not delete key, except on WebGL.
 		public static string InputString()
 		{
 			string input = Input.inputString;
 			if (Input.GetKeyDown("delete"))
 			{
-				input += backspaceCharacter;
+				if (input.IndexOf(backspaceCharacter) < 0)
+				{
+					input += backspaceCharacter;
+				}
 			}
 			input = input.Replace(windowsNewlineCharacter + newlineCharacter, newlineCharacter)
 				.Replace(windowsNewlineCharacter, newlineCharacter);
