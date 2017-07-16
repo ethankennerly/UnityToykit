@@ -5,7 +5,7 @@ namespace Finegamedesign.Utils
 {
 	public sealed class KeyView
 	{
-		public static bool isVerbose = true;
+		public static bool isVerbose = false;
 		public static string backspaceCharacter = "\b";
 		public static string newlineCharacter = "\n";
 		// Technically, Windows is "\r\n".  Mac is "\r".  Unix is "\n".
