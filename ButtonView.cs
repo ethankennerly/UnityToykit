@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI/*<Button>*/;
 
 namespace Finegamedesign.Utils
@@ -41,6 +42,14 @@ namespace Finegamedesign.Utils
 				behaviour = button.GetComponent<ButtonBehaviour>();
 			}
 			behaviour.view = this;
+		}
+
+		public void Listens(List<GameObject> buttons)
+		{
+			for (int index = 0, end = buttons.Count; index < end; ++index)
+			{
+				Listen(buttons[index]);
+			}
 		}
 
 		public void Down(GameObject button)
