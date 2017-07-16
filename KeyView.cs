@@ -5,9 +5,11 @@ namespace Finegamedesign.Utils
 {
 	public sealed class KeyView
 	{
-		public static bool isVerbose = false;
+		public static bool isVerbose = true;
 		public static string backspaceCharacter = "\b";
 		public static string newlineCharacter = "\n";
+		// Technically, Windows is "\r\n".  Mac is "\r".  Unix is "\n".
+		public static string windowsNewlineCharacter = "\r";
 
 		// If just pressed this frame.
 		// Key naming conventions:
@@ -19,7 +21,7 @@ namespace Finegamedesign.Utils
 			return Input.GetKeyDown(keyName);
 		}
 
-		// Represents enter key by "\n"
+		// Represents enter key by "\n", even on Windows.
 		// Represents delete key or backspace key by "\b"
 		// Unity inserts backspace character already but not delete key.
 		public static string InputString()
@@ -29,13 +31,12 @@ namespace Finegamedesign.Utils
 			{
 				input += backspaceCharacter;
 			}
-			if (Input.GetKeyDown("return"))
-			{
-				input += newlineCharacter;
-			}
+			input = input.Replace(windowsNewlineCharacter + newlineCharacter, newlineCharacter)
+				.Replace(windowsNewlineCharacter, newlineCharacter);
 			if (isVerbose && input != null && input != "")
 			{
-				DebugUtil.Log("KeyView.InputString: <" + input + ">");
+				DebugUtil.Log("KeyView.InputString: <" + input + ">"
+					+ " length " + DataUtil.Length(input));
 			}
 			return input;
 		}
