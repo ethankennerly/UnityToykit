@@ -36,6 +36,7 @@ namespace Finegamedesign.Utils
 			}
 			input = input.Replace(windowsNewlineCharacter + newlineCharacter, newlineCharacter)
 				.Replace(windowsNewlineCharacter, newlineCharacter);
+			input = input.Replace(backspaceCharacter + backspaceCharacter, backspaceCharacter);
 			if (isVerbose && input != null && input != "")
 			{
 				DebugUtil.Log("KeyView.InputString: <" + input + ">"
