@@ -106,5 +106,12 @@ namespace Finegamedesign.Utils
 			// DebugUtil.Log("StringUtil.ParseCsv: lines " + table.Length);
 			return table;
 		}
+
+		public static string[] ParseLines(string text)
+		{
+			text = text.Trim();
+			string[] lines = Split(text, lineDelimiter);
+			return lines;
+		}
 	}
 }
