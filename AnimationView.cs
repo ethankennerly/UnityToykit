@@ -9,6 +9,12 @@ namespace Finegamedesign.Utils
 		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
+		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false, bool isTrigger = false)
+		{
+			Animator animator = animatorOwner.GetComponent<Animator>();
+			SetState(animator, state, isRestart, isTrigger);
+		}
+
 		// Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 		// Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
@@ -23,9 +29,9 @@ namespace Finegamedesign.Utils
 		// Test case:  2016-02-13 Animate camera position.  Play.  Camera does not move.  Generate root motion curves.  Apply root motion curves.  Still camera does not move.  Assign animator to parent of camera.  Animate child.  Then camera moves.
 		// 
 		// isTrigger:  If true, then set trigger.  Otherwise play animation.
-		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false, bool isTrigger = false)
+		public static void SetState(Animator animator, string state, bool isRestart = false, bool isTrigger = false)
 		{
-			Animator animator = animatorOwner.GetComponent<Animator>();
+			GameObject animatorOwner = animator.gameObject;
 			if (null != animator && animator.isInitialized)
 			{
 				if (isTrigger)
@@ -40,11 +46,11 @@ namespace Finegamedesign.Utils
 				{
 					animator.Play(state);
 				}
-				bool isChange = !states.ContainsKey(animatorOwner) 
+				bool isChange = !states.ContainsKey(animatorOwner)
 					|| states[animatorOwner] != state;
 				if (isVerbose && (isRestart || isChange))
 				{
-					DebugUtil.Log("AnimationView.SetState: " 
+					DebugUtil.Log("AnimationView.SetState: "
 						+ SceneNodeView.GetPath(animatorOwner)
 						+ ": " + state + " at " + Time.time);
 				}
@@ -54,7 +60,7 @@ namespace Finegamedesign.Utils
 			else
 			{
 				if (null == animator) {
-					DebugUtil.Log("AnimationView.SetState: Does animator exist? " 
+					DebugUtil.Log("AnimationView.SetState: Does animator exist? "
 						+ SceneNodeView.GetPath(animatorOwner)
 						+ ": " + state);
 				}

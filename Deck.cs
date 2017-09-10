@@ -5,8 +5,6 @@ namespace Finegamedesign.Utils
 {
 	public sealed class Deck
 	{
-		private static System.Random rng = new System.Random();
-
 		// Uniform distribution between -radius and +radius inclusive.
 		public static int RandomRadius(int radius)
 		{
