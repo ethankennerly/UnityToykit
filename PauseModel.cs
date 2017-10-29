@@ -1,43 +1,78 @@
+using System;
+
 namespace Finegamedesign.Utils
 {
 	public sealed class PauseModel
 	{
-		private const string NoneState = "none";
-		private const string BeginState = "begin";
-		private const string EndState = "end";
+		private const string kNoneState = "none";
+		private const string kBeginState = "begin";
+		private const string kEndState = "end";
 
-		private string state = NoneState;
+		private string m_State = kNoneState;
 
-		private bool isPaused;
+		private bool m_IsPaused;
+
+		public bool isPaused
+		{
+			get
+			{
+				return m_IsPaused;
+			}
+			set
+			{
+				if (value)
+				{
+					Pause();
+				}
+				else
+				{
+					Resume();
+				}
+				m_IsPaused = value;
+			}
+		}
+
+		public string state
+		{
+			get
+			{
+				return m_State;
+			}
+			set
+			{
+				if (m_State == value)
+				{
+					return;
+				}
+				m_State = value;
+				if (onStateChanged == null)
+				{
+					return;
+				}
+				onStateChanged(value);
+			}
+		}
+
+		public event Action<string> onStateChanged;
 
 		public void Pause()
 		{
-			if (isPaused)
+			if (m_IsPaused)
 			{
 				return;
 			}
-			isPaused = true;
-			state = BeginState;
+			m_IsPaused = true;
+			state = kBeginState;
 		}
 
 		public void Resume()
 		{
-			if (!isPaused)
+			if (!m_IsPaused)
 			{
 				return;
 			}
-			isPaused = false;
-			state = EndState;
-		}
-
-		public bool GetIsPaused()
-		{
-			return isPaused;
-		}
-
-		public string GetState()
-		{
-			return state;
+			m_IsPaused = false;
+			state = kEndState;
 		}
 	}
 }
