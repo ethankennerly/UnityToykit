@@ -14,7 +14,7 @@ public sealed class TestObservable
 			}
 		}
 
-		public void OnChanged(T previousValue, T value)
+		public void OnChanged(T value)
 		{
 			m_Value = value;
 		}

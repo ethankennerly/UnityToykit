@@ -2,7 +2,7 @@ using System;
 
 public sealed class Observable<T>
 {
-	public event Action<T, T> onChanged;
+	public event Action<T> onChanged;
 
 	private T m_ObservedField;
 
@@ -18,13 +18,12 @@ public sealed class Observable<T>
 			{
 				return;
 			}
-			T previousValue = m_ObservedField;
 			m_ObservedField = value;
 			if (onChanged == null)
 			{
 				return;
 			}
-			onChanged(previousValue, value);
+			onChanged(value);
 		}
 	}
 
