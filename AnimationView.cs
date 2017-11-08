@@ -18,53 +18,61 @@ namespace Finegamedesign.Utils
 		// Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 		// Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
-		// 
+		//
 		// Do not call until initialized.  Test case:  2015-11-15 Got warning "Animator has not been initialized"
 		// http://answers.unity3d.com/questions/878896/animator-has-not-been-initialized-1.html
-		// 
+		//
 		// In editor, deleted and recreated animator state transition.  Test case:  2015-11-15 Got error "Transition '' in state 'selcted' uses parameter 'none' which is not compatible with condition type"
 		// http://answers.unity3d.com/questions/1070010/transition-x-in-state-y-uses-parameter-z-which-is.html
-		// 
+		//
 		// Unity expects not to animate the camera or the root itself.  Instead animate the child of the root.  The root might not move.
 		// Test case:  2016-02-13 Animate camera position.  Play.  Camera does not move.  Generate root motion curves.  Apply root motion curves.  Still camera does not move.  Assign animator to parent of camera.  Animate child.  Then camera moves.
-		// 
+		//
 		// isTrigger:  If true, then set trigger.  Otherwise play animation.
 		public static void SetState(Animator animator, string state, bool isRestart = false, bool isTrigger = false)
 		{
 			GameObject animatorOwner = animator.gameObject;
-			if (null != animator && animator.isInitialized)
+			if (null == animator)
 			{
-				if (isTrigger)
+				DebugUtil.Log("AnimationView.SetState: Does animator exist? "
+					+ SceneNodeView.GetPath(animatorOwner)
+					+ ": " + state);
+				return;
+			}
+			if (!animator.isInitialized)
+			{
+				if (isVerbose)
 				{
-					animator.SetTrigger(state);
+					DebugUtil.Log("AnimationView.SetState: Animator is not initialized.");
 				}
-				else if (isRestart)
-				{
-					animator.Play(state, -1, 0f);
-				}
-				else
-				{
-					animator.Play(state);
-				}
-				bool isChange = !states.ContainsKey(animatorOwner)
-					|| states[animatorOwner] != state;
-				if (isVerbose && (isRestart || isChange))
-				{
-					DebugUtil.Log("AnimationView.SetState: "
-						+ SceneNodeView.GetPath(animatorOwner)
-						+ ": " + state + " at " + Time.time);
-				}
-				states[animatorOwner] = state;
-				startTimes[state] = Time.time;
+				return;
+			}
+			if (!animator.enabled)
+			{
+				animator.enabled = true;
+			}
+			if (isTrigger)
+			{
+				animator.SetTrigger(state);
+			}
+			else if (isRestart)
+			{
+				animator.Play(state, -1, 0f);
 			}
 			else
 			{
-				if (null == animator) {
-					DebugUtil.Log("AnimationView.SetState: Does animator exist? "
-						+ SceneNodeView.GetPath(animatorOwner)
-						+ ": " + state);
-				}
+				animator.Play(state);
 			}
+			bool isChange = !states.ContainsKey(animatorOwner)
+				|| states[animatorOwner] != state;
+			if (isVerbose && (isRestart || isChange))
+			{
+				DebugUtil.Log("AnimationView.SetState: "
+					+ SceneNodeView.GetPath(animatorOwner)
+					+ ": " + state + " at " + Time.time);
+			}
+			states[animatorOwner] = state;
+			startTimes[state] = Time.time;
 		}
 
 		public static void SetStates(List<GameObject> animatorOwners, List<string> states)
