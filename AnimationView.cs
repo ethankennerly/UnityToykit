@@ -6,14 +6,8 @@ namespace Finegamedesign.Utils
 	public sealed class AnimationView
 	{
 		public static bool isVerbose = false;
-		private static Dictionary<GameObject, string> states = new Dictionary<GameObject, string>();
+		private static Dictionary<Animator, string> states = new Dictionary<Animator, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
-
-		public static void SetState(GameObject animatorOwner, string state, bool isRestart = false, bool isTrigger = false)
-		{
-			Animator animator = animatorOwner.GetComponent<Animator>();
-			SetState(animator, state, isRestart, isTrigger);
-		}
 
 		// Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 		// Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
@@ -29,13 +23,13 @@ namespace Finegamedesign.Utils
 		// Test case:  2016-02-13 Animate camera position.  Play.  Camera does not move.  Generate root motion curves.  Apply root motion curves.  Still camera does not move.  Assign animator to parent of camera.  Animate child.  Then camera moves.
 		//
 		// isTrigger:  If true, then set trigger.  Otherwise play animation.
-		public static void SetState(Animator animator, string state, bool isRestart = false, bool isTrigger = false)
+		public static void SetState(Animator animator, string state,
+			bool isRestart = false, bool isTrigger = false)
 		{
-			GameObject animatorOwner = animator.gameObject;
 			if (null == animator)
 			{
 				DebugUtil.Log("AnimationView.SetState: Does animator exist? "
-					+ SceneNodeView.GetPath(animatorOwner)
+					+ SceneNodeView.GetPath(animator.gameObject)
 					+ ": " + state);
 				return;
 			}
@@ -63,17 +57,25 @@ namespace Finegamedesign.Utils
 			{
 				animator.Play(state);
 			}
-			bool isChange = !states.ContainsKey(animatorOwner)
-				|| states[animatorOwner] != state;
+			bool isChange = !states.ContainsKey(animator)
+				|| states[animator] != state;
 			if (isVerbose && (isRestart || isChange))
 			{
 				DebugUtil.Log("AnimationView.SetState: "
-					+ SceneNodeView.GetPath(animatorOwner)
+					+ SceneNodeView.GetPath(animator.gameObject)
 					+ ": " + state + " at " + Time.time);
 			}
-			states[animatorOwner] = state;
+			states[animator] = state;
 			startTimes[state] = Time.time;
 		}
+
+		public static void SetState(GameObject animatorOwner, string state,
+			bool isRestart = false, bool isTrigger = false)
+		{
+			Animator animator = animatorOwner.GetComponent<Animator>();
+			SetState(animator, state, isRestart, isTrigger);
+		}
+
 
 		public static void SetStates(List<GameObject> animatorOwners, List<string> states)
 		{
@@ -101,68 +103,86 @@ namespace Finegamedesign.Utils
 		// Expects time passed since SetState to avoid race when CompletedNow is not called before SetState in the frame.
 		// Expects animation is on layer 0.
 		// Syncrhonous. Does not depend on event complete animation.
-		// 
+		//
 		// http://answers.unity3d.com/questions/351534/how-to-get-current-state-on-mecanim.html
 		//
 		// Another way might be to get the currently playing animation.
 		// http://answers.unity3d.com/questions/362629/how-can-i-check-if-an-animation-is-being-played-or.html
-		// 
+		//
 		// Blubberfish says integers will compare faster than strings.
 		// http://answers.unity3d.com/questions/407186/how-to-get-current-state-name-on-mecanim.html
-		public static string CompletedNow(GameObject animatorOwner, int layer = 0)
+		public static string CompletedNow(Animator animator, int layer = 0)
 		{
-			string completedNow = null;
-			Animator animator = animatorOwner.GetComponent<Animator>();
-			if (null != animator && animator.isInitialized)
+			if (null == animator)
 			{
-				AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(layer);
-				if (states.ContainsKey(animatorOwner) && null != states[animatorOwner] 
-				&& Time.time != startTimes[states[animatorOwner]]
-				&& 1.0f < info.normalizedTime
-				)
-				{
-					completedNow = states[animatorOwner];
-					if (isVerbose)
-					{
-						DebugUtil.Log("AnimationView.CompletedNow: " 
-							+ SceneNodeView.GetPath(animatorOwner)
-							+ ": " + completedNow + " at " + Time.time 
-							+ " info " + info 
-							+ " IsName " + info.IsName(states[animatorOwner])
-							+ " length " + info.length
-							+ " normalizedTime " + info.normalizedTime
-						);
-						Animation animationStates = animator.GetComponent<Animation>();
-						if (null != animationStates)
-						{
-							foreach(AnimationState state in animationStates)
-							{
-								DebugUtil.Log("    state " + state.name 
-									+ " time " + state.time 
-									+ " length " + state.length
-									+ " weight " + state.weight
-									+ " enabled " + state.enabled
-									+ " normalizedTime " + state.normalizedTime
-								);
-							}
-						}
-						AnimatorClipInfo[] clips = animator.GetCurrentAnimatorClipInfo(0);
-						foreach(AnimatorClipInfo clip in clips)
-						{
-							DebugUtil.Log("clip " + clip.clip.name + " length " + clip.clip.length);
-						}
-					}
-					states[animatorOwner] = null;
-				}
+				DebugUtil.Log("AnimationView.CompletedNow: Does animator exist? "
+					+ SceneNodeView.GetPath(animator.gameObject));
+				return null;
 			}
-			else
+			if (!animator.isInitialized)
 			{
-				if (null == animator) {
-					DebugUtil.Log("AnimationView.CompletedNow: Does animator exist? " 
-						+ SceneNodeView.GetPath(animatorOwner));
-				}
+				return null;
+			}
+			if (!states.ContainsKey(animator))
+			{
+				return null;
+			}
+			string completedNow = states[animator];
+			if (completedNow == null || startTimes[completedNow] == Time.time)
+			{
+				return null;
+			}
+			AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(layer);
+			if (info.normalizedTime < 1.0f)
+			{
+				return null;
+			}
+			states[animator] = null;
+			if (isVerbose)
+			{
+				LogInfo(animator, completedNow, info, layer, "AnimationView.CompletedNow: ");
 			}
 			return completedNow;
+		}
+
+		public static string CompletedNow(GameObject animatorOwner, int layer = 0)
+		{
+			return CompletedNow(animatorOwner.GetComponent<Animator>(), layer);
+		}
+
+		// XXX Would be faster with StringBuilder, rather than string concatenation.
+		private static void LogInfo(Animator animator, string completedNow, AnimatorStateInfo info,
+			int layer, string prefix)
+		{
+			string message = prefix
+				+ SceneNodeView.GetPath(animator.gameObject)
+				+ ": " + completedNow + " at " + Time.time
+				+ " info " + info
+				+ " IsName " + info.IsName(completedNow)
+				+ " length " + info.length
+				+ " normalizedTime " + info.normalizedTime
+			;
+			Animation animationStates = animator.GetComponent<Animation>();
+			if (null != animationStates)
+			{
+				foreach (AnimationState state in animationStates)
+				{
+					message += "\n    state " + state.name
+						+ " time " + state.time
+						+ " length " + state.length
+						+ " weight " + state.weight
+						+ " enabled " + state.enabled
+						+ " normalizedTime " + state.normalizedTime
+					;
+				}
+			}
+			AnimatorClipInfo[] clipInfos = animator.GetCurrentAnimatorClipInfo(layer);
+			for (int index = 0, end = clipInfos.Length; index < end; ++index)
+			{
+				AnimationClip clip = clipInfos[index].clip;
+				message += "\n    clip " + clip.name + " length " + clip.length;
+			}
+			DebugUtil.Log(message);
 		}
 	}
 }

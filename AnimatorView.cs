@@ -15,7 +15,6 @@ namespace Finegamedesign.Utils
 			Setup();
 		}
 
-		// Might be called
 		public void Setup()
 		{
 			if (m_Animator != null)
@@ -44,6 +43,9 @@ namespace Finegamedesign.Utils
 		// Disabling all animators removes this cost from the profiler.
 		// """Disable idle animations. Avoid design patterns where an animator sits in a loop setting a value to the same thing. There is considerable overhead for this technique, with no effect on the application. Instead, terminate the animation and restart when appropriate."""
 		// https://developer.microsoft.com/en-us/windows/mixed-reality/performance_recommendations_for_unity
+		//
+		// Would it be faster to poll animators every frame to see if a clip ended?
+		// And then disable the animator?
 		public void DisableAnimator()
 		{
 			m_Animator.enabled = false;
