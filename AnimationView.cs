@@ -9,6 +9,9 @@ namespace Finegamedesign.Utils
 		private static Dictionary<Animator, string> states = new Dictionary<Animator, string>();
 		private static Dictionary<string, float> startTimes = new Dictionary<string, float>();
 
+		private static List<Animator> animatorsToDisable = new List<Animator>();
+		private static List<Animator> animatorsToDisableNow = new List<Animator>();
+
 		// Call animator.Play instead of animator.SetTrigger, in case the animator is in transition.
 		// Test case:  2015-11-15 Enter "SAT".  Type "RAT".  Expect R selected.  Got "R" resets to unselected.
 		// http://answers.unity3d.com/questions/801875/mecanim-trigger-getting-stuck-in-true-state.html
@@ -67,6 +70,7 @@ namespace Finegamedesign.Utils
 			}
 			states[animator] = state;
 			startTimes[state] = Time.time;
+			MayAddToDisableOnEnd(animator);
 		}
 
 		public static void SetState(GameObject animatorOwner, string state,
@@ -96,6 +100,81 @@ namespace Finegamedesign.Utils
 		public static void SetTrigger(GameObject animatorOwner, string state)
 		{
 			SetState(animatorOwner, state, false, true);
+		}
+
+		// Does not support the animator transitioning to another state.
+		// Depends on setting state to add animators to disable.
+		// Disables on the next update.
+		// Still, this function's calling order is fragile.
+		// It works when updating disabling before any new animations are set.
+		//
+		// Remarks:
+		// Useful to disable animation at the end of a clip.
+		// Useful to speed up performance if animator update is a hotspot in the profiler.
+		// Unfortunately Unity animations can be slow and take up processing time
+		// even after the last keyframe.
+		// Disabling all animators removes this cost from the profiler.
+		// """Disable idle animations. Avoid design patterns where an animator sits in a loop setting a value to the same thing. There is considerable overhead for this technique, with no effect on the application. Instead, terminate the animation and restart when appropriate."""
+		// https://developer.microsoft.com/en-us/windows/mixed-reality/performance_recommendations_for_unity
+		//
+		// I didn't find a more performant method in Unity to set an animation to disable on end.
+		// An animation event sends a message, which is hundreds of times slower on that frame.
+		// The update poll has overhead that scales with number of observed animators.
+		// To reduce overhead, updating removes each animator when it disables.
+		public static void UpdateDisableOnEnd(int layer = 0)
+		{
+			for (int index = animatorsToDisableNow.Count - 1; index >= 0; --index)
+			{
+				Animator animator = animatorsToDisableNow[index];
+				animator.enabled = false;
+			}
+			animatorsToDisableNow.Clear();
+			for (int index = animatorsToDisable.Count - 1; index >= 0; --index)
+			{
+				Animator animator = animatorsToDisable[index];
+				if (animator == null || animator.gameObject == null
+					|| !animator.isInitialized || !animator.enabled)
+				{
+					animatorsToDisableNow.Add(animator);
+					animatorsToDisable.RemoveAt(index);
+					continue;
+				}
+				AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(layer);
+				if (info.normalizedTime < 1.0f)
+				{
+					continue;
+				}
+				animatorsToDisableNow.Add(animator);
+				animatorsToDisable.RemoveAt(index);
+			}
+		}
+
+		private static void MayAddToDisableOnEnd(Animator animator, int layer = 0)
+		{
+			if (!WillEnd(animator, layer))
+			{
+				return;
+			}
+			if (animatorsToDisable.IndexOf(animator) >= 0)
+			{
+				return;
+			}
+			animatorsToDisable.Add(animator);
+		}
+
+		// When animator is done and would clamp or play once, disables.
+		private static bool WillEnd(Animator animator, int layer = 0)
+		{
+			AnimatorClipInfo[] clipInfos = animator.GetCurrentAnimatorClipInfo(layer);
+			for (int index = 0, end = clipInfos.Length; index < end; ++index)
+			{
+				AnimationClip clip = clipInfos[index].clip;
+				if (clip.wrapMode == WrapMode.Loop || clip.wrapMode == WrapMode.PingPong)
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 		// Return name state that was completed now, or null.
