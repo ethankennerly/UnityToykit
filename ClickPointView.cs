@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public sealed class ClickPointView : MonoBehaviour
+namespace Finegamedesign.Utils
 {
-    private void Update()
+    public sealed class ClickPointView : MonoBehaviour
     {
-        ClickPoint.Update();
+        private void Update()
+        {
+            ClickPoint.Update();
+        }
     }
 }

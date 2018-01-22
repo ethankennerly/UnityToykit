@@ -1,12 +1,16 @@
 using System;
+using UnityEngine;
 
 namespace Finegamedesign.Utils
 {
+    [Serializable]
     public sealed class PauseModel
     {
         private const string kNoneState = "none";
         private const string kBeginState = "begin";
         private const string kEndState = "end";
+
+        public static event Action<string> onStateChanged;
 
         private string m_State = kNoneState;
 
@@ -53,7 +57,19 @@ namespace Finegamedesign.Utils
             }
         }
 
-        public event Action<string> onStateChanged;
+        [SerializeField]
+        [Tooltip("Scales time to zero when paused and back to one after resumed.")]
+        private bool m_ScaleTime = false;
+
+        public bool scaleTime
+        {
+            get { return m_ScaleTime; }
+            set { m_ScaleTime = value; }
+        }
+
+        private float m_PreviousTimeScale = 1f;
+
+        private bool m_IsVerbose = true;
 
         public void Pause()
         {
@@ -62,6 +78,19 @@ namespace Finegamedesign.Utils
                 return;
             }
             m_IsPaused = true;
+            if (m_ScaleTime)
+            {
+                m_PreviousTimeScale = Time.timeScale;
+                if (m_PreviousTimeScale <= 0f)
+                {
+                    m_PreviousTimeScale = 1f;
+                }
+                if (m_IsVerbose)
+                {
+                    DebugUtil.Log("PauseModel.Pause: " + m_PreviousTimeScale + " time " + Time.timeScale);
+                }
+                Time.timeScale = 0f;
+            }
             state = kBeginState;
         }
 
@@ -72,6 +101,18 @@ namespace Finegamedesign.Utils
                 return;
             }
             m_IsPaused = false;
+            if (m_ScaleTime)
+            {
+                if (m_PreviousTimeScale <= 0f)
+                {
+                    m_PreviousTimeScale = 1f;
+                }
+                if (m_IsVerbose)
+                {
+                    DebugUtil.Log("PauseModel.Resume: " + m_PreviousTimeScale + " time " + Time.timeScale);
+                }
+                Time.timeScale = m_PreviousTimeScale;
+            }
             state = kEndState;
         }
     }

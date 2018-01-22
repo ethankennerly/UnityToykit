@@ -28,7 +28,7 @@ namespace Finegamedesign.Utils
             if (null == transform)
             {
                 throw new System.InvalidOperationException(
-                    "Expected child <" + name + "> in <" 
+                    "Expected child <" + name + "> in <"
                     + GetPath(parent) + ">");
             }
             GameObject child = transform.gameObject;
@@ -36,7 +36,7 @@ namespace Finegamedesign.Utils
         }
 
         // namePattern:  Substitute {0} with an index between 0 and to countMax - 1.
-        public static List<GameObject> GetChildrenByPattern(GameObject parent, string namePattern, int countMax) 
+        public static List<GameObject> GetChildrenByPattern(GameObject parent, string namePattern, int countMax)
         {
             List<GameObject> children = new List<GameObject>();
             for (int i = 0; i < countMax; i++)
@@ -69,6 +69,22 @@ namespace Finegamedesign.Utils
         public static void AddChild(GameObject parent, GameObject child)
         {
             child.transform.SetParent(parent.transform, false);
+        }
+
+        // Sets all children's sorting order.
+        public static void SetSortingOrder(GameObject parent, int sortingOrder)
+        {
+            foreach (Transform child in parent.transform)
+            {
+                GameObject childObject = child.gameObject;
+                Renderer renderer = childObject.GetComponent<Renderer>();
+                if (renderer == null)
+                {
+                    continue;
+                }
+                renderer.sortingOrder = sortingOrder;
+                SetSortingOrder(childObject, sortingOrder);
+            }
         }
 
         public static List<GameObject> GetChildren(GameObject parent, bool isIncludeActiveOnly = false)

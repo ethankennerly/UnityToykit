@@ -2,8 +2,6 @@ using System/*<IComparable>*/;
 
 namespace Finegamedesign.Utils
 {
-    // Deprecated in favor of Observable.
-    //
     // Useful to detect when a value has changed, and when it has changed to an exact value.
     // Can watch external data structures.
     // Can also be used to store the state itself.

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,47 @@ namespace Finegamedesign.Utils
         public static string newlineCharacter = "\n";
         // Technically, Windows is "\r\n".  Mac is "\r".  Unix is "\n".
         public static string windowsNewlineCharacter = "\r";
+
+        public static event Action<float, float> onKeyDownXY;
+
+        private static float s_UpdateTime = -1.0f;
+
+        public static void Update()
+        {
+            if (s_UpdateTime == Time.time)
+            {
+                return;
+            }
+            s_UpdateTime = Time.time;
+            UpdateKeyDownAxis();
+        }
+
+        private static void UpdateKeyDownAxis()
+        {
+            Vector2 axis = new Vector2();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                axis.x = -1.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                axis.x = 1.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                axis.y = -1.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                axis.y = 1.0f;
+            }
+            if (onKeyDownXY == null || axis.sqrMagnitude == 0.0f)
+            {
+                return;
+            }
+            axis.Normalize();
+            onKeyDownXY(axis.x, axis.y);
+        }
 
         // If just pressed this frame.
         // Key naming conventions:
