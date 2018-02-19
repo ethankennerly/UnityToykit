@@ -58,6 +58,10 @@ namespace Finegamedesign.Utils
             }
             if (EventSystem.current.IsPointerOverGameObject())
             {
+                if (m_IsVerbose)
+                {
+                    DebugUtil.Log("ClickSystem.Update: Pointer is over a UI object. Ignoring world objects.");
+                }
                 return;
             }
             if (m_Camera == null)
@@ -107,6 +111,10 @@ namespace Finegamedesign.Utils
                 return false;
             }
             m_CollisionPoint = m_Hit.point;
+            if (m_IsVerbose)
+            {
+                DebugUtil.Log("ClickSystem.RayCast: " + m_CollisionPoint);
+            }
             if (onCollisionPoint != null)
             {
                 onCollisionPoint(m_CollisionPoint);
@@ -114,10 +122,6 @@ namespace Finegamedesign.Utils
             if (onCollisionEnter != null)
             {
                 onCollisionEnter(m_Hit.collider);
-            }
-            if (m_IsVerbose)
-            {
-                DebugUtil.Log("ClickSystem.RayCast: " + m_CollisionPoint);
             }
             return true;
         }
@@ -129,13 +133,13 @@ namespace Finegamedesign.Utils
             {
                 return false;
             }
-            if (onCollisionEnter2D != null)
-            {
-                onCollisionEnter2D(hit.collider);
-            }
             if (m_IsVerbose)
             {
                 DebugUtil.Log("ClickSystem.Raycast2D: " + hit.collider);
+            }
+            if (onCollisionEnter2D != null)
+            {
+                onCollisionEnter2D(hit.collider);
             }
             return true;
         }
