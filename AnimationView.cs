@@ -3,7 +3,7 @@ using System.Collections.Generic/*<Dictionary>*/;
 
 namespace Finegamedesign.Utils
 {
-    public sealed class AnimationView
+    public static class AnimationView
     {
         public static bool isVerbose = false;
         private static Dictionary<Animator, string> states = new Dictionary<Animator, string>();
@@ -73,6 +73,15 @@ namespace Finegamedesign.Utils
             MayAddToDisableOnEnd(animator);
         }
 
+        public static void SetStates(List<Animator> animators, List<string> states)
+        {
+            for (int index = 0, end = states.Count; index < end; ++index)
+            {
+                SetState(animators[index], states[index]);
+            }
+        }
+
+        // It would be higher performance to cache the animator.
         public static void SetState(GameObject animatorOwner, string state,
             bool isRestart = false, bool isTrigger = false)
         {
@@ -81,6 +90,7 @@ namespace Finegamedesign.Utils
         }
 
 
+        // It would be higher performance to cache the animators.
         public static void SetStates(List<GameObject> animatorOwners, List<string> states)
         {
             for (int index = 0, end = states.Count; index < end; ++index)

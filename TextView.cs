@@ -1,15 +1,49 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine/*<GameObject>*/;
 using UnityEngine.UI/*<Text>*/;
 
 namespace Finegamedesign.Utils
 {
-    public sealed class TextView
+    public static class TextView
     {
+        public static string GetText(TextMeshPro textMesh)
+        {
+            return textMesh.text;
+        }
+
+        public static string GetText(TextMeshProUGUI textMesh)
+        {
+            return textMesh.text;
+        }
+
+        public static void SetText(TextMeshPro textMesh, string text)
+        {
+            textMesh.text = text;
+        }
+
+        public static void SetTexts(List<TextMeshPro> textOwners, List<string> texts)
+        {
+            for (int index = 0, end = texts.Count; index < end; ++index)
+            {
+                SetText(textOwners[index], texts[index]);
+            }
+        }
+
         // Try Text first, then TextMesh, then child named "Text".  Else error.
         // Return true if text component was found.
         public static string GetText(GameObject textOwner, string childName = "Text")
         {
+            TextMeshPro tmp = textOwner.GetComponent<TextMeshPro>();
+            if (tmp != null)
+            {
+                return tmp.text;
+            }
+            TextMeshProUGUI tmpUI = textOwner.GetComponent<TextMeshProUGUI>();
+            if (tmpUI != null)
+            {
+                return tmpUI.text;
+            }
             Text textComponent = textOwner.GetComponent<Text>();
             if (textComponent != null)
             {
