@@ -6,7 +6,7 @@ namespace Finegamedesign.Utils
         where T : new()
     {
         [SerializeField]
-        private T m_Controller = ASingleton<T>.Instance;
+        private T m_Controller = ASingleton<T>.instance;
 
         public T Controller
         {

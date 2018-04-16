@@ -4,7 +4,7 @@ namespace Finegamedesign.Utils
     {
         private static T s_Instance;
 
-        public static T Instance
+        public static T instance
         {
             get
             {
