@@ -4,7 +4,7 @@ namespace Finegamedesign.Utils
     {
         private void Update()
         {
-            Controller.Update();
+            controller.Update();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Finegamedesign.Utils
         [SerializeField]
         private T m_Controller = ASingleton<T>.instance;
 
-        public T Controller
+        public T controller
         {
             get { return m_Controller; }
         }
