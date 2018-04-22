@@ -10,8 +10,7 @@ namespace Finegamedesign.Utils
             {
                 return;
             }
-            source.clip = ChooseRandom(clips);
-            source.Play();
+            source.PlayOneShot(ChooseRandom(clips));
         }
 
         private static T ChooseRandom<T>(T[] elements)
