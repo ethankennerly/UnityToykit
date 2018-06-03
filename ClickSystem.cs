@@ -37,13 +37,15 @@ namespace Finegamedesign.Utils
 
         private bool m_IsVerbose = false;
 
-        // Caches time to ignore multiple calls per frame.
-        //
-        // Ignores if over UI object.
-        // Otherwise, a tap on a button is also reacted as a tap in viewport.
-        // For example, in Deadly Diver, a viewport tap moves the diver.
-        //
-        // Caches camera.  Unfortunately Unity does not cache the main camera.
+        /// <summary>
+        /// Caches time to ignore multiple calls per frame.
+        ///
+        /// Ignores if over UI object if there is an event system.
+        /// Otherwise, a tap on a button is also reacted as a tap in viewport.
+        /// For example, in Deadly Diver, a viewport tap moves the diver.
+        ///
+        /// Caches camera.  Unfortunately Unity does not cache the main camera.
+        /// <summary>
         public void Update()
         {
             float time = Time.time;
@@ -56,7 +58,7 @@ namespace Finegamedesign.Utils
             {
                 return;
             }
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             {
                 if (m_IsVerbose)
                 {
@@ -80,9 +82,11 @@ namespace Finegamedesign.Utils
             Viewport();
         }
 
-        // Returns if currently enabled, else already disabled.
-        // Because of click-point update racing between other updates,
-        // each caller disables individually.
+        /// <returns>
+        /// If currently enabled, else already disabled.
+        /// Because of click-point update racing between other updates,
+        /// each caller disables individually.
+        /// </returns>
         public bool DisableTemporarily()
         {
             bool enabled = m_ClickTime < 0f;
