@@ -182,6 +182,17 @@ namespace /*<com>*/Finegamedesign.Utils
             return joined;
         }
 
+        public static string Join<T>(T[] items, string delimiter)
+        {
+            int length = items.Length;
+            string[] parts = new string[length];
+            for (int index = 0; index < length; ++index) {
+                parts[index] = items[index].ToString();
+            }
+            string joined = string.Join(delimiter, parts);
+            return joined;
+        }
+
         public static string Join(List<string> texts, string delimiter)
         {
             string[] parts = (string[]) texts.ToArray();
@@ -199,6 +210,14 @@ namespace /*<com>*/Finegamedesign.Utils
             }
             string joined = string.Join(delimiter, parts);
             return joined;
+        }
+
+        /// <remarks>
+        /// For medium-length or longer arrays, string builder is faster.
+        /// </remarks>
+        public static string ToString<T>(T[] items, string delimiter = ", ")
+        {
+            return "[" + Join(items, delimiter) + "]";
         }
 
         public static string Trim(string text)
