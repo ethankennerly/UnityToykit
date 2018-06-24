@@ -23,6 +23,11 @@ namespace Finegamedesign.Utils
             UnityEngine.Debug.LogWarning(message);
         }
 
+        public static void LogError(string message)
+        {
+            UnityEngine.Debug.LogError(message);
+        }
+
         [Conditional("DEBUG")]
         [Conditional("UNITY_EDITOR")]
         public static void Assert(bool condition, string message = "")
