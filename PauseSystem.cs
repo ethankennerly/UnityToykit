@@ -4,16 +4,20 @@ using UnityEngine;
 namespace FineGameDesign.Utils
 {
     [Serializable]
-    public sealed class PauseModel
+    public sealed class PauseSystem : ASingleton<PauseSystem>
     {
-        private const string kNoneState = "none";
-        private const string kBeginState = "begin";
-        private const string kEndState = "end";
+        public enum State
+        {
+            None,
+            Begin,
+            End
+        }
 
-        public static event Action<string> onStateChanged;
+        public static event Action<State> onStateChanged;
 
-        private string m_State = kNoneState;
+        private State m_State = State.None;
 
+        [SerializeField]
         private bool m_IsPaused;
 
         public bool isPaused
@@ -36,7 +40,7 @@ namespace FineGameDesign.Utils
             }
         }
 
-        public string state
+        public State state
         {
             get
             {
@@ -67,9 +71,46 @@ namespace FineGameDesign.Utils
             set { m_ScaleTime = value; }
         }
 
+        [NonSerialized]
+        private float m_DeltaTime = 0f;
+        public float deltaTime
+        {
+            get { return m_DeltaTime; }
+            set { m_DeltaTime = value; }
+        }
+
         private float m_PreviousTimeScale = 1f;
 
         private bool m_IsVerbose = true;
+
+        /// <summary>
+        /// Avoids case on WebGL.
+        /// Scene reloads but no interaction until pause and resume again.
+        /// No problem in Unity Editor WebGL.
+        /// But in browser, some clicks and keypresses are ignored.
+        /// Pausing and resuming works around this.
+        /// </summary>
+        public void ResetWebGL()
+        {
+            if (m_IsPaused)
+            {
+                Resume();
+                Pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+
+        public void Update(float deltaTime)
+        {
+            if (m_IsPaused)
+            {
+                deltaTime = 0f;
+            }
+            m_DeltaTime = deltaTime;
+        }
 
         public void Pause()
         {
@@ -87,11 +128,11 @@ namespace FineGameDesign.Utils
                 }
                 if (m_IsVerbose)
                 {
-                    DebugUtil.Log("PauseModel.Pause: " + m_PreviousTimeScale + " time " + Time.timeScale);
+                    DebugUtil.Log("PauseSystem.Pause: " + m_PreviousTimeScale + " time " + Time.timeScale);
                 }
                 Time.timeScale = 0f;
             }
-            state = kBeginState;
+            state = State.Begin;
         }
 
         public void Resume()
@@ -109,11 +150,11 @@ namespace FineGameDesign.Utils
                 }
                 if (m_IsVerbose)
                 {
-                    DebugUtil.Log("PauseModel.Resume: " + m_PreviousTimeScale + " time " + Time.timeScale);
+                    DebugUtil.Log("PauseSystem.Resume: " + m_PreviousTimeScale + " time " + Time.timeScale);
                 }
                 Time.timeScale = m_PreviousTimeScale;
             }
-            state = kEndState;
+            state = State.End;
         }
     }
 }
