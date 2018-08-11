@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public class ASingletonView<T> : MonoBehaviour
         where T : new()

@@ -1,7 +1,7 @@
 using UnityEngine/*<TextAsset>*/;
 using System/*<String, StringSplitOptions>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     /**
      * Bridge between portable game and platform-specific filesystem, game engine or toolkit.

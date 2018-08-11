@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [TestFixture]
     public sealed class TestLevelSelectModel

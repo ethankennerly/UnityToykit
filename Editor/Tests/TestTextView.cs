@@ -2,7 +2,7 @@ using UnityEngine;
 // using UnityEngine.UI;
 using NUnit.Framework;
 
-namespace /*<com>*/Finegamedesign.Utils
+namespace /*<com>*/FineGameDesign.Utils
 {
     [TestFixture]
     public class TestTextView

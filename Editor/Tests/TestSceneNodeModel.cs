@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace /*<com>*/Finegamedesign.Utils
+namespace /*<com>*/FineGameDesign.Utils
 {
     [TestFixture]
     public class TestSceneNodeModel

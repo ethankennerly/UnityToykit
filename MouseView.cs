@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class MouseView
     {

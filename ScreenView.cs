@@ -1,6 +1,6 @@
 using UnityEngine/*<Screen>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class ScreenView
     {

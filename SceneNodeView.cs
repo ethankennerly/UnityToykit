@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // Portable API
     public sealed class SceneNodeView

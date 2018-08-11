@@ -1,6 +1,6 @@
 using System/*<IComparable>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // Useful to detect when a value has changed, and when it has changed to an exact value.
     // Can watch external data structures.

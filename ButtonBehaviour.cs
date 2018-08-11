@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems/*<PointerEventData>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // Assigned by ButtonView.Listen
     // Interface required when using the OnPointerDown method.

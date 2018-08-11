@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // Generically dispatches an event when the value changes.
     // Example: Editor/Tests/TestObservable.cs

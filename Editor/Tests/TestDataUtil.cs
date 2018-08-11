@@ -1,7 +1,7 @@
 using NUnit.Framework/*<Test>*/;
 using System.Collections.Generic/*<List>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class TestDataUtil
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [TestFixture]
     internal sealed class TestButtonController

@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [TestFixture]
     internal sealed class TestStringUtil

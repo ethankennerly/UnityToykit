@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [Serializable]
     public sealed class PauseModel

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [RequireComponent(typeof(Button))]
     public sealed class ReloadSceneButton : MonoBehaviour

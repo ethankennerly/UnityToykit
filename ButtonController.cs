@@ -1,4 +1,4 @@
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // An "Up" would make this portable to ActionScript, which has no mouseDownNow event.
     public sealed class ButtonController

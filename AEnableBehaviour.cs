@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public abstract class AEnableBehaviour<T> : MonoBehaviour
         where T : AEnableBehaviour<T>

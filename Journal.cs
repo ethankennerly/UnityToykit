@@ -1,7 +1,7 @@
 using System.Collections.Generic/*<List>*/;
 using UnityEngine/*<Mathf>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     // Record and playback real-time actions.
     public sealed class Journal

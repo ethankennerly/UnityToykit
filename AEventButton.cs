@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [RequireComponent(typeof(Button))]
     public abstract class AEventButton<T> : MonoBehaviour

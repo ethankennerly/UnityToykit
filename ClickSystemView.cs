@@ -1,4 +1,4 @@
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class ClickSystemView : ASingletonView<ClickSystem>
     {

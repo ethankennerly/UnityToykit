@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace /*<com>*/Finegamedesign.Utils
+namespace /*<com>*/FineGameDesign.Utils
 {
     // Portable view model of a node in a scene graph.
     public class SceneNodeCompareLeftToRight : IComparer<SceneNodeModel>

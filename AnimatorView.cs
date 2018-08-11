@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     [RequireComponent(typeof(Animator))]
     public sealed class AnimatorView : MonoBehaviour

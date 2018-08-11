@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class ClickSystem : ASingleton<ClickSystem>
     {

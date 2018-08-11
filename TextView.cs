@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine/*<GameObject>*/;
 using UnityEngine.UI/*<Text>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public static class TextView
     {

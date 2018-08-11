@@ -1,7 +1,7 @@
 using UnityEngine/*<GameObject>*/;
 using System.Collections.Generic/*<Dictionary>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public static class AnimationView
     {

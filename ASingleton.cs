@@ -1,4 +1,4 @@
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public class ASingleton<T> where T : new()
     {

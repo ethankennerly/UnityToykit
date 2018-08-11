@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI/*<Button>*/;
 
-namespace Finegamedesign.Utils
+namespace FineGameDesign.Utils
 {
     public sealed class ButtonView
     {
