@@ -9,6 +9,7 @@ namespace FineGameDesign.Utils
         public event Action<Vector3> onWorld;
         public event Action<float, float> onWorldXY;
         public event Action<float, float> onViewportXY;
+        public event Action<float, float> onAxisDownXY;
         public event Action<float, float> onAxisXY;
 
         public event Action<Vector3> onCollisionPoint;
@@ -32,6 +33,7 @@ namespace FineGameDesign.Utils
         private Vector3 m_World = new Vector3();
         private Vector3 m_Viewport = new Vector3();
         private Vector2 m_Axis = new Vector2();
+        private Vector2 m_AxisDown = new Vector2();
 
         private Camera m_Camera;
 
@@ -54,6 +56,17 @@ namespace FineGameDesign.Utils
                 return;
             }
             m_UpdateTime = time;
+
+            if (m_Camera == null)
+            {
+                m_Camera = Camera.main;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                Axis();
+            }
+
             if (!Input.GetMouseButtonDown(0))
             {
                 return;
@@ -66,10 +79,6 @@ namespace FineGameDesign.Utils
                 }
                 return;
             }
-            if (m_Camera == null)
-            {
-                m_Camera = Camera.main;
-            }
 
             m_World = m_Camera.ScreenToWorldPoint(Input.mousePosition);
             m_OverlapPoint.x = m_World.x;
@@ -79,7 +88,7 @@ namespace FineGameDesign.Utils
             Raycast2D();
             OverlapPoint();
             Screen();
-            Viewport();
+            ViewportDown();
         }
 
         /// <returns>
@@ -165,13 +174,9 @@ namespace FineGameDesign.Utils
             return true;
         }
 
-        private bool Viewport()
+        private bool Axis()
         {
             m_Viewport = m_Camera.ScreenToViewportPoint(Input.mousePosition);
-            if (onViewportXY != null)
-            {
-                onViewportXY(m_Viewport.x, m_Viewport.y);
-            }
             if (onAxisXY != null)
             {
                 m_Axis.x = m_Viewport.x - 0.5f;
@@ -181,7 +186,28 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickInputSystem.Viewport: " + m_Viewport);
+                DebugUtil.Log("ClickInputSystem.Axis: " + m_Viewport);
+            }
+            return true;
+        }
+
+        private bool ViewportDown()
+        {
+            m_Viewport = m_Camera.ScreenToViewportPoint(Input.mousePosition);
+            if (onViewportXY != null)
+            {
+                onViewportXY(m_Viewport.x, m_Viewport.y);
+            }
+            if (onAxisDownXY != null)
+            {
+                m_AxisDown.x = m_Viewport.x - 0.5f;
+                m_AxisDown.y = m_Viewport.y - 0.5f;
+                m_AxisDown.Normalize();
+                onAxisXY(m_AxisDown.x, m_AxisDown.y);
+            }
+            if (m_IsVerbose)
+            {
+                DebugUtil.Log("ClickInputSystem.ViewportDown: " + m_Viewport);
             }
             return true;
         }

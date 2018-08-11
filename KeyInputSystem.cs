@@ -14,14 +14,16 @@ namespace FineGameDesign.Utils
         /// </summary>
         public static string windowsNewlineCharacter = "\r";
 
-        public static event Action<float, float> onKeyDownXY;
+        public event Action<float, float> onKeyDownXY;
+        public event Action<float, float> onKeyXY;
 
         public void Update()
         {
             UpdateKeyDownAxis();
+            UpdateKeyAxis();
         }
 
-        private static void UpdateKeyDownAxis()
+        private void UpdateKeyDownAxis()
         {
             Vector2 axis = new Vector2();
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -46,6 +48,33 @@ namespace FineGameDesign.Utils
             }
             axis.Normalize();
             onKeyDownXY(axis.x, axis.y);
+        }
+
+        private void UpdateKeyAxis()
+        {
+            Vector2 axis = new Vector2();
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                axis.x = -1.0f;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                axis.x = 1.0f;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                axis.y = -1.0f;
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                axis.y = 1.0f;
+            }
+            if (onKeyXY == null || axis.sqrMagnitude == 0.0f)
+            {
+                return;
+            }
+            axis.Normalize();
+            onKeyXY(axis.x, axis.y);
         }
 
         /// <summary>
