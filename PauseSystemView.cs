@@ -30,10 +30,6 @@ namespace FineGameDesign.Utils
         [SerializeField]
         private StateNameLink[] m_AnimationLinks;
 
-        private void Start()
-        {
-        }
-
         private void OnEnable()
         {
             AddListeners();

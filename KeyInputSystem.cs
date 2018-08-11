@@ -4,25 +4,20 @@ using UnityEngine;
 
 namespace FineGameDesign.Utils
 {
-    public sealed class KeyView
+    public sealed class KeyInputSystem : ASingleton<KeyInputSystem>
     {
         public static bool isVerbose = false;
         public static string backspaceCharacter = "\b";
         public static string newlineCharacter = "\n";
-        // Technically, Windows is "\r\n".  Mac is "\r".  Unix is "\n".
+        /// <summary>
+        /// Technically, Windows is "\r\n".  Mac is "\r".  Unix is "\n".
+        /// </summary>
         public static string windowsNewlineCharacter = "\r";
 
         public static event Action<float, float> onKeyDownXY;
 
-        private static float s_UpdateTime = -1.0f;
-
-        public static void Update()
+        public void Update()
         {
-            if (s_UpdateTime == Time.time)
-            {
-                return;
-            }
-            s_UpdateTime = Time.time;
             UpdateKeyDownAxis();
         }
 
@@ -53,19 +48,21 @@ namespace FineGameDesign.Utils
             onKeyDownXY(axis.x, axis.y);
         }
 
-        // If just pressed this frame.
-        // Key naming conventions:
-        // http://docs.unity3d.com/Manual/ConventionalGameInput.html
-        // List of key names:
-        // http://answers.unity3d.com/questions/762073/c-list-of-string-name-for-inputgetkeystring-name.html
+        /// <summary>
+        /// If just pressed this frame.
+        /// <a href="http://docs.unity3d.com/Manual/ConventionalGameInput.html">Conventional Input</a>
+        /// <a href="http://answers.unity3d.com/questions/762073/c-list-of-string-name-for-inputgetkeystring-name.html">Key names</a>
+        /// </summary>
         public static bool IsDownNow(string keyName)
         {
             return Input.GetKeyDown(keyName);
         }
 
-        // Represents enter key by "\n", even on Windows.
-        // Represents delete key or backspace key by "\b".
-        // Unity 5.6 inserts backspace character already but not delete key, except on WebGL.
+        /// <summary>
+        /// Represents enter key by "\n", even on Windows.
+        /// Represents delete key or backspace key by "\b".
+        /// Unity 5.6 inserts backspace character already but not delete key, except on WebGL.
+        /// </summary>
         public static string InputString()
         {
             string input = Input.inputString;
@@ -87,7 +84,9 @@ namespace FineGameDesign.Utils
             return input;
         }
 
-        // Character type is more efficient, but string type is more compatible with most data.
+        /// <summary>
+        /// Character type is more efficient, but string type is more compatible with most data.
+        /// </summary>
         public static List<string> InputList()
         {
             return DataUtil.Split(InputString(), "");

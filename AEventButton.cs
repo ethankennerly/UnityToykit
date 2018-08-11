@@ -25,7 +25,7 @@ namespace FineGameDesign.Utils
 
         private void OnClick()
         {
-            if (!ClickSystem.instance.DisableTemporarily())
+            if (!ClickInputSystem.instance.DisableTemporarily())
             {
                 return;
             }

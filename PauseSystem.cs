@@ -15,6 +15,8 @@ namespace FineGameDesign.Utils
 
         public static event Action<State> onStateChanged;
 
+        public static event Action<float> onDeltaTime;
+
         private State m_State = State.None;
 
         [SerializeField]
@@ -110,6 +112,14 @@ namespace FineGameDesign.Utils
                 deltaTime = 0f;
             }
             m_DeltaTime = deltaTime;
+
+            if (deltaTime == 0f)
+                return;
+
+            if (onDeltaTime == null)
+                return;
+
+            onDeltaTime(deltaTime);
         }
 
         public void Pause()

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace FineGameDesign.Utils
 {
-    public sealed class ClickSystem : ASingleton<ClickSystem>
+    public sealed class ClickInputSystem : ASingleton<ClickInputSystem>
     {
         public event Action<Vector3> onWorld;
         public event Action<float, float> onWorldXY;
@@ -62,7 +62,7 @@ namespace FineGameDesign.Utils
             {
                 if (m_IsVerbose)
                 {
-                    DebugUtil.Log("ClickSystem.Update: Pointer is over a UI object. Ignoring world objects.");
+                    DebugUtil.Log("ClickInputSystem.Update: Pointer is over a UI object. Ignoring world objects.");
                 }
                 return;
             }
@@ -102,7 +102,7 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.enabled: " + enabled
+                DebugUtil.Log("ClickInputSystem.enabled: " + enabled
                     + " since " + m_ClickTime + " for " + m_DisabledDuration);
             }
             return enabled;
@@ -117,7 +117,7 @@ namespace FineGameDesign.Utils
             m_CollisionPoint = m_Hit.point;
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.RayCast: " + m_CollisionPoint);
+                DebugUtil.Log("ClickInputSystem.RayCast: " + m_CollisionPoint);
             }
             if (onCollisionPoint != null)
             {
@@ -139,7 +139,7 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.Raycast2D: " + hit.collider);
+                DebugUtil.Log("ClickInputSystem.Raycast2D: " + hit.collider);
             }
             if (onCollisionEnter2D != null)
             {
@@ -160,7 +160,7 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.OverlapPoint: " + m_OverlapPoint);
+                DebugUtil.Log("ClickInputSystem.OverlapPoint: " + m_OverlapPoint);
             }
             return true;
         }
@@ -181,7 +181,7 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.Viewport: " + m_Viewport);
+                DebugUtil.Log("ClickInputSystem.Viewport: " + m_Viewport);
             }
             return true;
         }
@@ -198,7 +198,7 @@ namespace FineGameDesign.Utils
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickSystem.Screen: " + m_World);
+                DebugUtil.Log("ClickInputSystem.Screen: " + m_World);
             }
             return true;
         }

@@ -1,6 +1,6 @@
 namespace FineGameDesign.Utils
 {
-    public sealed class ClickSystemView : ASingletonView<ClickSystem>
+    public sealed class ClickInputSystemView : ASingletonView<ClickInputSystem>
     {
         private void Update()
         {
