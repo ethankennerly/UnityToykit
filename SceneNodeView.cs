@@ -258,5 +258,16 @@ namespace FineGameDesign.Utils
         {
             gameObject.SetActive(isVisible);
         }
+
+        public static void TrySetActive(GameObject gameObject, bool active)
+        {
+            if (gameObject == null)
+                return;
+
+            if (gameObject.activeSelf == active)
+                return;
+
+            gameObject.SetActive(active);
+        }
     }
 }
