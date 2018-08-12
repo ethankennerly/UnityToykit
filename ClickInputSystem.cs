@@ -62,6 +62,15 @@ namespace FineGameDesign.Utils
                 m_Camera = Camera.main;
             }
 
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                if (m_IsVerbose)
+                {
+                    DebugUtil.Log("ClickInputSystem.Update: Pointer is over a UI object. Ignoring world objects.");
+                }
+                return;
+            }
+
             if (Input.GetMouseButton(0))
             {
                 Axis();
@@ -69,14 +78,6 @@ namespace FineGameDesign.Utils
 
             if (!Input.GetMouseButtonDown(0))
             {
-                return;
-            }
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            {
-                if (m_IsVerbose)
-                {
-                    DebugUtil.Log("ClickInputSystem.Update: Pointer is over a UI object. Ignoring world objects.");
-                }
                 return;
             }
 
