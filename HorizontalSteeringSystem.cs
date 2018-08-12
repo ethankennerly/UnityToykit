@@ -60,9 +60,14 @@ namespace FineGameDesign.Utils
             onSteerX(0f);
         }
 
+        public bool WouldSteer(float x)
+        {
+            return x < -m_XAxisMin || x >= m_XAxisMin;
+        }
+
         private void SteerX(float x)
         {
-            if (x < m_XAxisMin && x >= -m_XAxisMin)
+            if (!WouldSteer(x))
                 return;
 
             if (onSteerX == null)

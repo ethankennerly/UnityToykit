@@ -11,6 +11,7 @@ namespace FineGameDesign.Utils
         private Action<float> m_OnDeltaTime;
 
         private Action<float, float> m_OnKeyXY;
+        private Action<float, float> m_OnKeyDownXY;
 
         [Header("Optional")]
         [SerializeField]
@@ -47,6 +48,13 @@ namespace FineGameDesign.Utils
             KeyInputSystem.instance.onKeyXY += m_OnKeyXY;
             ClickInputSystem.instance.onAxisXY -= m_OnKeyXY;
             ClickInputSystem.instance.onAxisXY += m_OnKeyXY;
+
+            if (m_OnKeyDownXY == null)
+                m_OnKeyDownXY = TryPlaySteeringSoundXY;
+            KeyInputSystem.instance.onKeyDownXY -= m_OnKeyDownXY;
+            KeyInputSystem.instance.onKeyDownXY += m_OnKeyDownXY;
+            ClickInputSystem.instance.onAxisDownXY -= m_OnKeyDownXY;
+            ClickInputSystem.instance.onAxisDownXY += m_OnKeyDownXY;
         }
 
         private void RemoveListeners()
@@ -54,17 +62,19 @@ namespace FineGameDesign.Utils
             PauseSystem.onDeltaTime -= m_OnDeltaTime;
             KeyInputSystem.instance.onKeyXY -= m_OnKeyXY;
             ClickInputSystem.instance.onAxisXY -= m_OnKeyXY;
+            ClickInputSystem.instance.onAxisDownXY -= m_OnKeyDownXY;
         }
 
         private void SteerXY(float x, float y)
         {
             controller.SteerXY(x, y);
-
-            TryPlaySteeringSound(x);
         }
 
-        private void TryPlaySteeringSound(float x)
+        private void TryPlaySteeringSoundXY(float x, float y)
         {
+            if (!controller.WouldSteer(x))
+                return;
+
             if (m_AudioSource == null)
                 return;
 
