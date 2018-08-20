@@ -4,6 +4,10 @@ using UnityEngine.EventSystems;
 
 namespace FineGameDesign.Utils
 {
+    /// <summary>
+    /// Serializes to log what is clicked and configure in the editor.
+    /// </summary>
+    [Serializable]
     public sealed class ClickInputSystem : ASingleton<ClickInputSystem>
     {
         public event Action<Vector3> onWorld;
@@ -17,26 +21,37 @@ namespace FineGameDesign.Utils
         public event Action<Collider> onCollisionEnter;
         public event Action<Collider2D> onCollisionEnter2D;
 
+        [SerializeField]
         private float m_DisabledDuration = 0.25f;
         public float disabledDuration
         {
             get { return m_DisabledDuration; }
             set { m_DisabledDuration = value; }
         }
+        [NonSerialized]
         private float m_UpdateTime = -1.0f;
+        [NonSerialized]
         private float m_ClickTime = -1.0f;
 
+        [NonSerialized]
         private RaycastHit m_Hit;
 
+        [NonSerialized]
         private Vector2 m_OverlapPoint = new Vector2();
+        [NonSerialized]
         private Vector3 m_CollisionPoint = new Vector3();
+        [NonSerialized]
         private Vector3 m_World = new Vector3();
+        [NonSerialized]
         private Vector3 m_Viewport = new Vector3();
+        [NonSerialized]
         private Vector2 m_Axis = new Vector2();
         private Vector2 m_AxisDown = new Vector2();
 
+        [SerializeField]
         private Camera m_Camera;
 
+        [SerializeField]
         private bool m_IsVerbose = false;
 
         /// <summary>
