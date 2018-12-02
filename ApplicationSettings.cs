@@ -5,7 +5,9 @@ namespace FineGameDesign.Utils
     public sealed class ApplicationSettings : MonoBehaviour
     {
         [SerializeField]
+        #pragma warning disable 0414
         private int m_TargetFrameRate = 30;
+        #pragma warning restore 0414
 
         private void OnEnable()
         {
