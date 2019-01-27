@@ -19,7 +19,7 @@ using UnityEngine;
 using System.Collections;
  
 public class CameraShake : MonoBehaviour {
- 
+
     public bool debugMode = false;//Test-run/Call ShakeCamera() on start
  
     public float shakeAmount;//The amount to shake this frame.
@@ -34,9 +34,13 @@ public class CameraShake : MonoBehaviour {
  
     public bool smooth;//Smooth rotation?
     public float smoothAmount = 5f;//Amount to smooth
+
+    public static CameraShake instance { get; private set; }
  
     void Start () {
- 
+
+        instance = this;
+
         if(debugMode) ShakeCamera ();
     }
  
