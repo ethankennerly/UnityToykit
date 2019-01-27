@@ -12,6 +12,7 @@ namespace FineGameDesign.Utils
     {
         public event Action<Vector3> onWorld;
         public event Action<float, float> onWorldXY;
+        public event Action<float, float> onWorldHoldXY;
         public event Action<float, float> onViewportXY;
         public event Action<float, float> onAxisDownXY;
         public event Action<float, float> onAxisXY;
@@ -86,9 +87,17 @@ namespace FineGameDesign.Utils
                 return;
             }
 
-            if (Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0))
             {
-                Axis();
+                return;
+            }
+
+            Axis();
+
+            m_World = m_Camera.ScreenToWorldPoint(Input.mousePosition);
+            if (onWorldHoldXY != null)
+            {
+                onWorldHoldXY(m_World.x, m_World.y);
             }
 
             if (!Input.GetMouseButtonDown(0))
@@ -96,7 +105,6 @@ namespace FineGameDesign.Utils
                 return;
             }
 
-            m_World = m_Camera.ScreenToWorldPoint(Input.mousePosition);
             m_OverlapPoint.x = m_World.x;
             m_OverlapPoint.y = m_World.y;
 
