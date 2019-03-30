@@ -78,23 +78,28 @@ namespace FineGameDesign.Utils
                 m_Camera = Camera.main;
             }
 
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            {
-                if (m_IsVerbose)
-                {
-                    DebugUtil.Log("ClickInputSystem.Update: Pointer is over a UI object. Ignoring world objects.");
-                }
-                return;
-            }
-
             if (!Input.GetMouseButton(0))
             {
                 return;
             }
 
-            Axis();
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (m_IsVerbose)
+                    {
+                        DebugUtil.Log("ClickSystem.Update: Pointer is over a UI object. Ignoring world objects.");
+                    }
+                    return;
+                }
+            }
 
             m_World = m_Camera.ScreenToWorldPoint(Input.mousePosition);
+
+            UpdateRaycast();
+            Axis();
+
             if (onWorldHoldXY != null)
             {
                 onWorldHoldXY(m_World.x, m_World.y);
@@ -105,12 +110,6 @@ namespace FineGameDesign.Utils
                 return;
             }
 
-            m_OverlapPoint.x = m_World.x;
-            m_OverlapPoint.y = m_World.y;
-
-            Raycast();
-            Raycast2D();
-            OverlapPoint();
             Screen();
             ViewportDown();
         }
@@ -139,6 +138,20 @@ namespace FineGameDesign.Utils
                     + " since " + m_ClickTime + " for " + m_DisabledDuration);
             }
             return enabled;
+        }
+
+        /// <summary>
+        /// Call whenever mouse pressed, not just first frame.
+        /// Otherwise dragging does not register response.
+        /// </summary>
+        private void UpdateRaycast()
+        {
+            m_OverlapPoint.x = m_World.x;
+            m_OverlapPoint.y = m_World.y;
+
+            Raycast();
+            Raycast2D();
+            OverlapPoint();
         }
 
         private bool Raycast()
