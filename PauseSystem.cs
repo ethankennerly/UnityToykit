@@ -142,7 +142,8 @@ namespace FineGameDesign.Utils
                 }
                 Time.timeScale = 0f;
             }
-            state = State.Begin;
+
+            ChangeState(State.Begin);
         }
 
         public void Resume()
@@ -164,7 +165,29 @@ namespace FineGameDesign.Utils
                 }
                 Time.timeScale = m_PreviousTimeScale;
             }
-            state = State.End;
+
+            ChangeState(State.End);
+        }
+
+        /// <summary>
+        /// Guarantees state changed.
+        /// Otherwise, in Word Sizzle, animation did not play.
+        /// Somehow state can get out of sync with pause.
+        /// </summary>
+        private void ChangeState(State nextState)
+        {
+            if (m_State == nextState)
+            {
+                if (m_State == State.None)
+                {
+                    m_State = State.Begin;
+                }
+                else
+                {
+                    m_State = State.None;
+                }
+            }
+            state = nextState;
         }
     }
 }

@@ -136,6 +136,9 @@ namespace FineGameDesign.Utils
             for (int index = animatorsToDisableNow.Count - 1; index >= 0; --index)
             {
                 Animator animator = animatorsToDisableNow[index];
+                if (animator == null)
+                    continue;
+
                 animator.enabled = false;
             }
             animatorsToDisableNow.Clear();

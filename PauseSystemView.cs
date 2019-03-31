@@ -7,7 +7,7 @@ namespace FineGameDesign.Utils
     public sealed class PauseSystemView : ASingletonView<PauseSystem>
     {
         [Serializable]
-        private struct StateNameLink
+        public struct StateNameLink
         {
             public PauseSystem.State state;
             public string name;
@@ -23,7 +23,7 @@ namespace FineGameDesign.Utils
         [SerializeField]
         private Button m_QuitButton;
 
-        [Header("Optional: Plays linked animation name.")] 
+        [Header("Optional: Plays linked animation name.")]
         [SerializeField]
         private Animator m_PauseAnimator;
 
