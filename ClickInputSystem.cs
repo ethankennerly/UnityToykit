@@ -21,6 +21,8 @@ namespace FineGameDesign.Utils
         public event Action<Vector2> onCollisionPoint2D;
         public event Action<Collider> onCollisionEnter;
         public event Action<Collider2D> onCollisionEnter2D;
+        public event Action<Collider> onCollisionStay;
+        public event Action<Collider2D> onCollisionStay2D;
 
         [SerializeField]
         private float m_DisabledDuration = 0.25f;
@@ -36,6 +38,9 @@ namespace FineGameDesign.Utils
 
         [NonSerialized]
         private RaycastHit m_Hit;
+
+        [NonSerialized]
+        private RaycastHit2D m_Hit2D;
 
         [NonSerialized]
         private Vector2 m_OverlapPoint = new Vector2();
@@ -96,8 +101,11 @@ namespace FineGameDesign.Utils
             }
 
             m_World = m_Camera.ScreenToWorldPoint(Input.mousePosition);
+            m_OverlapPoint.x = m_World.x;
+            m_OverlapPoint.y = m_World.y;
 
-            UpdateRaycast();
+            UpdateRaycastStay();
+
             Axis();
 
             if (onWorldHoldXY != null)
@@ -110,6 +118,7 @@ namespace FineGameDesign.Utils
                 return;
             }
 
+            UpdateRaycastEnter();
             Screen();
             ViewportDown();
         }
@@ -144,13 +153,43 @@ namespace FineGameDesign.Utils
         /// Call whenever mouse pressed, not just first frame.
         /// Otherwise dragging does not register response.
         /// </summary>
-        private void UpdateRaycast()
+        private void UpdateRaycastStay()
         {
-            m_OverlapPoint.x = m_World.x;
-            m_OverlapPoint.y = m_World.y;
+            if (Raycast())
+            {
+                if (onCollisionStay != null)
+                {
+                    onCollisionStay(m_Hit.collider);
+                }
+            }
+            if (Raycast2D() && onCollisionStay2D != null)
+            {
+                onCollisionStay2D(m_Hit2D.collider);
+            }
+            OverlapPoint();
+        }
 
-            Raycast();
-            Raycast2D();
+        /// <summary>
+        /// Call only in first frame of mouse press.
+        /// Otherwise, pressing and holding spams press every frame.
+        /// </summary>
+        private void UpdateRaycastEnter()
+        {
+            if (Raycast())
+            {
+                if (onCollisionPoint != null)
+                {
+                    onCollisionPoint(m_CollisionPoint);
+                }
+                if (onCollisionEnter != null)
+                {
+                    onCollisionEnter(m_Hit.collider);
+                }
+            }
+            if (Raycast2D() && onCollisionEnter2D != null)
+            {
+                onCollisionEnter2D(m_Hit2D.collider);
+            }
             OverlapPoint();
         }
 
@@ -165,31 +204,19 @@ namespace FineGameDesign.Utils
             {
                 DebugUtil.Log("ClickInputSystem.RayCast: " + m_CollisionPoint);
             }
-            if (onCollisionPoint != null)
-            {
-                onCollisionPoint(m_CollisionPoint);
-            }
-            if (onCollisionEnter != null)
-            {
-                onCollisionEnter(m_Hit.collider);
-            }
             return true;
         }
 
         private bool Raycast2D()
         {
-            RaycastHit2D hit = Physics2D.Raycast(m_OverlapPoint, Vector2.zero);
-            if (hit == null || hit.collider == null)
+            m_Hit2D = Physics2D.Raycast(m_OverlapPoint, Vector2.zero);
+            if (m_Hit2D == null || m_Hit2D.collider == null)
             {
                 return false;
             }
             if (m_IsVerbose)
             {
-                DebugUtil.Log("ClickInputSystem.Raycast2D: " + hit.collider);
-            }
-            if (onCollisionEnter2D != null)
-            {
-                onCollisionEnter2D(hit.collider);
+                DebugUtil.Log("ClickInputSystem.Raycast2D: " + m_Hit2D.collider);
             }
             return true;
         }
