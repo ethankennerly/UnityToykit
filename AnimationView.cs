@@ -68,9 +68,12 @@ namespace FineGameDesign.Utils
                     + SceneNodeView.GetPath(animator.gameObject)
                     + ": " + state + " at " + Time.time);
             }
-            states[animator] = state;
-            startTimes[state] = Time.time;
-            MayAddToDisableOnEnd(animator);
+            if (isChange || isRestart)
+            {
+                states[animator] = state;
+                startTimes[state] = Time.time;
+                MayAddToDisableOnEnd(animator);
+            }
         }
 
         public static void SetStates(List<Animator> animators, List<string> states)
@@ -176,6 +179,7 @@ namespace FineGameDesign.Utils
         }
 
         // When animator is done and would clamp or play once, disables.
+        // NOTE: Get current animator clip info creates garbage.
         private static bool WillEnd(Animator animator, int layer = 0)
         {
             AnimatorClipInfo[] clipInfos = animator.GetCurrentAnimatorClipInfo(layer);
