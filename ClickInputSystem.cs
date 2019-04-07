@@ -23,6 +23,7 @@ namespace FineGameDesign.Utils
         public event Action<Collider2D> onCollisionEnter2D;
         public event Action<Collider> onCollisionStay;
         public event Action<Collider2D> onCollisionStay2D;
+        public event Action onMouseUp;
 
         [SerializeField]
         private float m_DisabledDuration = 0.25f;
@@ -81,6 +82,13 @@ namespace FineGameDesign.Utils
             if (m_Camera == null)
             {
                 m_Camera = Camera.main;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (onMouseUp != null)
+                    onMouseUp();
+                return;
             }
 
             if (!Input.GetMouseButton(0))
