@@ -94,6 +94,15 @@ namespace FineGameDesign.Utils
         /// </summary>
         public void ResetWebGL()
         {
+            Reset();
+        }
+
+        /// <summary>
+        /// Reenters current state.
+        /// Synchronizes pause flag and state.
+        /// </summary>
+        public void Reset()
+        {
             if (m_IsPaused)
             {
                 Resume();

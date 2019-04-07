@@ -30,8 +30,14 @@ namespace FineGameDesign.Utils
         [SerializeField]
         private StateNameLink[] m_AnimationLinks;
 
+        /// <summary>
+        /// On enable, resets.
+        /// Otherwise, if set paused in editor,
+        /// in play mode pause overlay did not appear.
+        /// </summary>
         private void OnEnable()
         {
+            controller.Reset();
             AddListeners();
         }
 
@@ -42,6 +48,7 @@ namespace FineGameDesign.Utils
 
         private void AddListeners()
         {
+            UpdateAnimation(controller.state);
             PauseSystem.onStateChanged += UpdateAnimation;
             foreach (var button in m_PauseButtons)
                 button.onClick.AddListener(controller.Pause);
